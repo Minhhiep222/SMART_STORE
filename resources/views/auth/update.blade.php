@@ -23,7 +23,7 @@
                 <div class="home-filter">
                     <span class="home-filter-title product-filter-title">Thông tin cơ bản</span>
                 </div>
-
+                
                 <div class="home__product">
                     <div class="grid__row-product">
                         <!-- PRODUCT ITEM -->
@@ -53,22 +53,25 @@
                             </div>
                             <div class="product__item-form">
                                 <label for="">Tên sản phẩm</label>
-                                <input class="product__name-form" type="text" name="name" placeholder="Nhập vào">
+                                <input class="product__name-form" type="text" name="name" value="Iphone 15 ">
                             </div>
                             <div class="product__item-form">
                                 <div class="product__item-price">
                                     <label for="">Đơn giá</label>
-                                    <input class="product__price-form" type="number" name="price" placeholder="Nhập vào">
+                                    <input class="product__price-form" type="" name="price"
+                                        value="25.999.000đ">
                                 </div>
                                 <div class="product__item-quantity">
                                     <label for="">Số lượng</label>
-                                    <input class="product__quantity-form" type="number" name="quantity" placeholder="Nhập vào">
+                                    <input class="product__quantity-form" type="number" name="quantity"
+                                        value="100">
                                 </div>
                             </div>
                             <div class="product__item-form">
                                 <label for="">Danh mục sản phẩm</label>
                                 <div class="product__item-cate">
-                                    <input class="product__cate-form" type="text" name="category" readonly placeholder="Chọn danh mục">
+                                    <input class="product__cate-form" type="text" name="category" readonly
+                                        value="Điện thoại">
                                     <div class="select__cate">
                                         <div class="option__cate">Điện thoại</div>
                                         <div class="option__cate">Laptop</div>
@@ -78,11 +81,11 @@
                             </div>
                             <div class="product__item-form">
                                 <label for="">Mô tả sản phẩm</label>
-                                <textarea class="product__des-form" type="text" name="des"> </textarea>
+                                <textarea class="product__des-form" type="text" name="des" value="">iPhone 15: Một thiết kế tiên tiến, hiệu suất mạnh mẽ, và trải nghiệm người dùng tuyệt vời trong một thiết bị di động.</textarea>
                             </div>
                             <div class="home__product-btn">
                                 <button class="btn ">Hủy</button>
-                                <button class="btn btn--primary">Lưu</button>
+                                <button type="submit" class="btn btn--primary">Lưu</button>
                             </div>
                         </form>
                         <!-- PRODUCT ITEM -->

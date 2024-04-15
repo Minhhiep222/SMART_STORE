@@ -41,6 +41,27 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 2px;
 }
+.home__product .product__item-form .have-img {
+  position: relative;
+}
+.home__product .product__item-form .have-img .delete__img {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  font-size: 1rem;
+  color: var(--text-color);
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+}
+.home__product .product__item-form .have-img .delete__img i {
+  font-size: 1rem;
+  margin: auto;
+}
 .home__product .product__item-form .btn--textFile {
   display: block;
   background-color: transparent;
@@ -49,6 +70,11 @@
   border: 1px dashed rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.05);
   color: var(--outstanding-color);
+  margin-right: 10px;
+}
+.home__product .product__item-form .btn--textFile img {
+  width: 100%;
+  height: 90%;
 }
 .home__product .product__item-form .btn--textFile svg {
   width: 20px;

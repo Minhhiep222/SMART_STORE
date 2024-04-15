@@ -23,3 +23,6 @@ Route::get('product', function () {
     return view('auth.product');
 });
 
+Route::get('update', function () {
+    return view('auth.update');
+});
