@@ -66,7 +66,7 @@
   list-style: none;
   text-decoration: none;
   font-size: 1.3rem;
-  color: rgb(17, 162, 235);
+  color: var(--outstanding-color);
   line-height: 20px;
 }
 

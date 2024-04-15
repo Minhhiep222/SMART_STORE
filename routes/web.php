@@ -19,3 +19,7 @@ Route::get('seller', function () {
     return view('auth.seller');
 });
 
+Route::get('product', function () {
+    return view('auth.product');
+});
+
