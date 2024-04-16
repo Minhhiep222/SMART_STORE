@@ -19,3 +19,10 @@ Route::get('seller', function () {
     return view('auth.seller');
 });
 
+Route::get('cart', function () {
+    return view('auth.cart');
+});
+
+Route::get('header_cart', function () {
+    return view('header_cart');
+});
