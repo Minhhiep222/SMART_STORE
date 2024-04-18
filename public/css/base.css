@@ -4,7 +4,7 @@
     --black-color: #000;
     --text-color: #333;
     --border-color: #dbdbdb;
-
+    --outline-color: rgb(17, 162, 235);
     --height-navbar: 38px;
     --height-header : 120px;
     --height-header-with-search: calc(var(--height-header) - var(--height-navbar))

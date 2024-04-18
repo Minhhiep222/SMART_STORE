@@ -70,7 +70,7 @@
   list-style: none;
   text-decoration: none;
   font-size: 1.3rem;
-  color: rgb(17, 162, 235);
+  color: var(--outline-color);
   line-height: 20px;
 }
 
