@@ -9,6 +9,7 @@
         <link type="text/css" href="/css/seller.css" rel="stylesheet">
         <link type="text/scss" href="/scss/seller.scss" rel="stylesheet">
         <link type="text/css" href="/scss/profile.css" rel="stylesheet">
+        <link type="text/css" href="/scss/product_detail.css" rel="stylesheet">
         <link rel="stylesheet" href="/font/fontawesome-free-6.5.1-web/css/all.min.css">
     </head>
     <body>
@@ -211,7 +212,7 @@
                                             </div>
                                         </li>                         
                                     </ul>
-                                    <button class="header__cart-view btn btn--primary">Xem giỏ hàng</button>
+                                    <button onclick="hef" class="header__cart-view btn btn--primary">Xem giỏ hàng</button>
                                 </div>
     
                             </div>

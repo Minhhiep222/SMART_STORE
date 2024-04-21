@@ -96,7 +96,7 @@
                     <div class="grid__row">
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
@@ -132,7 +132,7 @@
                         <!-- PRODUCT ITEM -->
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
@@ -168,7 +168,7 @@
                         <!-- PRODUCT ITEM -->
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
@@ -204,7 +204,7 @@
                         <!-- PRODUCT ITEM -->
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
@@ -240,7 +240,7 @@
                         <!-- PRODUCT ITEM -->
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
@@ -276,7 +276,7 @@
                         <!-- PRODUCT ITEM -->
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
@@ -312,7 +312,7 @@
                         <!-- PRODUCT ITEM -->
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
@@ -348,7 +348,7 @@
                         <!-- PRODUCT ITEM -->
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
@@ -384,7 +384,7 @@
                         <!-- PRODUCT ITEM -->
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
@@ -420,7 +420,7 @@
                         <!-- PRODUCT ITEM -->
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-2-4">
-                            <a href="" class="product-item">
+                            <a href="/product_detail" class="product-item">
                                 <div class="product-item__img"
                                     style="background-image: url(/img/img_auth/iphone-15.webp);">
                                 </div>
