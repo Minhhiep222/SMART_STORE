@@ -19,11 +19,11 @@ Route::get('seller', function () {
     return view('auth.seller');
 });
 
-Route::get('profile', function () {
+Route::get('account/profile', function () {
     return view('auth.account.profile');
 });
 
-Route::get('password', function () {
+Route::get('account/password', function () {
     return view('auth.account.password');
 });
 

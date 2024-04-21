@@ -31,12 +31,12 @@
                                 </div>
                                 <ul class="list-item">
                                     <li class="">
-                                        <a href="/profile" class="category-item__link">
+                                        <a href="/account/profile" class="category-item__link">
                                             Chỉnh sửa
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a href="/password" class="category-item__link">
+                                        <a href="/account/password" class="category-item__link">
                                             Đổi mật khẩu
                                         </a>
                                     </li>

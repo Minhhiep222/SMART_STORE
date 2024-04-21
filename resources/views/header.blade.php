@@ -99,7 +99,7 @@
                                 <span class="navbar-user-name">Nguyễn Minh Hiệp</span>
                                 <ul class="navbar-user-info">
                                     <li class="navbar-user-item">
-                                        <a href="/profile                                                                   " class="navbar-user-link">Tài khoản</a>
+                                        <a href="/account/profile" class="navbar-user-link">Tài khoản</a>
                                     </li>
                                     <li class="navbar-user-item">
                                         <a href="" class="navbar-user-link">Địa chỉ</a>
@@ -234,7 +234,7 @@
             <!-- FOOTER  -->
 
         </div>
-        <!-- <script src="/js/action.js"></script> -->
+        <script src="/js/action.js"></script>
         <script src="/js/dropdown.js"></script>
     </body>
 </html>
