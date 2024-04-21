@@ -95,6 +95,7 @@
                                     <td class="action__product">
                                         <a href="" class="seller__product-edit">Cập nhật</a>
                                         <a href="" class="seller__product-detail">Xem thêm</a>
+                                        <a href="" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -114,6 +115,7 @@
                                     <td class="action__product">
                                         <a href="" class="seller__product-edit">Cập nhật</a>
                                         <a href="" class="seller__product-detail">Xem thêm</a>
+                                        <a href="" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -133,6 +135,7 @@
                                     <td class="action__product">
                                         <a href="" class="seller__product-edit">Cập nhật</a>
                                         <a href="" class="seller__product-detail">Xem thêm</a>
+                                        <a href="" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -152,6 +155,7 @@
                                     <td class="action__product">
                                         <a href="" class="seller__product-edit">Cập nhật</a>
                                         <a href="" class="seller__product-detail">Xem thêm</a>
+                                        <a href="" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -171,6 +175,7 @@
                                     <td class="action__product">
                                         <a href="" class="seller__product-edit">Cập nhật</a>
                                         <a href="" class="seller__product-detail">Xem thêm</a>
+                                        <a href="" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -190,6 +195,7 @@
                                     <td class="action__product">
                                         <a href="" class="seller__product-edit">Cập nhật</a>
                                         <a href="" class="seller__product-detail">Xem thêm</a>
+                                        <a href="" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -209,6 +215,7 @@
                                     <td class="action__product">
                                         <a href="" class="seller__product-edit">Cập nhật</a>
                                         <a href="" class="seller__product-detail">Xem thêm</a>
+                                        <a href="" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -228,6 +235,7 @@
                                     <td class="action__product">
                                         <a href="" class="seller__product-edit">Cập nhật</a>
                                         <a href="" class="seller__product-detail">Xem thêm</a>
+                                        <a href="" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -247,6 +255,7 @@
                                     <td class="action__product">
                                         <a href="" class="seller__product-edit">Cập nhật</a>
                                         <a href="" class="seller__product-detail">Xem thêm</a>
+                                        <a href="" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                             </table>

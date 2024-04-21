@@ -26,3 +26,11 @@ Route::get('product', function () {
 Route::get('update', function () {
     return view('auth.update');
 });
+
+Route::get('cart', function () {
+    return view('auth.cart');
+});
+
+Route::get('header_cart', function () {
+    return view('header_cart');
+});

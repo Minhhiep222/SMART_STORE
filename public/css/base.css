@@ -28,7 +28,7 @@ body {
 
 /* reponsive */
 .grid{
-    width: 1250px;
+    width: 1200px;
     max-width: 100%;
     margin: 0 auto;
 }
@@ -78,6 +78,7 @@ body {
     width: 83.3334%;
 }
 
+<<<<<<< HEAD
 .grid__column-10_product {
     display: flex;
     flex-direction: column;
@@ -85,6 +86,9 @@ body {
     padding-right: 5px;
     width: 83.3334%;
 }
+=======
+
+>>>>>>> 5.cart
 
 .grid__column-12 {
     padding-left: 5px;
@@ -99,6 +103,13 @@ body {
     margin-top: 10px;
     height: 500px;
     overflow: scroll;
+}
+
+.grid__column-product_cart {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 /* modal */
