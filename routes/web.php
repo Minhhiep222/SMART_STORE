@@ -38,6 +38,7 @@ Route::get('payment', function () {
 Route::get('header_cart', function () {
     return view('header_cart');
 });
+
 Route::get('product_detail', function () {
     return view('auth.product_detail');
 });
@@ -48,6 +49,22 @@ Route::get('account/profile', function () {
 
 Route::get('account/password', function () {
     return view('auth.account.password');
+});
+
+Route::get('account/oder', function () {
+    return view('auth.account.oder');
+});
+
+Route::get('login', function () {
+    return view('login');
+});
+
+Route::get('register', function () {
+    return view('register');
+});
+
+Route::get('account/oder_detail', function () {
+    return view('auth.account.oder_detail');
 });
 
 

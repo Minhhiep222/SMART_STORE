@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('tbl_products', function (Blueprint $table) {
             $table->id();
             $table->string('product_name');
-            // unsignedBigInteger chứa các dữ liệu không phải số âm
             $table->integer('category_id')->unique();
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);

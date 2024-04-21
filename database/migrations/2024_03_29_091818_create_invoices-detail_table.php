@@ -11,12 +11,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_invoices-detail', function (Blueprint $table) {
-            $table->integer("InvoiceDetailID"); // Tạo cột id với kiểu dữ liệu bigint auto-increment và làm khóa chính
-            $table->integer("InvoiceID");
-            $table->integer("ProductID");
-            $table->integer("InvoiceDate");
-            $table->decimal("Price");
-            $table->decimal("Total");
+            $table->id(); // Tạo cột id với kiểu dữ liệu bigint auto-increment và làm khóa chính
+            $table->integer("invoice_id");
+            $table->integer("product_id");
+            $table->date("invoice_date");
+            $table->decimal("price");
+            $table->decimal("total");
             $table->timestamps();
         });
     }
