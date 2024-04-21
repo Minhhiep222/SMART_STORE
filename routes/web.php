@@ -19,3 +19,12 @@ Route::get('seller', function () {
     return view('auth.seller');
 });
 
+Route::get('profile', function () {
+    return view('auth.account.profile');
+});
+
+Route::get('password', function () {
+    return view('auth.account.password');
+});
+
+

@@ -8,6 +8,7 @@
         <link type="text/css" href="/css/base.css" rel="stylesheet">
         <link type="text/css" href="/css/seller.css" rel="stylesheet">
         <link type="text/scss" href="/scss/seller.scss" rel="stylesheet">
+        <link type="text/css" href="/scss/profile.css" rel="stylesheet">
         <link rel="stylesheet" href="/font/fontawesome-free-6.5.1-web/css/all.min.css">
     </head>
     <body>
@@ -98,7 +99,7 @@
                                 <span class="navbar-user-name">Nguyễn Minh Hiệp</span>
                                 <ul class="navbar-user-info">
                                     <li class="navbar-user-item">
-                                        <a href="" class="navbar-user-link">Tài khoản</a>
+                                        <a href="/profile                                                                   " class="navbar-user-link">Tài khoản</a>
                                     </li>
                                     <li class="navbar-user-item">
                                         <a href="" class="navbar-user-link">Địa chỉ</a>
@@ -118,7 +119,7 @@
                     <!--HEADER WITH SEARCH -->
                     <div class="header-with-search">
                         <div class="header__logo">
-                            <a href="" class="logo_link">
+                            <a href="/home" class="logo_link">
                                 <i class="fa-solid fa-store logo_shop "></i>
                                 <div class="name_header">
                                     <span style="font-size: 1.8rem; with: 100%;">SMART</span> 
@@ -234,5 +235,6 @@
 
         </div>
         <!-- <script src="/js/action.js"></script> -->
+        <script src="/js/dropdown.js"></script>
     </body>
 </html>
