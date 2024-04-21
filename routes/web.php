@@ -42,3 +42,12 @@ Route::get('product_detail', function () {
     return view('auth.product_detail');
 });
 
+Route::get('account/profile', function () {
+    return view('auth.account.profile');
+});
+
+Route::get('account/password', function () {
+    return view('auth.account.password');
+});
+
+

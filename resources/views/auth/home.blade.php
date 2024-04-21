@@ -16,9 +16,6 @@
                     <div class="img_Item">
                         <img src="/img/img_auth/main3.jpg" alt="" class="item_img_Advertisement" />
                     </div>
-                    <div class="img_Item">
-                        <img src="/img/img_auth/quangcao3.webp" alt="" class="item_img_Advertisement" />
-                    </div>
                 </div>
                 <div class="adver_item">
                     <div class="item_img">
