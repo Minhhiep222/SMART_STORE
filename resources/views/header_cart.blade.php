@@ -9,6 +9,7 @@
     <link type="text/css" href="/css/base.css" rel="stylesheet">
     <link type="text/css" href="/css/seller.css" rel="stylesheet">
     <link type="text/css" href="/scss/cart.css" rel="stylesheet">
+    <link type="text/css" href="/scss/payment.css" rel="stylesheet">
     <link type="text/scss" href="/scss/seller.scss" rel="stylesheet">
     <link rel="stylesheet" href="/font/fontawesome-free-6.5.1-web/css/all.min.css">
 </head>
@@ -147,9 +148,6 @@
                         Giỏ hàng
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </header>

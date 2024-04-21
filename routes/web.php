@@ -31,6 +31,10 @@ Route::get('cart', function () {
     return view('auth.cart');
 });
 
+Route::get('payment', function () {
+    return view('auth.payment');
+});
+
 Route::get('header_cart', function () {
     return view('header_cart');
 });

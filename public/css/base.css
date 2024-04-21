@@ -4,7 +4,7 @@
     --black-color: #000;
     --text-color: #333;
     --border-color: #dbdbdb;
-    --outstanding-color: rgb(17, 162, 235);
+    --outline-color: rgb(17, 162, 235);
     --height-navbar: 38px;
     --height-header : 120px;
     --height-header-with-search: calc(var(--height-header) - var(--height-navbar))
@@ -78,17 +78,6 @@ body {
     width: 83.3334%;
 }
 
-<<<<<<< HEAD
-.grid__column-10_product {
-    display: flex;
-    flex-direction: column;
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 83.3334%;
-}
-=======
-
->>>>>>> 5.cart
 
 .grid__column-12 {
     padding-left: 5px;
