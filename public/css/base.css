@@ -4,7 +4,7 @@
     --black-color: #000;
     --text-color: #333;
     --border-color: #dbdbdb;
-    --outline-color: rgb(17, 162, 235);
+    --outline-color: rgb(17, 162, 235);    --outline-color: rgb(48, 89, 110);
     --height-navbar: 38px;
     --height-header : 120px;
     --height-header-with-search: calc(var(--height-header) - var(--height-navbar))
@@ -70,6 +70,18 @@ body {
     padding-left: 5px;
     padding-right: 5px;
     width: 20%;
+}
+
+.grid__column-5 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width:  41.6667%;
+}
+
+.grid__column-7 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width:  58.3334%;
 }
 
 .grid__column-10 {

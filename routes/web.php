@@ -38,3 +38,7 @@ Route::get('payment', function () {
 Route::get('header_cart', function () {
     return view('header_cart');
 });
+Route::get('product_detail', function () {
+    return view('auth.product_detail');
+});
+
