@@ -12,48 +12,48 @@
                 <div class="home__profile--info">
                     <form action="" class="form_profile">
                         <div class="home__profile-item">
-                            <label for="">Tên đăng nhập</label>
-                            <input type="text" value="Nguyễn Minh Hiệp">
+                            <label for="">Họ Tên </label>
+                            <input type="text" value="{{$customerUser->name}}">
                         </div>
                         <div class="home__profile-item">
                             <label for="">Tên tài khoản</label>
-                            <input type="text" value="Bảo hộ lao động">
+                            <input type="text" value="{{$customerUser->username}}">
                         </div>
                         <div class="home__profile-item">
                             <label for="">Email</label>
-                            <input type="text" value="minhhiep325@gmail.com">
+                            <input type="text" value="{{$customerUser->email}}">
                         </div>
                         <div class="home__profile-item">
                             <label for="">Số điện thoại</label>
-                            <input type="text" value="0834983286">
+                            <input type="text" value="{{$customerUser->phone}}">
                         </div>
                         <div class="home__profile-item">
                             <label for="">Địa chỉ</label>
-                            <input type="text" value="Bình Thành, Đức Huệ, Long An">
+                            <input type="text" value="{{$customerUser->address}}">
                         </div>
                         <div class="home__profile-item">
                             <label for="">Giới tính</label>
                             <div class="check__sex">
                                 <div class="check check__sex-female">
                                     <label for="">Nam</label>
-                                    <input name="sex" type="radio">
+                                    <input name="sex" type="radio" {{ $customerUser->sex == 'Nam' ? 'checked' : '' }} >
                                 </div>
                                 <div class="check check__sex-male">
                                     <label for="">Nữ</label>
-                                    <input name="sex" type="radio">
+                                    <input name="sex" type="radio" {{ $customerUser->sex == 'Nữ' ? 'checked' : '' }}>
                                 </div>
                                 <div class="check check__sex-dif">
                                     <label for="">Khác</label>
-                                    <input name="sex" type="radio">
+                                    <input name="sex" type="radio" {{ $customerUser->sex == 'khác' ? 'checked' : '' }}>
                                 </div>
                             </div>
                         </div>
                         <div class="home__profile-item">
                             <label for="">Ngày sinh</label>
                             <div class="input__DOB">
-                                <input type="text" value="01">
-                                <input type="text" value="01">
-                                <input type="text" value="01">
+                                <input id="year" placeholder="2000" type="text" value="{{$year}}">
+                                <input placeholder="02" type="text" value="{{$month}}">
+                                <input placeholder="06" type="text" value="{{$day}}">
                             </div>
                         </div>
 
@@ -68,7 +68,7 @@
                 <div class="profile__edit">
                     <div class="home__profile-edit">
                         <div class="home__profile-edit-img">
-                            <img src="/img/user_img.jpg" alt="" class="img_edit">
+                            <img  onerror="this.src='/img/img_auth/user.png'" src="{{$customerUser->img}}" alt="" class="img_edit">
                         </div>
                     </div>
                     <div class="home__btn-edit">
@@ -82,3 +82,6 @@
     </div>
 </div>
 @endsection
+<script>
+ 
+</script>

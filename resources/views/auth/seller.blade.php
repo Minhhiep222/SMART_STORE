@@ -1,3 +1,6 @@
+<style>
+
+</style>
 @extends('header')
 
 @section('content')
@@ -28,10 +31,14 @@
             <div class="grid__column-10">
                 <div class="home-filter">
                     <span class="home-filter-title">Sắp xếp theo</span>
-                    <button class="home-filter__btn btn">Phổ biến</button>
-                    <button class="home-filter__btn btn btn--primary">Mới nhất</button>
-                    <button class="home-filter__btn btn">Bán chạy</button>
-
+                    <a href="{{ route('seller.viewAddProduct', ['id' => $idSeller]) }}" class="seller__product-edit">Thêm</a>
+                    <form action="{{route('seller.arrangeProduct')}}" method="POST">
+                    @csrf
+                    <input name="idSeller" type="hidden" value="{{$idSeller}}" type="text">
+                    <button name="oldest" type="submit" class="home-filter__btn btn">Cũ nhất</button>
+                    <button name="newest" type="submit" class="home-filter__btn btn btn--primary">Mới nhất</button>
+                    <button name="bestselling" type="submit" class="home-filter__btn btn">Bán chạy</button>
+                   
                     <div class="select-input">
                         <span class="home-filter__label" for="">Giá</span>
                         <i class="search-icon fa-solid fa-angle-down"></i>
@@ -39,13 +46,16 @@
                         <!-- SELECT-INPUT-LIST -->
                         <ul class="select-input__list">
                             <li class="select-input__item">
-                                <a href="" class="select-input__link">Giá: cao đến thấp</a>
+                             <button id="btn-sellect-priceASC" name="priceASC" type="submit">Cao Đến Thấp</button>
                             </li>
                             <li class="select-input__item">
-                                <a href="" class="select-input__link">Giá: thấp đến cao</a>
+                               <button id="btn-sellect-priceDESC" name="priceDESC" type="submit">Thấp Đến Cao</button>
                             </li>
                         </ul>
-                    </div>
+                    </div>  
+                </form>
+
+                    
 
                     <div class="home-filter__paginate">
                         <span class="home-filter__page-num">
@@ -77,187 +87,30 @@
                                     <th>Doanh số</th>
                                     <th>Thao tác</th>
                                 </tr>
-
+                                @foreach($products as $product)
                                 <tr>
-                                    <td class="seller__td-img">
+                                
+                                  <td class="seller__td-img">
                                         <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
+                                            <img src="{{('img/img_auth/' . $product->img) }}" alt="" class="seller-img_product">
                                             <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
+                                                <span class="seller-name_product">{{$product->product_name}}</span>
+                                                <span class="seller-description_product">{{$product->description}}</span>
                                             </a>
                                         </div>
                                     </td>
-                                    <td>Điện thoại</td>
-                                    <td>25.999.000đ</td>
-                                    <td>12</td>
-                                    <td>25.999.000đ</td>
+                                    <td>{{$product->category->category_name}}</td>
+                                    <td>{{$product->price}}</td>
+                                    <td>{{$product->quantity}}</td>
+                                    <td>{{$product->price * $product->sold}}</td>
                                     <td class="action__product">
-                                        <a href="" class="seller__product-edit">Cập nhật</a>
-                                        <a href="" class="seller__product-detail">Xem thêm</a>
-                                        <a href="" class="seller__product-delete">Xóa</a>
+                                        <a href="{{route('seller.viewUpdateProduct',['id' => $product->id])}}" class="seller__product-edit">Cập nhật</a>
+                                        <a href="{{route('seller.viewDetailProduct',['id' => $product->id])}}" class="seller__product-detail">Xem thêm</a>
+                                        <a href="{{route('seller.deleteProduct',['id' => $product->id])}}" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>Điện thoại</td>
-                                    <td>25.999.000đ</td>
-                                    <td>12</td>
-                                    <td>25.999.000đ</td>
-                                    <td class="action__product">
-                                        <a href="" class="seller__product-edit">Cập nhật</a>
-                                        <a href="" class="seller__product-detail">Xem thêm</a>
-                                        <a href="" class="seller__product-delete">Xóa</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>Điện thoại</td>
-                                    <td>25.999.000đ</td>
-                                    <td>12</td>
-                                    <td>25.999.000đ</td>
-                                    <td class="action__product">
-                                        <a href="" class="seller__product-edit">Cập nhật</a>
-                                        <a href="" class="seller__product-detail">Xem thêm</a>
-                                        <a href="" class="seller__product-delete">Xóa</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>Điện thoại</td>
-                                    <td>25.999.000đ</td>
-                                    <td>12</td>
-                                    <td>25.999.000đ</td>
-                                    <td class="action__product">
-                                        <a href="" class="seller__product-edit">Cập nhật</a>
-                                        <a href="" class="seller__product-detail">Xem thêm</a>
-                                        <a href="" class="seller__product-delete">Xóa</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>Điện thoại</td>
-                                    <td>25.999.000đ</td>
-                                    <td>12</td>
-                                    <td>25.999.000đ</td>
-                                    <td class="action__product">
-                                        <a href="" class="seller__product-edit">Cập nhật</a>
-                                        <a href="" class="seller__product-detail">Xem thêm</a>
-                                        <a href="" class="seller__product-delete">Xóa</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>Điện thoại</td>
-                                    <td>25.999.000đ</td>
-                                    <td>12</td>
-                                    <td>25.999.000đ</td>
-                                    <td class="action__product">
-                                        <a href="" class="seller__product-edit">Cập nhật</a>
-                                        <a href="" class="seller__product-detail">Xem thêm</a>
-                                        <a href="" class="seller__product-delete">Xóa</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>Điện thoại</td>
-                                    <td>25.999.000đ</td>
-                                    <td>12</td>
-                                    <td>25.999.000đ</td>
-                                    <td class="action__product">
-                                        <a href="" class="seller__product-edit">Cập nhật</a>
-                                        <a href="" class="seller__product-detail">Xem thêm</a>
-                                        <a href="" class="seller__product-delete">Xóa</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>Điện thoại</td>
-                                    <td>25.999.000đ</td>
-                                    <td>12</td>
-                                    <td>25.999.000đ</td>
-                                    <td class="action__product">
-                                        <a href="" class="seller__product-edit">Cập nhật</a>
-                                        <a href="" class="seller__product-detail">Xem thêm</a>
-                                        <a href="" class="seller__product-delete">Xóa</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>Điện thoại</td>
-                                    <td>25.999.000đ</td>
-                                    <td>12</td>
-                                    <td>25.999.000đ</td>
-                                    <td class="action__product">
-                                        <a href="" class="seller__product-edit">Cập nhật</a>
-                                        <a href="" class="seller__product-detail">Xem thêm</a>
-                                        <a href="" class="seller__product-delete">Xóa</a>
-                                    </td>
-                                </tr>
+                                @endforeach
+                            
                             </table>
                         </div>
                         <!-- PRODUCT ITEM -->

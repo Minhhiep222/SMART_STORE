@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Vite;
+use App\Http\Controllers\CrudCustomerUsersController;
+use App\Models\CustomerUser;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,13 +17,22 @@ Route::get('home', function () {
     return view('auth.home');
 });
 
-Route::get('seller', function () {
-    return view('auth.seller');
-});
 
-Route::get('product', function () {
-    return view('auth.product');
-});
+Route::get('seller', [CrudCustomerUsersController::class, 'viewSeller'])->name('seller.viewSeller');
+Route::post('seller', [CrudCustomerUsersController::class, 'arrangeProduct'])->name('seller.arrangeProduct');
+
+Route::get('deleteProduct', [CrudCustomerUsersController::class, 'deleteProduct'])->name('seller.deleteProduct');
+
+Route::get('updateProduct', [CrudCustomerUsersController::class, 'viewUpdateProduct'])->name('seller.viewUpdateProduct');
+Route::post('updateProduct', [CrudCustomerUsersController::class, 'updateProduct'])->name('seller.updateProduct');
+
+Route::get('product', [CrudCustomerUsersController::class, 'viewAddProduct'])->name('seller.viewAddProduct');
+Route::post('product', [CrudCustomerUsersController::class, 'addProduct'])->name('seller.addProduct');
+
+Route::get('product_detail', [CrudCustomerUsersController::class, 'viewDetailProduct'])->name('seller.viewDetailProduct');
+
+Route::get('account/profile', [CrudCustomerUsersController::class, 'viewUserProfile'])->name('user.viewUserProfile');
+
 
 Route::get('update', function () {
     return view('auth.update');
@@ -38,13 +49,11 @@ Route::get('payment', function () {
 Route::get('header_cart', function () {
     return view('header_cart');
 });
-Route::get('product_detail', function () {
-    return view('auth.product_detail');
-});
 
-Route::get('account/profile', function () {
-    return view('auth.account.profile');
-});
+
+
+
+
 
 Route::get('account/password', function () {
     return view('auth.account.password');
