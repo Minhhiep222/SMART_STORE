@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Vite;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\OrderDetailController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -51,10 +53,11 @@ Route::get('account/password', function () {
     return view('auth.account.password');
 });
 
-Route::get('account/oder', function () {
-    return view('auth.account.oder');
-});
+Route::resource('orders', OrdersController::class);
+Route::get('orders/{id}/delete', [OrdersController::class, 'delete'])->name('orders.delete');
 
+Route::resource('order_detail', OrderDetailController::class);
+ 
 Route::get('login', function () {
     return view('login');
 });

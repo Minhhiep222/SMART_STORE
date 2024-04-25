@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_invoices', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->id(); // Tạo cột id với kiểu dữ liệu bigint auto-increment và làm khóa chính
-            $table->integer("user_Id");
-            $table->text("Order_Describe");
-            $table->timestamp("InvoiceDate")->useCurrent();
-            $table->decimal("TotalAmount");
-            $table->enum('PaymentMethod', ['Credit Card', 'PayPal', 'Cash', 'Bank Transfer']);
-            $table->enum('PaymentStatus', ['Completed', 'Failed']);
+            $table->integer("order_id");
+            $table->integer("product_id");
+            $table->integer("seller_id");
+            $table->decimal("price");
+            $table->decimal("total");
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_invoices');
+        Schema::dropIfExists('order_details');
     }
 };

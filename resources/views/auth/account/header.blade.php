@@ -44,6 +44,16 @@
 
                             </div>
                         </li>
+                        <li class="category-item category-item--active">
+                            <a href="{{ route('orders.index') }}" class="category-item__link">
+                                <div class="title__category">
+                                    <span>
+                                        <i class="fa-solid fa-user"></i>
+                                        Đơn mua
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
