@@ -15,7 +15,8 @@
             <div class="modal__body">
 
                 <!-- LogIn form -->
-                <div class="auth-form">
+                <form method="POST" action="{{ route('user.authUser') }}" class="auth-form">
+                    @csrf
                     <div class="auth-form__container">
                         <div class="auth-form__header">
                             <h3 class="auth-form__heading">Đăng nhập</h3>
@@ -24,10 +25,10 @@
 
                         <div class="auth-form__form">
                             <div class="auth-form__group">
-                                <input type="text" class="auth-form__input" placeholder="Email">
+                                <input type="text" class="auth-form__input" placeholder="Email" id="email" class="form-control" name="email">
                             </div>
                             <div class="auth-form__group">
-                                <input type="password" class="auth-form__input" placeholder="Password">
+                                <input type="password" class="auth-form__input" placeholder="Password" id="password" class="form-control" name="password">
                             </div>
                         </div>   
 
@@ -41,7 +42,7 @@
                         
                         <div class="auth-form__controls">
                             <button class="btn btn__normal btn__move">TRỞ LẠI</button>
-                            <button class="btn btn--primary">ĐĂNG NHẬP</button>
+                            <button type="submit" class="btn btn--primary">ĐĂNG NHẬP</button>
                         </div>
                     </div>
 
@@ -57,7 +58,7 @@
                             
                         </a>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 </body>

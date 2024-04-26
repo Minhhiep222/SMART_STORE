@@ -39,15 +39,11 @@
                         Danh mục
                     </h3>
                     <ul class="category-list">
-                        <li class="category-item category-item--active">
-                            <a href="" class="category-item__link">Trang điểm mắt</a>
+                        @foreach($categories as $category) 
+                        <li class="category-item ">
+                            <a href="{{ $category->category_id }}" class="category-item__link">{{ $category->category_name }}</a>
                         </li>
-                        <li class="category-item">
-                            <a href="" class="category-item__link">Trang điểm môi</a>
-                        </li>
-                        <li class="category-item">
-                            <a href="" class="category-item__link">Trang điểm mặt</a>
-                        </li>
+                        @endforeach
                     </ul>
                 </nav>
             </div>

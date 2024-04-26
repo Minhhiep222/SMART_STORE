@@ -22,8 +22,6 @@ return new class extends Migration
             $table->enum('sex', ['male', 'female', 'other']);
             $table->date('DOB');
             $table->text('address')->nullable();
-            $table->text('feedback')->nullable();
-            $table->text('history_transaction')->nullable();
             $table->string('name_company');
             $table->enum('type_business', ['individual', 'enterprise']);
             $table->timestamp('account_time_create')->useCurrent();

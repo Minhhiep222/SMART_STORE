@@ -911,6 +911,7 @@
     list-style: none;
     text-decoration: none;
     position: relative;
+    padding: 10px 16px;
 }
 
 .category-item::after {

@@ -24,6 +24,7 @@ class OrderDetailFactory extends Factory
         return [
             'order_id' => $this->faker->numberBetween(1, 10),
             'product_id' => $this->faker->numberBetween(1, 10),
+            'quantity' => $this->faker->numberBetween(1, 3),
             'seller_id' => $this->faker->numberBetween(1, 10),
             'price' => $this->faker->randomFloat(2, 10, 100), // Giá của sản phẩm
             'total' => $this->faker->numberBetween(1, 10), // Số lượng sản phẩm

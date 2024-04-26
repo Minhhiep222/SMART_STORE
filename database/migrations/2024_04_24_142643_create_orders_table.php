@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer("customer_id");
             $table->decimal("TotalAmount");
             $table->enum('PaymentMethod', ['Credit Card', 'PayPal', 'Cash', 'Bank Transfer']);
-            $table->enum('PaymentStatus', ['Completed', 'Failed']);
+            $table->enum('PaymentStatus', ['Completed', 'Failed', 'Transporting']);
             $table->timestamps();
         });
     }

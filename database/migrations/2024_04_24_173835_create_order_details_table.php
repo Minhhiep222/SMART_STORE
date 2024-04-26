@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // Tạo cột id với kiểu dữ liệu bigint auto-increment và làm khóa chính
             $table->integer("order_id");
             $table->integer("product_id");
+            $table->integer("quantity");
             $table->integer("seller_id");
             $table->decimal("price");
             $table->decimal("total");
