@@ -63,10 +63,14 @@
                             <div class="info__shop-phone">0834983286</div>
                         </div>
                         <div class="info__shop-btn">
-                            <button class="btn info__shop-btn__see">
+                           <form action="{{ route('seller.viewSeller') }}" method="post">
+                           @csrf 
+                           <button type="submit" class="btn info__shop-btn__see">
+                                <input name="id_seller" value="{{$product->seller_id}}" type="hidden">
                                 <i class="fa-regular fa-eye"></i>
                                 Xem shop
                             </button>
+                           </form>
                             <button class="btn btn--primary info__shop-btn__chat">
                                 Chat shop
                                 <i class="fa-regular fa-comment"></i>

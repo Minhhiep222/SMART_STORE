@@ -31,14 +31,85 @@ class CrudCustomerUsersController extends Controller
             'day' => $day
         ]);
     }
+    
+    public function updateUserProfile(Request $request)  {   
+        $input = $request->all();
+        $dob = $request->get('year') . "-" . $request->get('month') . "-" . $request->get('day');
+        $customerUserId = $request->get('id');
+        $customerUser = CustomerUser::find($customerUserId);
+        $customerUser->name = $input['name'];
+        $customerUser->username = $input['username'];
+        $customerUser->email = $input['email'];
+        $customerUser->phone = $input['phone'];
+        $customerUser->address = $input['address'];
+        $customerUser->sex =  $input['sex'];
+        $customerUser->DOB =  $dob;
 
+        if ($request->hasFile('img')) {
+            // Xóa hình ảnh cũ (nếu có)
+            Storage::delete('img/img_auth/' . $customerUser->img);
+    
+            // Lưu hình ảnh mới vào thư mục lưu trữ
+            $image = $request->file('img');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('img/img_auth'), $imageName);
+    
+            // Cập nhật tên hình ảnh mới cho sản phẩm
+            $customerUser->img = $imageName;
+            
+        }
+        $customerUser->save();
+       return redirect("home");
+        
+    }
+   
+   
+    public function viewSeller(Request $request)
+    {   
+      
+        $idSeller = $request->get('id_seller');
+      
+
+        if ($request->has('oldest')) {
+            $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('id')->get();
+            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+        } else if ($request->has('newest')) {
+            $products = Product::with('Category')->where('seller_id', $idSeller)->orderByDesc('id')->get();
+            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+        }
+    
+    
+        else if($request->has('bestselling')) {
+            $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('sold')->get();  
+            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+        }
+        else if($request->has('priceDESC')) {
+            $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('price')->get();
+            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+        }
+        else if($request->has('priceASC')) {
+            $products = Product::with('Category')->where('seller_id', $idSeller)->orderByDESC('price')->get();
+            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+        }
+        else {
+            $products = Product::with('Category')->where('seller_id',$idSeller)->get(); 
+            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+            // return redirect('seller');
+        }
+    }
     public function viewAddProduct(Request $request)
     {   
        
             $categories = Category::all();
             return view('auth.product',['categories' => $categories, 'seller_id' => $request->get('id')]);
         
-        // return view('auth.product');
+        return view('auth.product');
       
     }
 
@@ -55,7 +126,7 @@ class CrudCustomerUsersController extends Controller
         ]);
 
         $data = $request->all();
-
+  
         if ($request->hasFile('img')) {
             // Lưu hình ảnh vào thư mục lưu trữ
 
@@ -71,7 +142,7 @@ class CrudCustomerUsersController extends Controller
             // Thêm tên hình ảnh vào dữ liệu để lưu vào cơ sở dữ liệu
             $data['img'] = $imageName;
         }
-
+    
    
 
         $check = Product::create([
@@ -85,17 +156,12 @@ class CrudCustomerUsersController extends Controller
             
         ]);
         $products = Product::with('Category')->where('seller_id', $request->get('seller_id'))->orderByDESC('id')->get();
-        return view('auth.seller', ['products' => $products, 'idSeller' => $request->get('seller_id')]);
+        
+        $sellerTotal = Product::with('Category')->where('seller_id',$request->get('seller_id'))->count();  
+        return view('auth.seller', ['products' => $products,'idSeller' =>  $request->get('seller_id'), 'sellerTotal' => $sellerTotal]);
+
+      
  
-    }
-    public function viewSeller(Request $request)
-    {   
-        $idSeller = $request->get('id');
-        //    $products = Product::ord,erByDesc('id')->get();
-        //    $products = Product::orderBy('id', 'asc')->get();
-           
-             $products = Product::with('Category')->where('seller_id',$idSeller)->orderByDESC('id')->get();  
-              return view('auth.seller',['products' => $products, 'idSeller' => $request->get('id')]);
     }
     public function viewDetailProduct(Request $request)
     {   
@@ -106,9 +172,16 @@ class CrudCustomerUsersController extends Controller
     public function deleteProduct(Request $request)
     {   
         
-            $productId = $request->get('id');
+           
+            $productId = $request->get('productId');
+            $idSeller = $request->get('id_seller');
             $product = Product::destroy($productId);
-           return redirect("seller")->withSuccess('Xóa sản phẩm thành công');
+          
+            $products = Product::with('Category')->where('seller_id',$idSeller)->get(); 
+         
+            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+         
     }
     public function viewUpdateProduct(Request $request)
     {   
@@ -144,35 +217,9 @@ class CrudCustomerUsersController extends Controller
         }
         $product -> save();
         $products = Product::with('Category')->where('seller_id', $request->get('seller_id'))->orderBy('id')->get();
-        return view('auth.seller', ['products' => $products, 'idSeller' => $request->get('seller_id')]);
-   
-    }
-    public function arrangeProduct(Request $request)
-    {   
-        
-        $idSeller = $request->get('idSeller');
-      
-        if ($request->has('oldest')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('id')->get();
-                return view('auth.seller', ['products' => $products, 'idSeller' => $idSeller]);
-        } elseif ($request->has('newest')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderByDesc('id')->get();
-                return view('auth.seller', ['products' => $products, 'idSeller' => $idSeller]);
-        }
-    
-    
-        else if($request->has('bestselling')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('sold')->get();  
-            return view('auth.seller',['products' => $products,'idSeller' => $idSeller]);
-        }
-        else if($request->has('priceDESC')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('price')->get();
-            return view('auth.seller',['products' => $products,'idSeller' => $idSeller]);
-        }
-        else if($request->has('priceASC')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderByDESC('price')->get();
-            return view('auth.seller',['products' => $products,'idSeller' => $idSeller]);
-        }
-    }
-   
+        $sellerTotal = Product::with('Category')->where('seller_id',$request->get('seller_id'))->count();
+        return view('auth.seller', ['products' => $products, 'idSeller' => $request->get('seller_id'), 'sellerTotal' => $sellerTotal]);
+    }      
 }
+    
+

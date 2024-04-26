@@ -18,12 +18,12 @@ Route::get('home', function () {
 });
 
 
-Route::get('seller', [CrudCustomerUsersController::class, 'viewSeller'])->name('seller.viewSeller');
-Route::post('seller', [CrudCustomerUsersController::class, 'arrangeProduct'])->name('seller.arrangeProduct');
+Route::match(['get', 'post'], 'seller', [CrudCustomerUsersController::class, 'viewSeller'])->name('seller.viewSeller');
+// Route::post('seller', [CrudCustomerUsersController::class, 'arrangeProduct'])->name('seller.arrangeProduct');
 
-Route::get('deleteProduct', [CrudCustomerUsersController::class, 'deleteProduct'])->name('seller.deleteProduct');
+Route::post('deleteProduct', [CrudCustomerUsersController::class, 'deleteProduct'])->name('seller.deleteProduct');
 
-Route::get('updateProduct', [CrudCustomerUsersController::class, 'viewUpdateProduct'])->name('seller.viewUpdateProduct');
+Route::get('updateProduct', [CrudCustomerUsersController::class, 'viewUpdateProduct'])->name('  ');
 Route::post('updateProduct', [CrudCustomerUsersController::class, 'updateProduct'])->name('seller.updateProduct');
 
 Route::get('product', [CrudCustomerUsersController::class, 'viewAddProduct'])->name('seller.viewAddProduct');
@@ -32,11 +32,10 @@ Route::post('product', [CrudCustomerUsersController::class, 'addProduct'])->name
 Route::get('product_detail', [CrudCustomerUsersController::class, 'viewDetailProduct'])->name('seller.viewDetailProduct');
 
 Route::get('account/profile', [CrudCustomerUsersController::class, 'viewUserProfile'])->name('user.viewUserProfile');
+Route::post('account/profile', [CrudCustomerUsersController::class, 'updateUserProfile'])->name('user.UpdateUserProfile');
 
 
-Route::get('update', function () {
-    return view('auth.update');
-});
+
 
 Route::get('cart', function () {
     return view('auth.cart');

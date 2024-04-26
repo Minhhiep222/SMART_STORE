@@ -18,11 +18,12 @@ class CustomerUser extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'username',
-        'password',
         'name',
+        'username',
         'email',
+        'password',
         'phone',
+        'address',
         'sex',
         'DOB',
         'img',

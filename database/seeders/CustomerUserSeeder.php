@@ -24,6 +24,7 @@ class CustomerUserSeeder extends Seeder
                 "phone" => "032481631",
                 "sex" => "Nam",
                 "DOB" => "2004-02-07",
+                "img" => "havert.jpg",
                 "address" => "Hoang Huu Nam / Thu Duc"
             ],
             [
@@ -34,6 +35,7 @@ class CustomerUserSeeder extends Seeder
                 "phone" => "0324421",
                 "sex" => "Nam",
                 "DOB" => "2004-12-02",
+                "img" => "havert.jpg",
                 "address" => "Le Van Viet / Thu Duc"
             ]
         ]);

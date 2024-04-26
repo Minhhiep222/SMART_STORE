@@ -133,6 +133,7 @@
 .info__shop .info__shop-btn {
   position: absolute;
   bottom: 10px;
+  display: flex;
 }
 .info__shop .info__shop-btn__see {
   color: var(--outline-color);
@@ -148,6 +149,7 @@
   border: 1px solid var(--outline-color);
   padding: 0 5px;
   color: white;
+  margin-left:2px;
 }
 .info__shop .info__shop-btn__chat i {
   display: block;
