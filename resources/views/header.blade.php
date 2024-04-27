@@ -39,7 +39,7 @@
                         </li>
                         @else 
                         <li class="navbar-item">
-                            <a href="#" class="navbar-item-link">
+                            <a href="{{ route('create_store.index') }}" class="navbar-item-link">
                                 Trang người bán
                             </a>
                         </li>

@@ -30,18 +30,14 @@ class Seller extends Model
     protected $fillable = [
         'id',
         'name',
-        'username',
-        'email',
-        'password',
+        'user_id',
         'phone',
         'img',
         'sex',
         'DOB',
         'address',
-        'feedback',
-        'history_transaction',
         'name_company',
-        'type_bussiness',
+        'type_business',
         
       
     ];

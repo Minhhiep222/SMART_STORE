@@ -6,6 +6,7 @@ use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SellerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,6 +44,10 @@ Route::get('header_cart', function () {
     return view('header_cart');
 });
 
+Route::get('create_store', function () {
+    return view('create_store');
+});
+
 Route::get('product_detail', function () {
     return view('auth.product_detail');
 });
@@ -73,6 +78,8 @@ Route::get('account/oder_detail', function () {
     return view('auth.account.oder_detail');
 });
 
+
+//route user
 Route::get('dashboard', [UserController::class, 'dashboard']);
 
 Route::get('login', [UserController::class, 'login'])->name('login');
@@ -89,3 +96,7 @@ Route::post('update', [UserController::class, 'postUpdateUser'])->name('user.pos
 
 Route::get('signOut', [UserController::class, 'signOut'])->name('signOut');
 Route::get('list', [UserController::class, 'listUser'])->name('user.list');
+
+// Route seller
+Route::post('create_seller', [SellerController::class, 'postSeller'])->name('user.postSeller');
+Route::resource('create_store', SellerController::class);

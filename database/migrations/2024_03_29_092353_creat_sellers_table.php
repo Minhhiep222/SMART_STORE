@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('name_company');
             $table->enum('type_business', ['individual', 'enterprise']);
-            $table->timestamp('account_time_create')->useCurrent();
+            $table->timestamps();
         });
 
     }
