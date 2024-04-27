@@ -51,9 +51,15 @@
                     </ul>
                 </nav>
             </div>
+         
             <!-- CATEGORY -->
 
             <div class="grid__column-10">
+            <form method="POST" action="{{ route('seller.viewSeller') }}">
+                   @csrf 
+                   <input name="id_seller" type="text" value="1">
+                   <button type="submit">Trang Seller</button>
+            </form>
                 <div class="home-filter">
                     <span class="home-filter-title">Sắp xếp theo</span>
                     <button class="home-filter__btn btn">Phổ biến</button>

@@ -1258,3 +1258,31 @@ li.pagination-item--active .pagination-item__link{
     color: var(--white-color);
     font-weight: 100;
 }
+#ipImg {
+    opacity: 0;
+    position: absolute;
+    margin-left: 295px;
+    height:80px;
+    width:80px;
+}
+#main-imgPr {
+    height: 45px;
+}
+#main-imgPr2 {
+    width: 69px;
+    height: 70px;
+}
+#customerUserImg {
+    opacity: 0;
+    position: absolute;
+    margin-left: 708px;
+    margin-top: -200px;
+    width: 123px;
+    height: 36px;
+}
+#delete_Product {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    color: rgb(48, 89, 110);
+}

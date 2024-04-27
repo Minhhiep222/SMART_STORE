@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\CustomerUser;
 use App\Models\Product;
 use App\Models\Category;
+<<<<<<< HEAD
 //ly do luc dau ham delete sai vi khong the truyen qua seller id , ham update co id cua seller product da co seller id 
 //san roi , ham read duoc truyen truc tiep seller id qua dia chi , con delete chi truyen duoc id cua product thoi 
 //-> lam bang form hay dia chi nhu nhau , khac cho delete xoa bang form -> co the truyen it san pham va idseller
@@ -24,6 +25,9 @@ use App\Models\Category;
 //da truyen day du thuoc tinh nen man hinh se hien thi ket qua minh mong muon 
 // con do an truyen qua form , phai nhan form moi co id ma khi tra ve redirect thi lai khong nhan vao 
 //form nen khong co id nen tra ve ket qua khong mong muon
+=======
+
+>>>>>>> 7fc1d385fbfafefeb9037dc2ac258bc7207410de
 class CrudCustomerUsersController extends Controller
 {
     public function viewUserProfile(Request $request)

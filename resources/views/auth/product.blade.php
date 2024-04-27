@@ -1,6 +1,6 @@
 @extends('header')
-
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{ asset('../public/style.css') }}">
 <div class="app__container">
     <div class="grid">
         <div class="grid__row app__contents_seller ">
@@ -27,8 +27,10 @@
                 <div class="home__product">
                     <div class="grid__row-product">
                         <!-- PRODUCT ITEM -->
-                        <form action="" class="home__product-form">
-                            <div class="product__item-form">
+                        <form method="POST" action="{{ route('seller.addProduct') }}" class="home__product-form" enctype="multipart/form-data">
+                           @csrf    
+                        <div class="product__item-form">
+                        <input name="seller_id" type="hidden" value="{{$seller_id}}">
                                 <label for="">Hình ảnh sản phẩm</label>
                                 <button class="btn--textFile have-img" onclick="document.getElementById('getFile').click()">
                                     <div class="delete__img">
@@ -37,19 +39,12 @@
                                     <img src="/img/img_auth/iphone-15.webp" alt="">
                                 </button>
 
-                                <button class="btn--textFile no-img"
-                                    onclick="document.getElementById('getFile').click()">
-                                    <svg viewBox="0 0 23 21" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M18.5 0A1.5 1.5 0 0120 1.5V12c-.49-.07-1.01-.07-1.5 0V1.5H2v12.65l3.395-3.408a.75.75 0 01.958-.087l.104.087L7.89 12.18l3.687-5.21a.75.75 0 01.96-.086l.103.087 3.391 3.405c.81.813.433 2.28-.398 3.07A5.235 5.235 0 0014.053 18H2a1.5 1.5 0 01-1.5-1.5v-15A1.5 1.5 0 012 0h16.5z">
-                                        </path>
-                                        <path
-                                            d="M6.5 4.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM18.5 14.25a.75.75 0 011.5 0v2.25h2.25a.75.75 0 010 1.5H20v2.25a.75.75 0 01-1.5 0V18h-2.25a.75.75 0 010-1.5h2.25v-2.25z">
-                                        </path>
-                                    </svg>
-                                    <span>Thêm hình ảnh</span>
-                                </button>
-                                <input class="" type='file' id="getFile" style="display:none" name="img">
+                                <button id="btnImg" class="btn--textFile no-img">
+                                <img id="main-imgPr" src="/img/img_auth/themanh.png" alt="">
+                            <span id="textBtnImg">Thêm hình ảnh</span>  
+                            </button>
+                        <input id="ipImg" class="" type="file" name="img">
+                                 <!-- <input type="file" name="img"> -->
                             </div>
                             <div class="product__item-form">
                                 <label for="">Tên sản phẩm</label>
@@ -67,22 +62,31 @@
                             </div>
                             <div class="product__item-form">
                                 <label for="">Danh mục sản phẩm</label>
-                                <div class="product__item-cate">
-                                    <input class="product__cate-form" type="text" name="category" readonly placeholder="Chọn danh mục">
+                                <!-- <div class="product__item-cate">
+                                    <input id="selectCate" class="product__cate-form" type="text" name="category" readonly placeholder="Chọn danh mục">
                                     <div class="select__cate">
-                                        <div class="option__cate">Điện thoại</div>
-                                        <div class="option__cate">Laptop</div>
-                                        <div class="option__cate">Máy tính bàn</div>
+                                    @foreach($categories as $category)  
+                                        <div value="{{$category->category_id}}" class="option__cate">{{$category->category_name}}</div>
+                                        <div id ="valueCate">1</div>
+                                        @endforeach  
                                     </div>
-                                </div>
+                                <</div> -->
+                             
+                                <select id="cars" name="category_id">
+                                @foreach($categories as $category)  
+                                <option value="{{$category->category_id}}">{{$category->category_name}}</option>
+                                @endforeach    
+                                 </select>
                             </div>
+                           
+                           
                             <div class="product__item-form">
                                 <label for="">Mô tả sản phẩm</label>
                                 <textarea class="product__des-form" type="text" name="des"> </textarea>
                             </div>
                             <div class="home__product-btn">
                                 <button class="btn ">Hủy</button>
-                                <button class="btn btn--primary">Lưu</button>
+                                <button  type="submit" class="btn btn--primary">Lưu</button>
                             </div>
                         </form>
                         <!-- PRODUCT ITEM -->
@@ -94,4 +98,23 @@
 
     </div>
 </div>
+<script>
+var ipImg = document.getElementById("ipImg");
+var mainImgPr = document.getElementById("main-imgPr");
+
+ipImg.addEventListener("change", function() {
+    if (ipImg.files && ipImg.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            mainImgPr.src = e.target.result;
+        };
+        reader.readAsDataURL(ipImg.files[0]);
+        document.getElementById("textBtnImg").textContent = "";
+        mainImgPr.style.height = '70px'; // Sửa lại cú pháp ở đây
+    }
+});
+
+
+
+</script>
 @endsection

@@ -138,6 +138,8 @@
 }
 
 .home__profile-edit-img {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -145,9 +147,11 @@
     
     .img_edit {
         border-radius: 50%;
-        min-width: 100px;
-        min-height: 100px;
+        min-width: 200px;
+        min-height: 200px;
         display: block;
+        background-size: cover;
+        
     }
 }
 

@@ -10,75 +10,93 @@
         <div class="grid__row">
             <div class="grid__column-8">
                 <div class="home__profile--info">
-                    <form action="" class="form_profile">
+                    <form method="POST" action="{{ route('user.UpdateUserProfile')}}" class="form_profile" enctype="multipart/form-data">
+                    @csrf   
+                    <input type="hidden" name="id" type="text" value="{{$customerUser->id}}">
                         <div class="home__profile-item">
-                            <label for="">Tên đăng nhập</label>
-                            <input type="text" value="Nguyễn Minh Hiệp">
+                            <label for="">Họ Tên </label>
+                            <input name="name" type="text" value="{{$customerUser->name}}">
                         </div>
                         <div class="home__profile-item">
                             <label for="">Tên tài khoản</label>
-                            <input type="text" value="Bảo hộ lao động">
+                            <input name="username" type="text" value="{{$customerUser->username}}">
                         </div>
                         <div class="home__profile-item">
                             <label for="">Email</label>
-                            <input type="text" value="minhhiep325@gmail.com">
+                            <input name="email" type="text" value="{{$customerUser->email}}">
                         </div>
                         <div class="home__profile-item">
                             <label for="">Số điện thoại</label>
-                            <input type="text" value="0834983286">
+                            <input name="phone" type="text" value="{{$customerUser->phone}}">
                         </div>
                         <div class="home__profile-item">
                             <label for="">Địa chỉ</label>
-                            <input type="text" value="Bình Thành, Đức Huệ, Long An">
+                            <input  name="address" type="text" value="{{$customerUser->address}}">
                         </div>
-                        <div class="home__profile-item">
+                         <div class="home__profile-item">
                             <label for="">Giới tính</label>
                             <div class="check__sex">
                                 <div class="check check__sex-female">
                                     <label for="">Nam</label>
-                                    <input name="sex" type="radio">
+                                    <input value="Nam" name="sex" type="radio" {{ $customerUser->sex == 'Nam' ? 'checked' : '' }} >
                                 </div>
                                 <div class="check check__sex-male">
                                     <label for="">Nữ</label>
-                                    <input name="sex" type="radio">
+                                    <input value="Nữ" name="sex" type="radio" {{ $customerUser->sex == 'Nữ' ? 'checked' : '' }}>
                                 </div>
-                                <div class="check check__sex-dif">
-                                    <label for="">Khác</label>
-                                    <input name="sex" type="radio">
+                                <div class="check check__sex-male">
+                                    <label for="">Khác</label>
+                                    <input value="Khác" name="sex" type="radio" {{ $customerUser->sex == 'Khác' ? 'checked' : '' }}>
                                 </div>
                             </div>
                         </div>
                         <div class="home__profile-item">
                             <label for="">Ngày sinh</label>
                             <div class="input__DOB">
-                                <input type="text" value="01">
-                                <input type="text" value="01">
-                                <input type="text" value="01">
+                                <input name="year" id="year" placeholder="2000" type="text" value="{{$year}}">
+                                <input name="month" placeholder="02" type="text" value="{{$month}}">
+                                <input name="day" placeholder="06" type="text" value="{{$day}}">
                             </div>
                         </div>
-
+                        <input id="customerUserImg" name="img" type="file">
                         <div class="btn__save">
-                            <button class="btn save">Lưu</button>
+                            <button type="submit" class="btn save">Lưu</button>
                         </div>
 
                     </form>
                 </div>
             </div>
-            <div class="grid__column-4">
+          
                 <div class="profile__edit">
-                    <div class="home__profile-edit">
+                    <div class="home__profile-edit">    
                         <div class="home__profile-edit-img">
-                            <img src="/img/user_img.jpg" alt="" class="img_edit">
+                        <img  id="mainImgPrr" onerror="this.src='/img/img_auth/user.png'" src="{{ asset('img/img_auth/' . $customerUser->img) }}" alt="" class="img_edit">
                         </div>
                     </div>
                     <div class="home__btn-edit">
-                        <input type="file" id="getImg" style="display : none;">
+                        <!-- <input type="file" id="getImg" style="display : none;"> -->
                         <button class="btn" onclick="document.getElementById('getImg').click()"> chọn ảnh
                         </button>
                     </div>
                 </div>
-            </div>
+         
         </div>
     </div>
 </div>
+<script>
+ var ipImg = document.getElementById("customerUserImg");
+var mainImgPr = document.getElementById("mainImgPrr");
+
+ipImg.addEventListener("change", function() {
+    if (ipImg.files && ipImg.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            mainImgPr.src = e.target.result;
+        };
+        reader.readAsDataURL(ipImg.files[0]);
+        mainImgPr.style.objectFit = 'cover';
+        mainImgPr.style.backgroundSize = 'cover';
+    }
+});
+</script>
 @endsection

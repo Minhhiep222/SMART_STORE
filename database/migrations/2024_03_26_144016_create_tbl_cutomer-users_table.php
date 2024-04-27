@@ -13,19 +13,18 @@ return new class extends Migration
         Schema::create('tbl_customer_users', function (Blueprint $table) {
             $table->id(); 
             $table->string('username')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->enum('sex', ['male', 'female', 'other']);
+            $table->enum('sex', ['Nam', 'Nữ', 'Khác']);
             $table->date('DOB');
             $table->string('img')->nullable();
-            $table->text('address');
+            $table->text('address')->nullable();
             $table->string('bank_Account')->nullable();
             $table->text('notification')->nullable();
             $table->integer('coin')->nullable();
-            $table->timestamp('account_time_create')->nullable()->useCurrent();
-       
+           
             $table->timestamps();
         });
     }

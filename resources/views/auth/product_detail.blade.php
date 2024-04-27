@@ -7,14 +7,14 @@
             <!-- CATEGORY -->
             <div class="grid__column-5">
                 <div class="product__img-detail">
-                    <img class="img__product-detail" src="/img/img_auth/iphone-15.webp"></img>
+                    <img class="img__product-detail" src="{{('img/img_auth/' . $product->img) }}"></img>
                 </div>
             </div>
             <!-- CATEGORY -->
 
             <div class="grid__column-7">
                 <div class="title_product-detail">
-                    <div class="product-detail-name">iPhone 15 Pro Max 512GB Chính Hãng VN/A</div>
+                    <div class="product-detail-name">{{$product->product_name}}</div>
                     <div class="product-detail-info">
                         <div class="product-detail-rate">
                             <i class="product-item__star--gold fa-solid fa-star"></i>
@@ -26,18 +26,11 @@
                         <div class="product-detail product-detail-Evaluate">Đánh giá</div>
                         <div class="product-detail product-detail-sold">Đã bán</div>
                     </div>
-                    <div class="product-detail-cate">Điện thoại</div>
-                    <div class="product-detail-price">2.999.000 <span>đ</span></div>
-                    <div class="product-detail-des">iPhone 15 là một bước tiến mới trong dòng sản phẩm smartphone của
-                        Apple, với nhiều cải tiến đáng chú ý so với các phiên bản trước đó. Thiết kế của iPhone 15 được
-                        cải tiến để tối ưu hóa trải nghiệm người dùng, với các đường cong mềm mại và vật liệu chất lượng
-                        cao.
-
-                        Màn hình của iPhone 15 được nâng cấp với công nghệ hiển thị tiên tiến, mang lại hình ảnh sắc nét
-                        và màu sắc sống động hơn bao giờ hết. Khả năng hiển thị HDR và tỷ lệ tương phản cao giúp người
-                        dùng thưởng thức nội dung đa phương tiện với trải nghiệm tuyệt vời.</div>
+                    <div class="product-detail-cate">{{$product->category->category_name}}</div>
+                    <div class="product-detail-price">{{$product->price}}<span>đ</span></div>
+                    <div class="product-detail-des">{{$product->description}}</div>
                     <div class="product-detail-action">
-                        <div class="product-detail-quantity">Số lượng</div>
+                        <div class="product-detail-quantity">{{$product->quantity}}</div>
                         <div class="product-detail-quantities">
                             <div class="product-detail-add">
                                 <i class="fa-solid fa-plus"></i>
@@ -47,7 +40,7 @@
                                 <i class="fa-solid fa-minus"></i>
                             </div>
                         </div>
-                        <div class="product-detail-sold"><span>30</span>Sản phẩm còn lại</div>
+                        <div class="product-detail-sold"><span>{{$product->quantity - $product->sold}}</span>Sản phẩm còn lại</div>
                     </div>
                     <div class="product-detail-button">
                         <div class="btn btn--cart">
@@ -70,10 +63,14 @@
                             <div class="info__shop-phone">0834983286</div>
                         </div>
                         <div class="info__shop-btn">
-                            <button class="btn info__shop-btn__see">
+                           <form action="{{ route('seller.viewSeller') }}" method="post">
+                           @csrf 
+                           <button type="submit" class="btn info__shop-btn__see">
+                                <input name="id_seller" value="{{$product->seller_id}}" type="hidden">
                                 <i class="fa-regular fa-eye"></i>
                                 Xem shop
                             </button>
+                           </form>
                             <button class="btn btn--primary info__shop-btn__chat">
                                 Chat shop
                                 <i class="fa-regular fa-comment"></i>
