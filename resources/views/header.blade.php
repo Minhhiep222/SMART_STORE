@@ -21,6 +21,7 @@
             <div class="grid">
                 <nav class="header__navbar">
                     <ul class="navbar-list">
+                        @guest
                         <li class="navbar-item navbar-item--has-qr navbar-item--separate">
                             Vào cửa hàng ứng dụng mua sản phẩm
                             <div class="navbar__qr">
@@ -36,6 +37,15 @@
                                 </div>
                             </div>
                         </li>
+                        @else 
+                        <li class="navbar-item">
+                            <a href="#" class="navbar-item-link">
+                                Trang người bán
+                            </a>
+                        </li>
+                        @endguest
+
+
                     </ul>
                     <ul class="navbar__list">
                         <li class="navbar-item navbar-item--has-notify">

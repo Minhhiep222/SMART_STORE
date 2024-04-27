@@ -41,7 +41,7 @@
                         </div>
                         
                         <div class="auth-form__controls">
-                            <button onclick="window.location.href='{{ route('home.index') }}'" class="btn btn__normal btn__move">TRỞ LẠI</button>
+                            <button type="button" onclick="window.location.href='{{ route('home.index') }}'" class="btn btn__normal btn__move">TRỞ LẠI</button>
                             <button type="submit" class="btn btn--primary">ĐĂNG NHẬP</button>
                         </div>
                     </div>

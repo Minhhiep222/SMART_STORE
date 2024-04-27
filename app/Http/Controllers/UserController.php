@@ -29,7 +29,6 @@ class UserController extends Controller
 
 
     public function authUser(Request $request) {
-
         //kiểm tra email, password không được bỏ trống
         $request->validate(['email'=>'required',
         'password'=>'required']);
@@ -170,8 +169,7 @@ class UserController extends Controller
     public function signOut() {
         Session::flush();
         Auth::logout();
-        session_unset($_);
-        session_destroy();
+        unset($_SESSION['user_id']);
         return redirect()->intended('home');
     }
 }
