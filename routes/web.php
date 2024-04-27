@@ -17,6 +17,11 @@ Route::get('home', function () {
     return view('auth.home');
 });
 
+
+Route::get('Login', [CrudCustomerUsersController::class, 'viewLogin'])->name('viewLogin');
+Route::post('Login', [CrudCustomerUsersController::class, 'login'])->name('login');
+
+
 Route::match(['get', 'post'], 'seller', [CrudCustomerUsersController::class, 'viewSeller'])->name('seller.viewSeller');
 // Route::post('seller', [CrudCustomerUsersController::class, 'arrangeProduct'])->name('seller.arrangeProduct');
 

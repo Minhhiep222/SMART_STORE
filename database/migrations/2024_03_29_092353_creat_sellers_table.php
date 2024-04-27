@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password')->hash();
             $table->string('phone')->unique();
             $table->string('img')->nullable();
-            $table->enum('sex', ['male', 'female', 'other']);
+            $table->enum('sex', ['Nam', 'Nữ', 'Khác']);
             $table->date('DOB');
             $table->text('address')->nullable();
             $table->text('feedback')->nullable();
