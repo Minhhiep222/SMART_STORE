@@ -12,7 +12,18 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\CustomerUser;
 use App\Models\Product;
 use App\Models\Category;
-
+//ly do luc dau ham delete sai vi khong the truyen qua seller id , ham update co id cua seller product da co seller id 
+//san roi , ham read duoc truyen truc tiep seller id qua dia chi , con delete chi truyen duoc id cua product thoi 
+//-> lam bang form hay dia chi nhu nhau , khac cho delete xoa bang form -> co the truyen it san pham va idseller
+//-> return view su dung dia chi cua phuong thuc hien co , co the la post hoac get -> no khong quan trong
+//man hinh hien thi view cua 1 blade.php ma minh chon va minh se gan thuoc tinh cho no , khi nhan vo 1 chuc nang 
+//vi du nhu sap xep no se truyen qua controller ma con troller do tra ve 1 view khac... ma controller do 
+//co 1 route khac nua nen thanh dia chi se thay doi theo luon 
+//-> return direct tra ve 1 route trong web, route do co controller thuc hien 1 view gi do...
+//va no se tra ra man hinh nhu vay , tuy nhien vi du bai cua thay tra ve list vi controller list 
+//da truyen day du thuoc tinh nen man hinh se hien thi ket qua minh mong muon 
+// con do an truyen qua form , phai nhan form moi co id ma khi tra ve redirect thi lai khong nhan vao 
+//form nen khong co id nen tra ve ket qua khong mong muon
 class CrudCustomerUsersController extends Controller
 {
     public function viewUserProfile(Request $request)
