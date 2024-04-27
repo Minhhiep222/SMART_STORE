@@ -16,7 +16,7 @@ class SellerController extends Controller
             $seller = Seller::find($id); 
             
             if($seller != null){
-                return view('auth.account.profile');
+                return view('auth.seller');
             }
             else {
                 return view('create_store');
