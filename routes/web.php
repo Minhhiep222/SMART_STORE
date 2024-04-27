@@ -17,13 +17,12 @@ Route::get('home', function () {
     return view('auth.home');
 });
 
-
 Route::match(['get', 'post'], 'seller', [CrudCustomerUsersController::class, 'viewSeller'])->name('seller.viewSeller');
 // Route::post('seller', [CrudCustomerUsersController::class, 'arrangeProduct'])->name('seller.arrangeProduct');
 
 Route::post('deleteProduct', [CrudCustomerUsersController::class, 'deleteProduct'])->name('seller.deleteProduct');
 
-Route::get('updateProduct', [CrudCustomerUsersController::class, 'viewUpdateProduct'])->name('  ');
+Route::get('updateProduct', [CrudCustomerUsersController::class, 'viewUpdateProduct'])->name('seller.viewUpdateProduct');
 Route::post('updateProduct', [CrudCustomerUsersController::class, 'updateProduct'])->name('seller.updateProduct');
 
 Route::get('product', [CrudCustomerUsersController::class, 'viewAddProduct'])->name('seller.viewAddProduct');
@@ -35,7 +34,9 @@ Route::get('account/profile', [CrudCustomerUsersController::class, 'viewUserProf
 Route::post('account/profile', [CrudCustomerUsersController::class, 'updateUserProfile'])->name('user.UpdateUserProfile');
 
 
-
+Route::get('update', function () {
+    return view('auth.update');
+});
 
 Route::get('cart', function () {
     return view('auth.cart');
@@ -57,5 +58,3 @@ Route::get('header_cart', function () {
 Route::get('account/password', function () {
     return view('auth.account.password');
 });
-
-
