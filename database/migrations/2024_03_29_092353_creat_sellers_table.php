@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('tbl_sellers', function (Blueprint $table) {
             $table->id();
+            $table->Integer('user_id')->unique();
             $table->string('name');
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('password')->hash();
             $table->string('phone')->unique();
             $table->string('img')->nullable();
             $table->enum('sex', ['male', 'female', 'other']);

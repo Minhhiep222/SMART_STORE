@@ -17,6 +17,8 @@ Route::get('header', function () {
 
 Route::resource('home', CategoryController::class);
 
+
+
 Route::get('seller', function () {
     return view('auth.seller');
 });

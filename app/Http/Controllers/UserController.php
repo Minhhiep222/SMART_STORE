@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+session_start();
 use Hash;
 use Session;
 // use App\Models\User;
@@ -10,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Pagination;
 
-
+use App\Models\User;
+use App\Models\Category;    
 /**
  * CRUD User controller
  */
@@ -25,6 +27,7 @@ class UserController extends Controller
         return view('login');
     }
 
+
     public function authUser(Request $request) {
 
         //kiểm tra email, password không được bỏ trống
@@ -34,10 +37,23 @@ class UserController extends Controller
         //only : chỉ lấy giá trị được chỉ định
         $credentials = $request->only('email', 'password');
         //
+        // dd($request->email);
+        $user = User::where('email',$request->email)->get();
+
+        $categories = Category::all();
+        // dd($categories);
+        //
+        // dd($user);
         if(Auth::attempt($credentials)){
-            return redirect()->intended('login')->withSuccess('Sign in');
+
+            $_SESSION['user_id'] = $user[0]->id;
+            $_SESSION['user_img'] = $user[0]->img;
+            $_SESSION['user_name'] = $user[0]->name;
+            // Gửi cookie về trình duyệt
+            // return response('Login successful')->cookie('login_status', 'logged_in');
+            return redirect()->intended('home')->withSuccess('Sign in');
         }
-        return redirect('home');
+        return redirect('login')->with("Login Failed");
 
     }
     
@@ -47,7 +63,7 @@ class UserController extends Controller
      */
     public function createUser()
     {
-        return view('auth.create');
+        return view('register');
     }
 
     /**
@@ -59,8 +75,6 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'phone' => 'required',
-            'img' => 'required',
         ]);
 
         $data = $request->all();
@@ -68,8 +82,6 @@ class UserController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'phone' => $data['phone'],
-            'img' => $data['img']
         ]);
 
         return redirect("login");
@@ -158,7 +170,8 @@ class UserController extends Controller
     public function signOut() {
         Session::flush();
         Auth::logout();
-
-        return Redirect('login');
+        session_unset($_);
+        session_destroy();
+        return redirect()->intended('home');
     }
 }

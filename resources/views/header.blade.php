@@ -95,8 +95,9 @@
                                 Trợ giúp
                             </a>
                         </li>
+                        @guest
                         <li class="navbar-item navbar-item--strong navbar-item--separate">
-                            <a href="#" class="navbar-item-link">
+                            <a href="{{ route('user.createUser') }}" class="navbar-item-link">
                                 Đăng Ký
                             </a>
                         </li>
@@ -105,26 +106,30 @@
                                 Đăng Nhập
                             </a>
                         </li>
-
+                        @else
                         <!-- USER -->
-                        <!-- <li class="navbar-item navbar-user">
-                                <img src="/img/user_img.jpg" alt="" class="navbar-user-img">
-                                <span class="navbar-user-name">Nguyễn Minh Hiệp</span>
-                                <ul class="navbar-user-info">
-                                    <li class="navbar-user-item">
-                                        <a href="/account/profile" class="navbar-user-link">Tài khoản</a>
-                                    </li>
-                                    <li class="navbar-user-item">
-                                        <a href="" class="navbar-user-link">Địa chỉ</a>
-                                    </li>
-                                    <li class="navbar-user-item">
-                                        <a href="" class="navbar-user-link">Đơn mua</a>
-                                    </li>
-                                    <li class="navbar-user-item">
-                                        <a href="" class="navbar-user-link">Đăng xuất</a>
-                                    </li>
-                                </ul>
-                            </li> -->
+                        <li class="navbar-item navbar-user">
+                            <?php
+                            if(!empty($_SESSION['user_id'])) {
+                                echo '<img src="/img/user_img.jpg" alt="" class="navbar-user-img">
+                                <span class="navbar-user-name">' .$_SESSION["user_name"]. '</span>';
+                            }
+                            ?>
+                            <ul class="navbar-user-info">
+                                <li class="navbar-user-item">
+                                    <a href="/account/profile" class="navbar-user-link">Tài khoản</a>
+                                </li>
+                                <li class="navbar-user-item">
+                                    <a href="" class="navbar-user-link">Đơn mua</a>
+                                </li>
+                                <li class="navbar-user-item">
+                                    <a href="{{ route('signOut') }}" class="navbar-user-link">Đăng xuất</a>
+                                </li>
+                            </ul>
+
+
+                        </li>
+                        @endguest
                         <!-- USER -->
                     </ul>
                 </nav>

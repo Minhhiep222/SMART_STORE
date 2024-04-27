@@ -10,22 +10,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_customer_users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id(); 
-            $table->string('username')->unique();
+            $table->string('username')->unique()->nullable();
             $table->string('password');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->unique();
-            $table->enum('sex', ['male', 'female', 'other']);
-            $table->date('DOB');
+            $table->string('phone')->unique()->nullable();
+            $table->enum('sex', ['male', 'female', 'other'])->nullable();
+            $table->date('DOB')->nullable();
             $table->string('img')->nullable();
-            $table->text('address');
+            $table->text('address')->nullable();
             $table->string('bank_Account')->nullable();
             $table->text('notification')->nullable();
-            $table->integer('coin')->nullable();
-            $table->timestamp('account_time_create')->nullable()->useCurrent();
-       
+            $table->integer('coin')->nullable();  
             $table->timestamps();
         });
     }
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_customer_users');
+        Schema::dropIfExists('users');
     }
 };
