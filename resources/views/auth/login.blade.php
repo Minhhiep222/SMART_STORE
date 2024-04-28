@@ -32,11 +32,11 @@
                                 <input type="password" class="auth-form__input" placeholder="Password" id="password" class="form-control" name="password">
                             </div>
                         </div>   
-                        <!-- <label for="seller">Người Bán</label>
-                        <input id="seller" name="chooseSeller" value="seller" type="radio">
+                        <label for="seller">Người Bán</label>
+                        <input id="seller" name="role" value="seller" type="radio">
 
                         <label for="customer">Người Mua</label>
-                        <input id="customer" name="chooseCustomer" value="customer" type="radio"> -->
+                        <input id="customer" name="role" value="customer" type="radio">
 
                         <button type="submit" class="btn btn--primary">ĐĂNG NHẬP</button>
                        </form>

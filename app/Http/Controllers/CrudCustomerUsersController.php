@@ -36,7 +36,30 @@ class CrudCustomerUsersController extends Controller
     }
     public function login(Request $request) {
        
-      
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+    
+        $role = $request->get('role');
+
+        //neu co loi thi ham bat loi ben kia se hien len
+        // lưu vào đây để xác thực hàm auth
+        
+        $credentials = $request->only('email', 'password');
+        if($role == 'seller') {
+            if (Auth::guard('tbl_sellers')->attempt($credentials)) { 
+                return view('auth.register');
+            }
+        }
+        else if($role == 'customer') {
+            if (Auth::guard('tbl_customer_users')->attempt($credentials)) { 
+                return view('auth.resetPassword');
+            }
+        }
+        
+        return view('auth.login');
+       
     }
     
     public function viewUserProfile(Request $request)

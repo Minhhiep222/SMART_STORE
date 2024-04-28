@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('notification')->nullable();
             $table->integer('coin')->nullable();
            
+            $table->rememberToken();
             $table->timestamps();
         });
     }

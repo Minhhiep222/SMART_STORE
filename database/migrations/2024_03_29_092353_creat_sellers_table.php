@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('history_transaction')->nullable();
             $table->string('name_company');
             $table->enum('type_business', ['individual', 'enterprise']);
+             $table->rememberToken();
             $table->timestamps();
         });
 

@@ -20,7 +20,7 @@ class SellerSeeder extends Seeder
                 "name" => "Thành Đạt",
                 "username" => "nnguyendat",
                 "email" => "nnguyendat@gmail.com",
-                "password" => Hash::make("123"),
+                "password" =>  Hash::make('123'),
                 "phone" => "032481631",
                 "sex" => "Nam",
                 "img" => "havert.jpg",
@@ -33,7 +33,7 @@ class SellerSeeder extends Seeder
                 "name" => "Phú Thảo",
                 "username" => "pphuthao",
                 "email" => "pphuthao@gmail.com",
-                "password" => Hash::make("123"),
+                "password" =>  Hash::make('123'),
                 "phone" => "0423121",
                 "sex" => "Nữ",
                 "img" => "havert.jpg",
@@ -41,6 +41,19 @@ class SellerSeeder extends Seeder
                 "address" => "Bùi Viện / Quận 1",
                 "name_company" => "Thế giới di động",
                 "type_business" => "enterprise",
+            ],
+            [
+                "name" => "Nguyễn Thành Đạt",
+                "username" => "nnguyen",
+                "email" => "nnguyendat72@gmail.com",
+                "password" =>  Hash::make('123'),
+                "phone" => "011131231",
+                "sex" => "Nam",
+                "img" => "havert.jpg",
+                "DOB" => "2001-01-03",
+                "address" => "Hoang Huu Nam / Thu Duc2",
+                "name_company" => "Thế giới manh động",
+                "type_business" => "individual",
             ]
         ]);
     }
