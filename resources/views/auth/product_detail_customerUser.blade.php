@@ -56,14 +56,14 @@
             <!-- USER -->
             <div class="grid__column-12">
                 <div class="info__shop">
-                    <img class="info__shop-img" src="/img/user_img.jpg">
+                    <img class="info__shop-img" src="{{('img/img_auth/' . $seller->img)}}">
                     <div class="info__shop-item">
                         <div class="info__shop-information">
-                            <div class="info__shop-name">Nguyễn Minh Hiệp</div>
-                            <div class="info__shop-phone">0834983286</div>
+                        <div class="info__shop-name">{{ $seller->name }}</div>
+                            <div class="info__shop-phone">{{$seller->phone}}</div>
                         </div>
                         <div class="info__shop-btn">
-                           <form action="{{ route('seller.viewSeller') }}" method="post">
+                           <form action="" method="post">
                            @csrf 
                            <button type="submit" class="btn info__shop-btn__see">
                                 <input name="id_seller" value="{{$product->seller_id}}" type="">

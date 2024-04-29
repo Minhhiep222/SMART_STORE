@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\CustomerUser;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Seller;
 
 // ly do luc dau ham delete sai vi khong the truyen qua seller id , ham update co id cua seller product da co seller id 
 // san roi , ham read duoc truyen truc tiep seller id qua dia chi , con delete chi truyen duoc id cua product thoi 
@@ -42,6 +43,7 @@ class CrudCustomerUsersController extends Controller
         ]);
     
         $role = $request->get('role');
+        $email = $request->get('email');
 
         //neu co loi thi ham bat loi ben kia se hien len
         // lưu vào đây để xác thực hàm auth
@@ -49,13 +51,17 @@ class CrudCustomerUsersController extends Controller
         $credentials = $request->only('email', 'password');
         if($role == 'seller') {
             if (Auth::guard('tbl_sellers')->attempt($credentials)) { 
-                return view('auth.register');
+                $Seller = Seller::where('email', $email)->first();
+                $products = Product::with('Category')->where('seller_id', $Seller->id)->orderByDesc('id')->get();
+                $sellerTotal = Product::with('Category')->where('seller_id',$Seller->id)->count();  
+                return view('auth.seller', ['products' => $products,'idSeller' => $Seller->id, 'sellerTotal' => $sellerTotal]);
             }
         }
-        else if($role == 'customer') {
-            if (Auth::guard('tbl_customer_users')->attempt($credentials)) { 
-                return view('auth.resetPassword');
-            }
+        else if (Auth::guard('tbl_customer_users')->attempt($credentials)) { 
+            $customerUser = CustomerUser::where('email', $email)->first();
+            $products = Product::with('Category')->get();
+            session(['email' => $email]); // Lưu giá trị email vào session
+            return view('auth.home', ['idCustomer' => $customerUser->id , 'products' => $products]);
         }
         
         return view('auth.login');
@@ -216,6 +222,36 @@ class CrudCustomerUsersController extends Controller
             $product = Product::with('Category')->find($productId);  
             return view('auth.product_detail',['product' => $product]);
     }
+    public function viewDetailProductIndexCusTomerUser(Request $request)
+    {   
+            $productId = $request->get('id');
+            $product = Product::with('Category')->find($productId);  
+            $seller = Seller::find($product->seller_id);
+            return view('auth.product_detail_customerUser',['product' => $product, 'seller' => $seller]);
+    }
+    public function arrangeIndexUserCustomer(Request $request)
+    {   
+         if($request->has('newest')) {
+            $products = Product::orderByDESC('id')->get();
+            return view('auth.home',['products' => $products]);
+         }
+        else if($request->has('oldest')) {
+            $products = Product::orderBy('id')->get();
+            return view('auth.home',['products' => $products]);
+         }
+        else if($request->has('bestselling')) {
+            $products = Product::orderBy('sold')->get();
+            return view('auth.home',['products' => $products]);
+         }
+         else if($request->has('priceASC')) {
+            $products = Product::orderByDESC('price')->get();
+            return view('auth.home',['products' => $products]);
+         }
+         else if($request->has('priceDESC')) {
+            $products = Product::orderBy('price')->get();
+            return view('auth.home',['products' => $products]);
+         }
+    }
     public function deleteProduct(Request $request)
     {   
         
@@ -226,7 +262,7 @@ class CrudCustomerUsersController extends Controller
           
             $products = Product::with('Category')->where('seller_id',$idSeller)->get(); 
          
-            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+            $sellerTotal = Product::with('Seller')->where('seller_id',$idSeller)->count();  
             return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
          
     }

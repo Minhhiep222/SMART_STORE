@@ -98,11 +98,11 @@
     
                             <!-- USER -->
                             <li class="navbar-item navbar-user">
-                                <img src="/img/user_img.jpg" alt="" class="navbar-user-img">
-                                <span class="navbar-user-name">Nguyễn Minh Hiệp</span>
+                                <img src="{{('img/img_auth/' . $customerUser->img) }}" alt="" class="navbar-user-img">
+                                <span class="navbar-user-name">{{$customerUser->name}}</span>
                                 <ul class="navbar-user-info">
                                     <li class="navbar-user-item">
-                                        <a href="/account/profile" class="navbar-user-link">Tài khoản</a>
+                                        <a href="{{ route('user.viewUserProfile', ['id' => $customerUser->id]) }}" class="navbar-user-link">Tài khoản</a>
                                     </li>
                                     <li class="navbar-user-item">
                                         <a href="" class="navbar-user-link">Địa chỉ</a>

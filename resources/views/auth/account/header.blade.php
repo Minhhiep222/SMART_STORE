@@ -8,10 +8,10 @@
             <div class="gird__column-2_seller">
                 <div class="home__profile-user">
                     <div class="profile__img-item">
-                        <img src="/img/user_img.jpg" alt="" class="img__profile">
+                    <img src="{{ asset('img/img_auth/' . $customerUser->img) }}" alt="" class="img__profile">
                     </div>
                     <div class="home__profile-info">
-                        <div class="home__profile-name">Minh Hiệp</div>
+                        <div class="home__profile-name">{{$customerUser->name}}</div>
                         <div class="home__profile-edit_profile">
                             <i class="fa-solid fa-user-pen"></i>
                             Chỉnh sửa hồ sơ

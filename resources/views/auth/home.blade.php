@@ -55,16 +55,15 @@
             <!-- CATEGORY -->
 
             <div class="grid__column-10">
-            <form method="POST" action="{{ route('seller.viewSeller') }}">
-                   @csrf 
-                   <input name="id_seller" type="text" value="1">
-                   <button type="submit">Trang Seller</button>
-            </form>
+           
                 <div class="home-filter">
                     <span class="home-filter-title">Sắp xếp theo</span>
-                    <button class="home-filter__btn btn">Phổ biến</button>
-                    <button class="home-filter__btn btn btn--primary">Mới nhất</button>
-                    <button class="home-filter__btn btn">Bán chạy</button>
+                   <form action="{{ route('user.arrangeIndexUserCustomer') }}" method="post">
+                   @csrf
+                   <button name="oldest" type="submit" class="home-filter__btn btn">Cũ nhất</button>
+                    <button name="newest" type="submit" class="home-filter__btn btn btn--primary">Mới nhất</button>
+                    <button name="bestselling" type="submit" class="home-filter__btn btn">Bán chạy</button>
+                 
 
                     <div class="select-input">
                         <span class="home-filter__label" for="">Giá</span>
@@ -73,13 +72,14 @@
                         <!-- SELECT-INPUT-LIST -->
                         <ul class="select-input__list">
                             <li class="select-input__item">
-                                <a href="" class="select-input__link">Giá: cao đến thấp</a>
+                            <button id="btn-sellect-priceASC" name="priceASC" type="submit">Cao Đến Thấp</button>
                             </li>
                             <li class="select-input__item">
-                                <a href="" class="select-input__link">Giá: thấp đến cao</a>
+                            <button id="btn-sellect-priceDESC" name="priceDESC" type="submit">Thấp Đến Cao</button>
                             </li>
                         </ul>
                     </div>
+                    </form>
 
                     <div class="home-filter__paginate">
                         <span class="home-filter__page-num">
@@ -101,16 +101,18 @@
                 <div class="home__product">
                     <div class="grid__row">
                         <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
+                        
+                       @foreach($products as $product)
+                       <div class="grid__column-2-4">
+                            <a href="{{ route('user.detailIndexCustomerUser', ['id' => $product->id]) }}" class="product-item">
                                 <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
+                                    style="background-image: url({{('img/img_auth/' . $product->img)}});">
+                                   
                                 </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
+                                <h4 class="product-item__name">{{$product->product_name}}</h4>
                                 <div class="product-item__price">
                                     <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
+                                    <span class="product-item__price_current">{{$product->price}}</span>
                                 </div>
                                 <div class="product-item__action">
                                     <span class="product-item_like product-item_liked">
@@ -125,341 +127,18 @@
                                         <i class=" fa-solid fa-star"></i>
                                     </div>
                                     <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
+                                        <span class="product-item__star--sold-quantity">{{$product->quantity}}</span>
                                         Đã bán
                                     </span>
                                 </div>
                                 <div class="product-item__origin">
                                     <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
+                                    <span class="product-item__origin-name">{{$product->category->category_name}}</span>
                                 </div>
                             </a>
                         </div>
-                        <!-- PRODUCT ITEM -->
-                        <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
-                                </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- PRODUCT ITEM -->
-                        <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
-                                </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- PRODUCT ITEM -->
-                        <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
-                                </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- PRODUCT ITEM -->
-                        <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
-                                </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- PRODUCT ITEM -->
-                        <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
-                                </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- PRODUCT ITEM -->
-                        <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
-                                </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- PRODUCT ITEM -->
-                        <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
-                                </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- PRODUCT ITEM -->
-                        <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
-                                </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- PRODUCT ITEM -->
-                        <!-- PRODUCT ITEM -->
-                        <div class="grid__column-2-4">
-                            <a href="/product_detail" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url(/img/img_auth/iphone-15.webp);">
-                                </div>
-                                <h4 class="product-item__name">Sữa bột Similac 4 900g/lon Dinh Dưỡng 5G, Dinh Dưỡng 600G
-                                    Mới</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">999.000đ</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">88</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">Nhật bản</span>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- PRODUCT ITEM -->
+                      
+                       @endforeach
                     </div>
                 </div>
 
