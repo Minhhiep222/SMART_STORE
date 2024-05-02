@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" href="/css/base.css" rel="stylesheet">
     <link type="text/css" href="/css/main.css" rel="stylesheet">
+    <link type="text/css" href="/scss/store.css" rel="stylesheet">
+
     <title>Document</title>
 </head>
 
@@ -27,6 +29,23 @@
                         <div class="auth-form__group">
                             <input type="text" class="auth-form__input" placeholder="Name" name="name" value="Minh Hiệp">
                         </div>
+                        
+                        <div class="auth-form__group">
+                            <input type="text" class="auth-form__input" placeholder="Name" name="phone" value="54524432">
+                        </div>
+                        <div class="auth-form__group">
+                            <input type="text" class="auth-form__input" placeholder="Địa chỉ" name="address" value="Bình thành">
+                        </div>
+                        <div class="auth-form__group">
+                            <input type="text" class="auth-form__input" placeholder="Tên cửa hàng" name="name_company" value="Đại Lộc" >
+                        </div>
+                        <div class="auth-form__group">
+                            <select name="type_business" class="form-select" aria-label="Default select example">
+                                <option selected>Kiểu kinh doanh</option>
+                                <option selected value="individual">Cá nhân</option>
+                                <option value="enterprise">Doanh nghiẹp</option>
+                            </select>
+                        </div>
                         <div class="auth-form__group">
                             <label for="">Giới tính</label>
                             <div class="check__sex">
@@ -45,8 +64,8 @@
                             </div>
                         </div>
                         <div class="auth-form__group">
-                            <select name="day" class="form-select" aria-label="Default select example">
-                                <option value="">Ngày</option>
+                        <label for="">Ngày sinh</label>
+                            <select name="day" class="check form-select" aria-label="Default select example">
                                 @for ($i = 1; $i <= 31; $i++) : ?>
                                     @if($i==1)
                                         <option selected value="<?= $i ?>"><?= $i ?></option>
@@ -54,15 +73,14 @@
                                         <option value="<?= $i ?>"><?= $i ?></option>
                                 @endfor;
                             </select>
-                            <select name="month" class="form-select" aria-label="Default select example">
-                                <option value="">Tháng</option>
+                            <select name="month" class="check form-select" aria-label="Default select example">
                                 <?php for ($i = 1; $i <= 12; $i++) : if($i == 1) : ?>
                                     <option selected value="<?= $i ?>"><?= $i ?></option>
                                 <?php endif;?>
                                     <option value="<?= $i ?>"><?= $i ?></option>
                                 <?php  endfor; ?>
                             </select>
-                            <select name="year" class="form-select" aria-label="Default select example">
+                            <select name="year" class="check form-select" aria-label="Default select example">
                                 <option value="">Năm</option>
                                 <?php for ($i = date('Y'); $i >= 1900; $i--) : ?>
                                     <option value="<?= $i ?>"><?= $i ?></option>
@@ -73,27 +91,11 @@
                                 <?php endfor; ?>
                             </select>
                         </div>
-                        <div class="auth-form__group">
-                            <input type="text" class="auth-form__input" placeholder="Name" name="phone" value="54524432">
-                        </div>
-                        <div class="auth-form__group">
-                            <input type="text" class="auth-form__input" placeholder="Địa chỉ" name="address" value="Bình thành">
-                        </div>
-                        <div class="auth-form__group">
-                            <input type="text" class="auth-form__input" placeholder="Tên cửa hàng" name="name_company" value="Đại Lộc" >
-                        </div>
-                        <div class="auth-form__group">
-                            <select name="type_business" class="form-select" aria-label="Default select example">
-                                <option selected>Kiểu kinh doanh</option>
-                                <option selected value="individual">Cá nhân</option>
-                                <option value="enterprise">Doanh nghiẹp</option>
-                            </select>
-                        </div>
                     </div>
 
                     <div class="auth-form__aside">
                         <p class="auth-form__policy-text">
-                            Bằng việc đăng ký, bạn đã đồng ý với Shoppe về
+                            Bằng việc đăng ký, bạn đã đồng ý với Smart store về
                             <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
                             &
                             <a href="" class="auth-form__text-link">Chính xác bảo mật</a>

@@ -167,4 +167,8 @@
 
 .form_profile--password {
   width: 50%;
+}
+
+.home__forget-password {
+  min-height: 100vh;
 }/*# sourceMappingURL=profile.css.map */

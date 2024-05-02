@@ -39,7 +39,7 @@
                         </li>
                         @else 
                         <li class="navbar-item">
-                            <a href="{{ route('create_store.index') }}" class="navbar-item-link">
+                            <a href="{{ route('store.index') }}" class="navbar-item-link">
                                 Trang người bán
                             </a>
                         </li>
@@ -156,9 +156,9 @@
                         </a>
                     </div>
 
-                    <div class="header__search">
+                    <form class="header__search" action="{{ route('find.index')}}" method="GET">
                         <div class="header__search-input-wrap">
-                            <input type="text" class="header__search-input" placeholder="Nhập sản phẩm tìm kiếm">
+                            <input name="key" type="text" class="header__search-input" placeholder="Nhập sản phẩm tìm kiếm">
                             <div class="header__search-history">
                                 <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
                                 <ul class="header__search-history-list">
@@ -190,7 +190,7 @@
                         <button class="search-btn">
                             <i class="search-btn-icon fa-solid fa-magnifying-glass"></i>
                         </button>
-                    </div>
+                    </form>
 
                     <!-- HEADER WITH CART -->
                     <div class="header__cart">

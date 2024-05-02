@@ -15,9 +15,9 @@ class Seller extends Model
    
     protected $table = 'tbl_sellers';
     protected $primaryKey = 'id';
-    public function product()
+    public function seller()
     {
-        return $this->hasMany(Product::class,'id','id');
+        return $this->belongsTo(Product::class,'seller_id','id');
     }
 
    

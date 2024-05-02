@@ -7,6 +7,9 @@ use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\FindController;
+use App\Http\Controllers\ForgetController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -99,4 +102,12 @@ Route::get('list', [UserController::class, 'listUser'])->name('user.list');
 
 // Route seller
 Route::post('create_seller', [SellerController::class, 'postSeller'])->name('user.postSeller');
-Route::resource('create_store', SellerController::class);
+Route::resource('store', SellerController::class);
+
+Route::resource('find', FindController::class);
+
+Route::resource('forget', ForgetController::class);
+Route::post('set_password', [ForgetController::class, 'setPassword'])->name('user.setPassword');
+
+//test Mail
+Route::get('test-mail', [HomeController::class, 'testEmail']);

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-session_start();
+
 use Hash;
 use Session;
 // use App\Models\User;
@@ -29,6 +29,7 @@ class UserController extends Controller
 
 
     public function authUser(Request $request) {
+        session_start();
         //kiểm tra email, password không được bỏ trống
         $request->validate(['email'=>'required',
         'password'=>'required']);

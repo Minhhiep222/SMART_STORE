@@ -4,33 +4,6 @@
 <!-- CONTAINER -->
 <div class="app__container">
     <div class="grid">
-        <div class="grid__row ">
-            <div class="grid__column-12 advertisement">
-                <div class="adver_main">
-                    <div class="img_main">
-                        <img src="/img/img_auth/quancao1.webp" alt="" id="main_img_Advertisement" />
-                    </div>
-                    <div class="img_Item">
-                        <img src="/img/img_auth/main-2.png" alt="" class="item_img_Advertisement" />
-                    </div>
-                    <div class="img_Item">
-                        <img src="/img/img_auth/main3.jpg" alt="" class="item_img_Advertisement" />
-                    </div>
-                </div>
-                <div class="adver_item">
-                    <div class="item_img">
-                        <img src="/img/img_auth/quangcao3.webp" alt=""
-                            class="img_Advertisement" />
-                    </div>
-                    <div class="item_img">
-                        <img src="/img/img_auth/quangcao4.webp" alt=""
-                            class="img_Advertisement" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="grid">
         <div class="grid__row app__contents">
             <!-- CATEGORY -->
             <div class="gird__column-2">
@@ -41,7 +14,7 @@
                     <ul class="category-list">
                         @foreach($categories as $category) 
                         <li class="category-item ">
-                            <a href="{{ route('home.show' ,$category->category_id )}}" class="category-item__link">{{ $category->category_name }}</a>
+                            <a href="{{ route('find.show' ,$category->category_id )}}" class="category-item__link">{{ $category->category_name }}</a>
                         </li>
                         @endforeach
                     </ul>

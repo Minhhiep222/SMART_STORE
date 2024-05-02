@@ -1051,7 +1051,7 @@
     line-height: 1.8rem;
     margin: 10px 10px 6px;
     /* xử lý cắt giảm tên quá dài */
-    height: 3.6rem;
+    max-height: 3.6rem;
     overflow: hidden;
     display: block;
     /* chạy trên trình duyệt webkit-box */
@@ -1259,4 +1259,41 @@ li.pagination-item--active .pagination-item__link{
     color: var(--white-color);
     font-weight: 100;
 }
+
+.content-success {
+    /* height: 200px; */
+    color: var(--text-color);
+    font-size: 4rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 100px;
+}
+.content-success h3 {
+    /* margin-bottom: 0; */
+}
+.content-success h3 i {
+    display: block;
+    font-size: 10rem;
+    margin-bottom: 10px;
+    color: #469B5B;
+}
+
+.home__profile-item-forget {
+    margin: 30px;
+    display: flex;
+
+}
+
+.form_profile--password-forget {
+    margin-top: 150px;
+    width: 30%;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 2px;
+}
+
+.home__profile-item-forget input {
+    flex: 1 !important;
+}
+
 
