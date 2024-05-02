@@ -60,6 +60,8 @@
                     <span class="home-filter-title">Sắp xếp theo</span>
                    <form action="{{ route('user.arrangeIndexUserCustomer') }}" method="post">
                    @csrf
+                   <input name="customerUserId" value="{{$idCustomer->id}}" type="hidden">
+
                    <button name="oldest" type="submit" class="home-filter__btn btn">Cũ nhất</button>
                     <button name="newest" type="submit" class="home-filter__btn btn btn--primary">Mới nhất</button>
                     <button name="bestselling" type="submit" class="home-filter__btn btn">Bán chạy</button>
@@ -102,43 +104,45 @@
                     <div class="grid__row">
                         <!-- PRODUCT ITEM -->
                         
-                       @foreach($products as $product)
-                       <div class="grid__column-2-4">
-                            <a href="{{ route('user.detailIndexCustomerUser', ['id' => $product->id]) }}" class="product-item">
-                                <div class="product-item__img"
-                                    style="background-image: url({{('img/img_auth/' . $product->img)}});">
-                                   
-                                </div>
-                                <h4 class="product-item__name">{{$product->product_name}}</h4>
-                                <div class="product-item__price">
-                                    <span class="product-item__price_old">1.200.000đ</span>
-                                    <span class="product-item__price_current">{{$product->price}}</span>
-                                </div>
-                                <div class="product-item__action">
-                                    <span class="product-item_like product-item_liked">
-                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
-                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
-                                    </span>
-                                    <div class="product-item__rating">
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class="product-item__star--gold fa-solid fa-star"></i>
-                                        <i class=" fa-solid fa-star"></i>
-                                    </div>
-                                    <span class="product-item__sold">
-                                        <span class="product-item__star--sold-quantity">{{$product->quantity}}</span>
-                                        Đã bán
-                                    </span>
-                                </div>
-                                <div class="product-item__origin">
-                                    <span class="product-item__brand">Whoo</span>
-                                    <span class="product-item__origin-name">{{$product->category->category_name}}</span>
-                                </div>
-                            </a>
-                        </div>
-                      
-                       @endforeach
+                        @foreach($products as $product)
+<div class="grid__column-2-4">
+  <form class="formProductDetail" method="post" action="{{ route('user.detailIndexCustomerUser')}}">
+    @csrf 
+    <div class="product-item">
+      <div class="product-item__img" style="background-image: url({{('img/img_auth/' . $product->img)}});">
+      </div>
+      <input name="customerUserId" value="{{$idCustomer->id}}" type="hidden">
+      <input name="productId" value="{{$product->id}}" type="hidden">
+      <h4 class="product-item__name">{{$product->product_name}}</h4>
+      <div class="product-item__price">
+          <span class="product-item__price_old">1.200.000đ</span>
+          <span class="product-item__price_current">{{$product->price}}</span>
+      </div>
+      <div class="product-item__action">
+          <span class="product-item_like product-item_liked">
+              <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
+              <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
+          </span>
+          <div class="product-item__rating">
+              <i class="product-item__star--gold fa-solid fa-star"></i>
+              <i class="product-item__star--gold fa-solid fa-star"></i>
+              <i class="product-item__star--gold fa-solid fa-star"></i>
+              <i class="product-item__star--gold fa-solid fa-star"></i>
+              <i class=" fa-solid fa-star"></i>
+          </div>
+          <span class="product-item__sold">
+              <span class="product-item__star--sold-quantity">{{$product->quantity}}</span>
+              Đã bán
+          </span>
+      </div>
+      <div class="product-item__origin">
+          <span class="product-item__brand">Whoo</span>
+          <span class="product-item__origin-name">{{$product->category->category_name}}</span>
+      </div>
+    </div>
+  </form>
+</div>
+@endforeach
                     </div>
                 </div>
 
@@ -178,5 +182,19 @@
         </div>
     </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var productDetailForms = document.querySelectorAll(".formProductDetail");
+
+    productDetailForms.forEach(function(form) {
+      var productDetailImg = form.querySelector(".product-item__img");
+
+      productDetailImg.addEventListener("click", function() {
+        form.submit();
+      });
+    });
+  });
+</script>
+
 <!-- /CONTAINER -->
 @endsection

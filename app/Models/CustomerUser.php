@@ -14,6 +14,10 @@ class CustomerUser extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'tbl_customer_users';
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'customerUserId', 'id');
+    }
      /**
      * The attributes that are mass assignable.
      *

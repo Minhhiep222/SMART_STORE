@@ -13,6 +13,7 @@ use App\Models\CustomerUser;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Seller;
+use App\Models\Comment;
 
 // ly do luc dau ham delete sai vi khong the truyen qua seller id , ham update co id cua seller product da co seller id 
 // san roi , ham read duoc truyen truc tiep seller id qua dia chi , con delete chi truyen duoc id cua product thoi 
@@ -53,15 +54,18 @@ class CrudCustomerUsersController extends Controller
             if (Auth::guard('tbl_sellers')->attempt($credentials)) { 
                 $Seller = Seller::where('email', $email)->first();
                 $products = Product::with('Category')->where('seller_id', $Seller->id)->orderByDesc('id')->get();
-                $sellerTotal = Product::with('Category')->where('seller_id',$Seller->id)->count();  
+                $sellerTotal = Product::with('Category')->where('seller_id',$Seller->id)->count(); 
+                  session(['emailSeller' => $email]); // Lưu giá trị email vào session
                 return view('auth.seller', ['products' => $products,'idSeller' => $Seller->id, 'sellerTotal' => $sellerTotal]);
             }
         }
-        else if (Auth::guard('tbl_customer_users')->attempt($credentials)) { 
-            $customerUser = CustomerUser::where('email', $email)->first();
-            $products = Product::with('Category')->get();
-            session(['email' => $email]); // Lưu giá trị email vào session
-            return view('auth.home', ['idCustomer' => $customerUser->id , 'products' => $products]);
+        else if($role == 'customer') {
+            if (Auth::guard('tbl_customer_users')->attempt($credentials)) { 
+                $customerUser = CustomerUser::where('email', $email)->first();
+                $products = Product::with('Category')->get();
+                session(['emailCustomerUser' => $email]); // Lưu giá trị email vào session
+                return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
+            }
         }
         
         return view('auth.login');
@@ -90,6 +94,11 @@ class CrudCustomerUsersController extends Controller
         $dob = $request->get('year') . "-" . $request->get('month') . "-" . $request->get('day');
         $customerUserId = $request->get('id');
         $customerUser = CustomerUser::find($customerUserId);
+        $dob = $customerUser->DOB;
+        $parts = explode('-', $dob);
+        $year = $parts[0];
+        $month = $parts[1];
+        $day = $parts[2];
         $customerUser->name = $input['name'];
         $customerUser->username = $input['username'];
         $customerUser->email = $input['email'];
@@ -97,6 +106,7 @@ class CrudCustomerUsersController extends Controller
         $customerUser->address = $input['address'];
         $customerUser->sex =  $input['sex'];
         $customerUser->DOB =  $dob;
+        $products = Product::with('Category')->get();
 
         if ($request->hasFile('img')) {
             // Xóa hình ảnh cũ (nếu có)
@@ -112,8 +122,13 @@ class CrudCustomerUsersController extends Controller
             
         }
         $customerUser->save();
-       return redirect("home");
-        
+        return view('auth.account.profile', [
+            'customerUser' => $customerUser,
+            'year' => $year,
+            'month' => $month,
+            'day' => $day
+        ]);
+      
     }
    
    
@@ -224,38 +239,125 @@ class CrudCustomerUsersController extends Controller
     }
     public function viewDetailProductIndexCusTomerUser(Request $request)
     {   
-            $productId = $request->get('id');
+            $productId = $request->get('productId');
+            $customerUserId = $request->get('customerUserId');
             $product = Product::with('Category')->find($productId);  
             $seller = Seller::find($product->seller_id);
-            return view('auth.product_detail_customerUser',['product' => $product, 'seller' => $seller]);
+            $userComments = Comment::with('CustomerUser')->where('productId',$productId)->orderBy('created_at', 'desc')->get();
+
+            $customerUser = CustomerUser::find($customerUserId);
+            $totalComments = Comment::where('productId',$productId)->count();
+            $oneStar = Comment::where('productId',$productId)->where('star',1)->count();
+            $twoStar = Comment::where('productId',$productId)->where('star',2)->count();
+            $threeStar = Comment::where('productId',$productId)->where('star',3)->count();
+            $fourStar = Comment::where('productId',$productId)->where('star',4)->count();
+            $fiveStar = Comment::where('productId',$productId)->where('star',5)->count();
+
+            $percenOneStar = ($totalComments > 0) ? ceil(($oneStar / $totalComments) * 100) : 0;
+            $percenTwoStar = ($totalComments > 0) ? ceil(($twoStar / $totalComments) * 100) : 0;
+            $percenThreeStar = ($totalComments > 0) ? ceil(($threeStar / $totalComments) * 100) : 0;
+            $percenFourStar = ($totalComments > 0) ? ceil(($fourStar / $totalComments) * 100) : 0;
+            $percenFiveStar = ($totalComments > 0) ? ceil(($fiveStar / $totalComments) * 100) : 0;
+            return view('auth.product_detail_customerUser', ['product' => $product, 'seller' => $seller, 'customerUser' => $customerUser, 'userComments' => $userComments, 'totalComments' => $totalComments,'percenOneStar' => $percenOneStar,'percenTwoStar' => $percenTwoStar,'percenThreeStar' => $percenThreeStar,'percenFourStar' => $percenFourStar, 'percenFiveStar' => $percenFiveStar]);
+    }
+    public function formComment(Request $request)
+    {   
+        $request->validate([
+            'description' => 'required',
+            'img' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'productId' => 'required',
+            'customerUserId' => 'required',
+            'star' => 'required',
+        ]);
+        $data = $request->all();
+        if ($request->hasFile('img')) {
+            // Lưu hình ảnh vào thư mục lưu trữ
+
+            //luu hinh anh vao $image
+            $image = $request->file('img');
+
+            //dat ten cho hinh anh neu chon 2 hinh giong nhau
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+
+            //luu hinh anh vao 
+            $image->move(public_path('img/img_auth'), $imageName);
+    
+            // Thêm tên hình ảnh vào dữ liệu để lưu vào cơ sở dữ liệu
+            $data['img'] = $imageName;
+        }
+        $check = Comment::create([
+            'description' => $data['description'],
+            'img' => $data['img'],
+            'productId' => $data['productId'],
+            'customerUserId' => $data['customerUserId'],
+            'star' => $data['star'],
+        ]);
+
+            $productId = $request->get('productId');
+            $customerUserId = $request->get('customerUserId');  
+            $product = Product::with('Category')->find($productId);  
+            $seller = Seller::find($product->seller_id);
+            $userComments = Comment::with('CustomerUser')->where('productId',$productId)->orderBy('created_at', 'desc')->get();
+            $customerUser = CustomerUser::find($customerUserId);
+            $totalComments = Comment::where('productId',$productId)->count();
+            $oneStar = Comment::where('productId',$productId)->where('star',1)->count();
+            $twoStar = Comment::where('productId',$productId)->where('star',2)->count();
+            $threeStar = Comment::where('productId',$productId)->where('star',3)->count();
+            $fourStar = Comment::where('productId',$productId)->where('star',4)->count();
+            $fiveStar = Comment::where('productId',$productId)->where('star',5)->count();
+
+            $percenOneStar = ($totalComments > 0) ? ceil(($oneStar / $totalComments) * 100) : 0;
+            $percenTwoStar = ($totalComments > 0) ? ceil(($twoStar / $totalComments) * 100) : 0;
+            $percenThreeStar = ($totalComments > 0) ? ceil(($threeStar / $totalComments) * 100) : 0;
+            $percenFourStar = ($totalComments > 0) ? ceil(($fourStar / $totalComments) * 100) : 0;
+            $percenFiveStar = ($totalComments > 0) ? ceil(($fiveStar / $totalComments) * 100) : 0;
+            return view('auth.product_detail_customerUser', ['product' => $product, 'seller' => $seller, 'customerUser' => $customerUser, 'userComments' => $userComments, 'totalComments' => $totalComments,'percenOneStar' => $percenOneStar,'percenTwoStar' => $percenTwoStar,'percenThreeStar' => $percenThreeStar,'percenFourStar' => $percenFourStar, 'percenFiveStar' => $percenFiveStar]);
     }
     public function arrangeIndexUserCustomer(Request $request)
     {   
+        $customerUserId = $request->get('customerUserId');
+        $customerUser = CustomerUser::find($customerUserId);
          if($request->has('newest')) {
-            $products = Product::orderByDESC('id')->get();
-            return view('auth.home',['products' => $products]);
+            $products = Product::with('Category')->orderByDESC('id')->get();
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
          }
         else if($request->has('oldest')) {
-            $products = Product::orderBy('id')->get();
-            return view('auth.home',['products' => $products]);
+            $products = Product::with('Category')->orderBy('id')->get();
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
          }
         else if($request->has('bestselling')) {
-            $products = Product::orderBy('sold')->get();
-            return view('auth.home',['products' => $products]);
+            $products = Product::with('Category')->orderBy('sold')->get();
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
          }
          else if($request->has('priceASC')) {
-            $products = Product::orderByDESC('price')->get();
-            return view('auth.home',['products' => $products]);
+            $products = Product::with('Category')->orderByDESC('price')->get();
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
          }
          else if($request->has('priceDESC')) {
-            $products = Product::orderBy('price')->get();
-            return view('auth.home',['products' => $products]);
+            $products = Product::with('Category')->orderBy('price')->get();
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
          }
     }
-    public function deleteProduct(Request $request)
+    public function returnHome(Request $request)
     {   
-        
-           
+        if(session()->has('emailCustomerUser')) {
+         $email = session('emailCustomerUser');
+        $customerUser = CustomerUser::where('email', $email)->first();  
+        $products = Product::with('Category')->orderByDESC('id')->get();
+        return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);  
+        }
+        else {
+            $email = session('emailSeller');
+            $seller = Seller::where('email',$email)->first();
+            $idSeller = $seller->id;
+            $products = Product::with('Category')->where('seller_id', $idSeller)->orderByDESC('price')->get();
+            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+            
+        }
+    }     
+    public function deleteProduct(Request $request)
+    {      
             $productId = $request->get('productId');
             $idSeller = $request->get('id_seller');
             $product = Product::destroy($productId);
@@ -268,7 +370,6 @@ class CrudCustomerUsersController extends Controller
     }
     public function viewUpdateProduct(Request $request)
     {   
-       
         $productId = $request->get('id');
         $product = Product::find($productId);
         $categories = Category::all();
@@ -302,7 +403,16 @@ class CrudCustomerUsersController extends Controller
         $products = Product::with('Category')->where('seller_id', $request->get('seller_id'))->orderBy('id')->get();
         $sellerTotal = Product::with('Category')->where('seller_id',$request->get('seller_id'))->count();
         return view('auth.seller', ['products' => $products, 'idSeller' => $request->get('seller_id'), 'sellerTotal' => $sellerTotal]);
-    }      
+    } 
+    public function signOut() {
+
+        // xoa seesion hien tai va dang xuat
+        Session::flush();
+        Auth::logout();
+
+        return Redirect('Login');
+    }
+ 
 }
     
 

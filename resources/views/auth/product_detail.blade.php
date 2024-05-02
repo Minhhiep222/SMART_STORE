@@ -1,6 +1,7 @@
 @extends('header')
 
 @section('content')
+
 <div class="app__container">
     <div class="grid">
         <div class="grid__row app__contents_seller ">

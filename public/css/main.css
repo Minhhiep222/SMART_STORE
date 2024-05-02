@@ -1286,3 +1286,11 @@ li.pagination-item--active .pagination-item__link{
     cursor: pointer;
     color: rgb(48, 89, 110);
 }
+#imgComment {
+   width: 25px;
+   height: 25px;
+   position: absolute;
+   margin-left: -25px;
+   margin-top: 5px;
+   opacity: 0;
+}

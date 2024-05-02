@@ -5,6 +5,10 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\CustomerUser;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Seller;
+use App\Models\Comment;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -21,16 +25,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('header', function ($view) {
-            // Lấy giá trị email từ session
-            $email = session('email');
-            // Lấy thông tin khách hàng dựa trên email từ session
-            $customerUser = CustomerUser::where('email', $email)->first();
-            $view->with('customerUser', $customerUser);
+            if(session()->has('emailSeller')) {
+                $email = session('emailSeller');
+                $customerUser = Seller::where('email', $email)->first();
+                $view->with('customerUser', $customerUser);
+            }
+            else {
+                $email = session('emailCustomerUser');
+                $customerUser = CustomerUser::where('email', $email)->first();
+                $view->with('customerUser', $customerUser);
+            }
         });
         View::composer('auth.account.header', function ($view) {
-            // Lấy giá trị email từ session
-            $email = session('email');
-            // Lấy thông tin khách hàng dựa trên email từ session
+            $email = session('emailCustomerUser');
             $customerUser = CustomerUser::where('email', $email)->first();
             $view->with('customerUser', $customerUser);
         });

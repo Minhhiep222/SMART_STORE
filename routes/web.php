@@ -34,12 +34,16 @@ Route::get('product', [CrudCustomerUsersController::class, 'viewAddProduct'])->n
 Route::post('product', [CrudCustomerUsersController::class, 'addProduct'])->name('seller.addProduct');
 
 Route::get('product_detail', [CrudCustomerUsersController::class, 'viewDetailProduct'])->name('seller.viewDetailProduct');
-Route::get('product_detailIndexCustomerUser', [CrudCustomerUsersController::class, 'viewDetailProductIndexCusTomerUser'])->name('user.detailIndexCustomerUser');
+
+
+Route::match(['get', 'post'], 'product_detailIndexCustomerUser', [CrudCustomerUsersController::class, 'viewDetailProductIndexCusTomerUser'])->name('user.detailIndexCustomerUser');
 Route::post('arrangeIndexUserCustomer', [CrudCustomerUsersController::class, 'arrangeIndexUserCustomer'])->name('user.arrangeIndexUserCustomer');
 
+Route::post('comment', [CrudCustomerUsersController::class, 'formComment'])->name('user.formComment');
 Route::get('account/profile', [CrudCustomerUsersController::class, 'viewUserProfile'])->name('user.viewUserProfile');
 Route::post('account/profile', [CrudCustomerUsersController::class, 'updateUserProfile'])->name('user.UpdateUserProfile');
-
+Route::post('returnHome', [CrudCustomerUsersController::class, 'returnHome'])->name('returnHome');
+Route::get('signout', [CrudCustomerUsersController::class, 'signOut'])->name('signOut');
 
 Route::get('update', function () {
     return view('auth.update');

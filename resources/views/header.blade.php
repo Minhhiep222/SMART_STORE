@@ -12,6 +12,7 @@
         <link type="text/css" href="/scss/product_detail.css" rel="stylesheet">
         <link type="text/css" href="/scss/product.css" rel="stylesheet">
         
+        
         <link rel="stylesheet" href="/font/fontawesome-free-6.5.1-web/css/all.min.css">
     </head>
     <body>
@@ -98,7 +99,8 @@
     
                             <!-- USER -->
                             <li class="navbar-item navbar-user">
-                                <img src="{{('img/img_auth/' . $customerUser->img) }}" alt="" class="navbar-user-img">
+                            <img src="{{ asset('img/img_auth/' . $customerUser->img) }}" alt="" class="navbar-user-img">
+
                                 <span class="navbar-user-name">{{$customerUser->name}}</span>
                                 <ul class="navbar-user-info">
                                     <li class="navbar-user-item">
@@ -111,7 +113,7 @@
                                         <a href="" class="navbar-user-link">Đơn mua</a>
                                     </li>
                                     <li class="navbar-user-item">
-                                        <a href="" class="navbar-user-link">Đăng xuất</a>
+                                        <a href="{{ route('signOut') }}" class="navbar-user-link">Đăng xuất</a>
                                     </li>
                                 </ul>
                             </li>
@@ -121,8 +123,10 @@
     
                     <!--HEADER WITH SEARCH -->
                     <div class="header-with-search">
+                    <form action="{{ route('returnHome') }}" method="POST">
+                    @csrf
                         <div class="header__logo">
-                            <a href="/home" class="logo_link">
+                            <a class="logo_link">
                                 <i class="fa-solid fa-store logo_shop "></i>
                                 <div class="name_header">
                                     <span style="font-size: 1.8rem; with: 100%;">SMART</span> 
@@ -130,6 +134,8 @@
                                 </div>
                             </a>
                         </div>
+                         <button type='submit'>submit</button>
+                        </form>
     
                         <div class="header__search">
                             <div class="header__search-input-wrap">
