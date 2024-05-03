@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\User;
+use App\Models\CustomerUser;
 
 class CategoryController extends Controller
 {
@@ -15,7 +15,7 @@ class CategoryController extends Controller
         $products = Product::with('seller')->get();
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
-            $user = User::find($id);
+            $user = CustomerUser::find($id);
             // dd($_SESSION['user_id']);
             return view('auth.home', [
                 'categories' => $categories,
@@ -29,6 +29,7 @@ class CategoryController extends Controller
                 'products' => $products,
             ]);
         }  
+        // dd()
     }
 
     public function show($id) {

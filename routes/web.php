@@ -10,6 +10,8 @@ use App\Http\Controllers\SellerController;
 use App\Http\Controllers\FindController;
 use App\Http\Controllers\ForgetController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CrudCustomerUsersController;
+use App\Models\CustomerUser;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,15 +23,27 @@ Route::get('header', function () {
 
 Route::resource('home', CategoryController::class);
 
+Route::match(['get', 'post'], 'seller', [CrudCustomerUsersController::class, 'viewSeller'])->name('seller.viewSeller');
+// Route::post('seller', [CrudCustomerUsersController::class, 'arrangeProduct'])->name('seller.arrangeProduct');
+
+Route::post('deleteProduct', [CrudCustomerUsersController::class, 'deleteProduct'])->name('seller.deleteProduct');
+
+Route::get('updateProduct', [CrudCustomerUsersController::class, 'viewUpdateProduct'])->name('seller.viewUpdateProduct');
+Route::post('updateProduct', [CrudCustomerUsersController::class, 'updateProduct'])->name('seller.updateProduct');
+
+Route::get('product', [CrudCustomerUsersController::class, 'viewAddProduct'])->name('seller.viewAddProduct');
+Route::post('product', [CrudCustomerUsersController::class, 'addProduct'])->name('seller.addProduct');
+
+Route::get('product_detail', [CrudCustomerUsersController::class, 'viewDetailProduct'])->name('seller.viewDetailProduct');
 
 
-Route::get('seller', function () {
-    return view('auth.seller');
-});
+Route::match(['get', 'post'], 'product_detailIndexCustomerUser', [CrudCustomerUsersController::class, 'viewDetailProductIndexCusTomerUser'])->name('user.detailIndexCustomerUser');
+Route::post('arrangeIndexUserCustomer', [CrudCustomerUsersController::class, 'arrangeIndexUserCustomer'])->name('user.arrangeIndexUserCustomer');
 
-Route::get('product', function () {
-    return view('auth.product');
-});
+Route::post('comment', [CrudCustomerUsersController::class, 'formComment'])->name('user.formComment');
+Route::get('account/profile', [CrudCustomerUsersController::class, 'viewUserProfile'])->name('user.viewUserProfile');
+Route::post('account/profile', [CrudCustomerUsersController::class, 'updateUserProfile'])->name('user.UpdateUserProfile');
+Route::post('returnHome', [CrudCustomerUsersController::class, 'returnHome'])->name('returnHome');
 
 Route::get('update', function () {
     return view('auth.update');
@@ -55,9 +69,6 @@ Route::get('product_detail', function () {
     return view('auth.product_detail');
 });
 
-Route::get('account/profile', function () {
-    return view('auth.account.profile');
-});
 
 Route::get('account/password', function () {
     return view('auth.account.password');
@@ -69,9 +80,6 @@ Route::get('orders/{id}/delete', [OrdersController::class, 'delete'])->name('ord
 Route::resource('order_detail', OrderDetailController::class);
 Route::get('orders/{id}/updateStatus', [OrdersController::class, 'updateStatus'])->name('orders.updateStatus'); 
 
-Route::get('login', function () {
-    return view('login');
-});
 
 Route::get('register', function () {
     return view('register');
@@ -111,3 +119,4 @@ Route::post('set_password', [ForgetController::class, 'setPassword'])->name('use
 
 //test Mail
 Route::get('test-mail', [HomeController::class, 'testEmail']);
+

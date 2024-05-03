@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Pagination;
 
-use App\Models\User;
+// use App\Models\User;
+use App\Models\CustomerUser;
 use App\Models\Category;    
 /**
  * CRUD User controller
@@ -38,17 +39,20 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         //
         // dd($request->email);
-        $user = User::where('email',$request->email)->get();
-
+        $user = CustomerUser::where('email',$request->email)->first();
+        // dd($user);
         $categories = Category::all();
         // dd($categories);
         //
         // dd($user);
-        if(Auth::attempt($credentials)){
+        if(Auth::guard('tbl_customer_users')->attempt($credentials)){
+            session(['email' => $user->email]);
+            // dd(session('email'));
 
-            $_SESSION['user_id'] = $user[0]->id;
-            $_SESSION['user_img'] = $user[0]->img;
-            $_SESSION['user_name'] = $user[0]->name;
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['user_img'] = $user->img;
+            $_SESSION['user_name'] = $user->name;
+            $_SESSION['user_email'] = $user->email;
             // Gửi cookie về trình duyệt
             // return response('Login successful')->cookie('login_status', 'logged_in');
             return redirect()->intended('home')->withSuccess('Sign in');
@@ -78,7 +82,7 @@ class UserController extends Controller
         ]);
 
         $data = $request->all();
-        $check = User::create([
+        $check = CustomerUser::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -92,7 +96,7 @@ class UserController extends Controller
      */
     public function readUser(Request $request) {
         $user_id = $request->get('id');
-        $user = User::find($user_id);
+        $user = CustomerUser::find($user_id);
 
         return view('auth.read', ['user' => $user]);
     }
@@ -102,7 +106,7 @@ class UserController extends Controller
      */
     public function deleteUser(Request $request) {
         $user_id = $request->get('id');
-        $user = User::destroy($user_id);
+        $user = CustomerUser::destroy($user_id);
 
         return redirect("list")->withSuccess('You have signed-in');
     }
@@ -113,7 +117,7 @@ class UserController extends Controller
     public function updateUser(Request $request)
     {
         $user_id = $request->get('id');
-        $user = User::find($user_id);
+        $user = CustomerUser::find($user_id);
 
         return view('auth.update', ['user' => $user]);
     }
@@ -131,7 +135,7 @@ class UserController extends Controller
             'password' => 'required|min:6',
         ]);
 
-       $user = User::find($input['id']);
+       $user = CustomerUser::find($input['id']);
        $user->name = $input['name'];
        $user->email = $input['email'];
        $user->password = $input['password'];
@@ -150,7 +154,7 @@ class UserController extends Controller
         //kiem tra co dang nhap hay chua
         if(Auth::check()){
             //  $userTotal = User::all();
-            $userTotal = User::count();
+            $userTotal = CustomerUser::count();
             $users = DB::table('users')->paginate(3);
             $pages = ceil($userTotal/3);
             return view('auth.list', ['users' => $users,"pages" => $pages]);
@@ -170,7 +174,16 @@ class UserController extends Controller
     public function signOut() {
         Session::flush();
         Auth::logout();
-        unset($_SESSION['user_id']);
+        // Starting session
+        session_start();
+
+        // Removing session data
+        if(isset($_SESSION["user_id"])){
+            unset($_SESSION['user_id']);
+            unset($_SESSION['user_img']);
+            unset($_SESSION['user_name']);
+            unset($_SESSION['user_email']);
+        }
         return redirect()->intended('home');
-    }
+}
 }

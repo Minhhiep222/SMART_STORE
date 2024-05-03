@@ -1297,3 +1297,39 @@ li.pagination-item--active .pagination-item__link{
 }
 
 
+#ipImg {
+    opacity: 0;
+    position: absolute;
+    margin-left: 295px;
+    height:80px;
+    width:80px;
+}
+#main-imgPr {
+    height: 45px;
+}
+#main-imgPr2 {
+    width: 69px;
+    height: 70px;
+}
+#customerUserImg {
+    opacity: 0;
+    position: absolute;
+    margin-left: 708px;
+    margin-top: -200px;
+    width: 123px;
+    height: 36px;
+}
+#delete_Product {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    color: rgb(48, 89, 110);
+}
+#imgComment {
+   width: 25px;
+   height: 25px;
+   position: absolute;
+   margin-left: -25px;
+   margin-top: 5px;
+   opacity: 0;
+}

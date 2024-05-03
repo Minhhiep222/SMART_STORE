@@ -12,18 +12,19 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id(); 
-            $table->string('username')->unique()->nullable();
-            $table->string('password');
+            $table->string('username')->unique();
+            $table->string('password')->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->unique()->nullable();
-            $table->enum('sex', ['male', 'female', 'other'])->nullable();
-            $table->date('DOB')->nullable();
+            $table->string('phone')->unique();
+            $table->enum('sex', ['Nam', 'Nữ', 'Khác']);
+            $table->date('DOB');
             $table->string('img')->nullable();
             $table->text('address')->nullable();
             $table->string('bank_Account')->nullable();
             $table->text('notification')->nullable();
-            $table->integer('coin')->nullable();  
+            $table->integer('coin')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -80,3 +80,23 @@
 .action__product a:hover{
   color: rgb(48, 89, 110);
 }
+#btn-sellect-priceASC {
+	background-color: white;
+    width: 110%;
+    text-align: left;
+    border: none;
+    padding: 7px 0px;
+ }
+ #btn-sellect-priceDESC {
+	background-color: white;
+    width: 110%;
+    text-align: left;
+    border: none;
+    padding: 7px 0px;
+  }
+  #btn-sellect-priceASC:hover {
+    cursor: pointer;
+  }
+  #btn-sellect-priceDESC:hover {
+    cursor: pointer;
+  }

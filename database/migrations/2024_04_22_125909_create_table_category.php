@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('table_category', function (Blueprint $table) {
-            $table->increments('category_id'); // ID category, khóa chính, tự động tăng dần
+            $table->increments('category_id')->unique()->nullable(); // ID category, khóa chính, tự động tăng dần
             $table->string('category_name');
-            $table->text('category_description');
+            $table->text('category_description')->nullable();
             $table->timestamps();
+
+            // Thêm chỉ mục duy nhất cho category_id
+            // $table->unique('category_id');
         });
     }
 

@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                         </li>
-                        @else 
+                        @else
                         <li class="navbar-item">
                             <a href="{{ route('store.index') }}" class="navbar-item-link">
                                 Trang người bán
@@ -69,43 +69,18 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="navbar__notify-item navbar__notify-item--viewed">
-                                        <a href="" class="navbar__notify-link">
-                                            <span>
-                                                <img src="/img/notify.jpg" alt="" class="navbar__notify-img">
-                                            </span>
-                                            <div class="navbar__notify-info">
-                                                <span class="navbar__notify-name">Chúc mừng năm mới</span>
-                                                <span class="navbar__notify-description">Mô tả</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="navbar__notify-item navbar__notify-item--viewed">
-                                        <a href="" class="navbar__notify-link">
-                                            <span>
-                                                <img src="/img/notify.jpg" alt="" class="navbar__notify-img">
-                                            </span>
-                                            <div class="navbar__notify-info">
-                                                <span class="navbar__notify-name">Chúc mừng năm mới Chúc mừng năm mới
-                                                    Chúc mừng năm mới</span>
-                                                <span class="navbar__notify-description">Mô tả Chúc mừng năm mới Chúc
-                                                    mừng năm mới</span>
-                                            </div>
-                                        </a>
-                                    </li>
                                 </ul>
-                                <footer class="navbar__notify-footer">
-                                    <a href="" class="navbar__notify-footer-btn">Xem tất cả</a>
-                                </footer>
                             </div>
-                        </li>
+                            </form>
                         <li class="navbar-item">
                             <a href="#" class="navbar-item-link">
                                 <i class="navbar-icon-link fa-regular fa-circle-question"></i>
                                 Trợ giúp
                             </a>
                         </li>
-                        @guest
+                        <?php 
+                        if(empty($_SESSION['user_id'])) {
+                        ?>
                         <li class="navbar-item navbar-item--strong navbar-item--separate">
                             <a href="{{ route('user.createUser') }}" class="navbar-item-link">
                                 Đăng Ký
@@ -116,7 +91,7 @@
                                 Đăng Nhập
                             </a>
                         </li>
-                        @else
+                        <?php } ?>
                         <!-- USER -->
                         <li class="navbar-item navbar-user">
                             <?php
@@ -127,7 +102,7 @@
                             ?>
                             <ul class="navbar-user-info">
                                 <li class="navbar-user-item">
-                                    <a href="/account/profile" class="navbar-user-link">Tài khoản</a>
+                                    <a href="{{ route('user.viewUserProfile') }}" class="navbar-user-link">Tài khoản</a>
                                 </li>
                                 <li class="navbar-user-item">
                                     <a href="" class="navbar-user-link">Đơn mua</a>
@@ -136,10 +111,7 @@
                                     <a href="{{ route('signOut') }}" class="navbar-user-link">Đăng xuất</a>
                                 </li>
                             </ul>
-
-
                         </li>
-                        @endguest
                         <!-- USER -->
                     </ul>
                 </nav>
@@ -158,7 +130,8 @@
 
                     <form class="header__search" action="{{ route('find.index')}}" method="GET">
                         <div class="header__search-input-wrap">
-                            <input name="key" type="text" class="header__search-input" placeholder="Nhập sản phẩm tìm kiếm">
+                            <input name="key" type="text" class="header__search-input"
+                                placeholder="Nhập sản phẩm tìm kiếm">
                             <div class="header__search-history">
                                 <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
                                 <ul class="header__search-history-list">
