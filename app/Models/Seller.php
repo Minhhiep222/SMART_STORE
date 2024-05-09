@@ -30,6 +30,7 @@ class Seller extends Authenticatable
 
     protected $fillable = [
         'id',
+        'user_id',
         'name',
         'username',
         'email',

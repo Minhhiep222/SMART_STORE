@@ -15,11 +15,17 @@ class CategoryController extends Controller
         $products = Product::with('seller')->get();
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
-            $user = CustomerUser::find($id);
+            $user = CustomerUser::find($id)->first();
             // dd($_SESSION['user_id']);
+            // if(isset($_SESSION["user_id"])){
+                // unset($_SESSION['user_id']);
+                // unset($_SESSION['user_img']);
+                // unset($_SESSION['user_name']);
+                // unset($_SESSION['user_email']);
+            // }
             return view('auth.home', [
                 'categories' => $categories,
-                'user' => $user[0],
+                'user' => $user,
                 'products' => $products,
             ]);
         }
@@ -29,6 +35,7 @@ class CategoryController extends Controller
                 'products' => $products,
             ]);
         }  
+        
         // dd()
     }
 

@@ -17,6 +17,7 @@ class SellerSeeder extends Seeder
         //
         DB::table("tbl_sellers")->insert([
             [
+                "user_id" => 5,
                 "name" => "Thành Đạt",
                 "username" => "nnguyendat",
                 "email" => "nnguyendat@gmail.com",
@@ -30,6 +31,7 @@ class SellerSeeder extends Seeder
                 "type_business" => "individual",
             ],
             [
+                "user_id" => 6,
                 "name" => "Phú Thảo",
                 "username" => "pphuthao",
                 "email" => "pphuthao@gmail.com",
@@ -43,6 +45,7 @@ class SellerSeeder extends Seeder
                 "type_business" => "enterprise",
             ],
             [
+                "user_id" => 7,
                 "name" => "Nguyễn Thành Đạt",
                 "username" => "nnguyen",
                 "email" => "nnguyendat72@gmail.com",

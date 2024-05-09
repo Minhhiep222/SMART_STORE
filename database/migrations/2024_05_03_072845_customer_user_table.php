@@ -12,13 +12,13 @@ return new class extends Migration
     {
         Schema::create('tbl_customer_users', function (Blueprint $table) {
             $table->id(); 
-            $table->string('username')->unique();
+            $table->string('username')->unique()->nullable();
             $table->string('password')->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->unique();
-            $table->enum('sex', ['Nam', 'Nữ', 'Khác']);
-            $table->date('DOB');
+            $table->string('phone')->unique()->nullable();
+            $table->enum('sex', ['Nam', 'Nữ', 'Khác'])->nullable();
+            $table->date('DOB')->nullable();
             $table->string('img')->nullable();
             $table->text('address')->nullable();
             $table->string('bank_Account')->nullable();

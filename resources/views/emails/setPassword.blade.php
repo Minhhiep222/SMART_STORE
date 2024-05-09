@@ -120,10 +120,13 @@
             <div class="grid__row">
                 <div class="grid__column-12">
                     <div class="home__profile--info home__info--find">
-                        <form method="post" action="{{ route('user.findUser') }}" class="form_profile form_profile--password-forget">
+                        <form method="post" action="{{ route('user.setPassword') }}" class="form_profile form_profile--password-forget">
                             @csrf
                             <div class="home__profile-item-forget">
-                                <input name="email" type="text" value="" placeholder="Nhập email của bạn" required title="vui lòng nhập email người dùng!">
+                                <input name="otp" type="text" value="" placeholder="Nhập OTP của bạn" required title="">
+                            </div>
+                            <div class="home__profile-item-forget">
+                                <input name="password_new" type="text" value="" placeholder="Nhập password mới" required title="vui lòng nhập email người dùng!">
                             </div>
                             <div class="btn__save">
                                 <button class="btn save">Tiếp theo</button>

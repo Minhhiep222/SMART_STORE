@@ -26,6 +26,11 @@ body {
     margin: 0;
 }
 
+.logo_link:hover {
+    color: var(--white-color) !important;
+    filter: blur(0.01rem);
+}
+
 /* reponsive */
 .grid{
     width: 1200px;
@@ -143,6 +148,8 @@ body {
     display: flex;
     animation: fadeIn linear 0.1s;
 }
+
+
 
 /* hiệu ứng xuất hiện từ từ */
 @keyframes fadeIn {

@@ -82,42 +82,55 @@ class CrudCustomerUsersController extends Controller
    
     public function viewSeller(Request $request)
     {   
-      
-        $idSeller = $_SESSION['user_id'];
-      
+        if(!empty($_SESSION['user_id'])){
+            $idSeller = $_SESSION['user_id'];
+            $seller = Seller::find($idSeller); 
+            
+            if($seller != null){
 
-        if ($request->has('oldest')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('id')->get();
-            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
-            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
-        } else if ($request->has('newest')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderByDesc('id')->get();
-            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
-            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+                if ($request->has('oldest')) {
+                    $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('id')->get();
+                    $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+                    return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+                } else if ($request->has('newest')) {
+                    $products = Product::with('Category')->where('seller_id', $idSeller)->orderByDesc('id')->get();
+                    $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+                    return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+                }
+            
+                else if($request->has('bestselling')) {
+                    $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('sold')->get();  
+                    $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+                    return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+                }
+
+                else if($request->has('priceDESC')) {
+                    $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('price')->get();
+                    $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+                    return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+                }
+
+                else if($request->has('priceASC')) {
+                    $products = Product::with('Category')->where('seller_id', $idSeller)->orderByDESC('price')->get();
+                    $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+                    return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+                }
+
+                else {
+                    $products = Product::with('Category')->where('seller_id',$idSeller)->get(); 
+                    $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
+                    return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
+                    // return redirect('seller');
+                }
+            }
+            else {
+                return redirect("home")->with('create_store', true);
+            }
         }
-    
-    
-        else if($request->has('bestselling')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('sold')->get();  
-            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
-            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
-        }
-        else if($request->has('priceDESC')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderBy('price')->get();
-            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
-            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
-        }
-        else if($request->has('priceASC')) {
-            $products = Product::with('Category')->where('seller_id', $idSeller)->orderByDESC('price')->get();
-            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
-            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
-        }
-        else {
-            $products = Product::with('Category')->where('seller_id',$idSeller)->get(); 
-            $sellerTotal = Product::with('Category')->where('seller_id',$idSeller)->count();  
-            return view('auth.seller', ['products' => $products,'idSeller' => $idSeller, 'sellerTotal' => $sellerTotal]);
-            // return redirect('seller');
-        }
+        else{
+            return redirect("home")->with('create_store', true);
+        }  
+        
     }
     public function viewAddProduct(Request $request)
     {   
@@ -268,25 +281,26 @@ class CrudCustomerUsersController extends Controller
     {   
         $customerUserId = $request->get('customerUserId');
         $customerUser = CustomerUser::find($customerUserId);
+        $categories = Category::all();
          if($request->has('newest')) {
             $products = Product::with('Category')->orderByDESC('id')->get();
-            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products, 'categories' => $categories]);
          }
         else if($request->has('oldest')) {
             $products = Product::with('Category')->orderBy('id')->get();
-            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products, 'categories' => $categories]);
          }
         else if($request->has('bestselling')) {
             $products = Product::with('Category')->orderBy('sold')->get();
-            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products, 'categories' => $categories]);
          }
          else if($request->has('priceASC')) {
             $products = Product::with('Category')->orderByDESC('price')->get();
-            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products, 'categories' => $categories]);
          }
          else if($request->has('priceDESC')) {
             $products = Product::with('Category')->orderBy('price')->get();
-            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products]);
+            return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products, 'categories' => $categories]);
          }
     }
     public function returnHome(Request $request)
@@ -357,4 +371,3 @@ class CrudCustomerUsersController extends Controller
     } 
 }
     
-

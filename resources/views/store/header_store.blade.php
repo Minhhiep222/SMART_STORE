@@ -21,12 +21,13 @@
             <div class="grid">
                 <nav class="header__navbar">
                     <ul class="navbar-list">
-                        <li class="navbar-item navbar-item--has-qr navbar-item--separate">
-                            Trang người bán
-                        </li>
-                        <li class="navbar-item navbar-item--has-qr navbar-item--separate">
-                            Tải ứng dụng
-                            <div class="navbar__qr">
+                        <ul class="navbar-list">
+                            <?php 
+                            if(!empty($_SESSION['user_id'])) {
+                        ?>
+                            <li class="navbar-item navbar-item--has-qr navbar-item--separate">
+                                Vào cửa hàng mua sản phẩm
+                                <!-- <div class="navbar__qr">
                                 <img src="/img/QRcode.png" alt="" class="navbar__qr-img">
                                 <div class="navbar__qr-apps">
                                     <a href="" class="navbar__qr-link">
@@ -37,8 +38,18 @@
                                     </a>
 
                                 </div>
-                            </div>
-                        </li>
+                            </div> -->
+                            </li>
+                            <?php } else { ?>
+                            <li class="navbar-item">
+                                <a href="{{ route('seller.viewSeller') }}" class="navbar-item-link">
+                                    Trang người bán
+                                </a>
+                            </li>
+                            <?php } ?>
+
+
+                        </ul>
                     </ul>
                     <ul class="navbar__list">
                         <li class="navbar-item navbar-item--has-notify">
@@ -62,63 +73,48 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="navbar__notify-item navbar__notify-item--viewed">
-                                        <a href="" class="navbar__notify-link">
-                                            <span>
-                                                <img src="/img/notify.jpg" alt="" class="navbar__notify-img">
-                                            </span>
-                                            <div class="navbar__notify-info">
-                                                <span class="navbar__notify-name">Chúc mừng năm mới</span>
-                                                <span class="navbar__notify-description">Mô tả</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="navbar__notify-item navbar__notify-item--viewed">
-                                        <a href="" class="navbar__notify-link">
-                                            <span>
-                                                <img src="/img/notify.jpg" alt="" class="navbar__notify-img">
-                                            </span>
-                                            <div class="navbar__notify-info">
-                                                <span class="navbar__notify-name">Chúc mừng năm mới Chúc mừng năm mới
-                                                    Chúc
-                                                    mừng năm mới</span>
-                                                <span class="navbar__notify-description">Mô tả Chúc mừng năm mới Chúc
-                                                    mừng
-                                                    năm mới</span>
-                                            </div>
-                                        </a>
-                                    </li>
                                 </ul>
-                                <footer class="navbar__notify-footer">
-                                    <a href="" class="navbar__notify-footer-btn">Xem tất cả</a>
-                                </footer>
                             </div>
-                        </li>
+                            </form>
                         <li class="navbar-item">
                             <a href="#" class="navbar-item-link">
                                 <i class="navbar-icon-link fa-regular fa-circle-question"></i>
                                 Trợ giúp
                             </a>
                         </li>
-                        <!-- <li class="navbar-item navbar-item--strong navbar-item--separate">Đăng ký</li>
-                                <li class="navbar-item navbar-item--strong">Đăng nhập</li> -->
-
+                        <?php 
+                            if(empty($_SESSION['user_id'])) {
+                        ?>
+                        <li class="navbar-item navbar-item--strong navbar-item--separate">
+                            <a href="" class="modal__create navbar-item-link" data-bs-toggle="modal"
+                                data-bs-target="#create">
+                                Đăng Ký
+                            </a>
+                        </li>
+                        <li class="navbar-item navbar-item--strong">
+                            <a href="" class="get-modal__login navbar-item-link" data-bs-toggle="modal"
+                                data-bs-target="#login">
+                                Đăng Nhập
+                            </a>
+                        </li>
+                        <?php } ?>
                         <!-- USER -->
                         <li class="navbar-item navbar-user">
-                            <img src="/img/user_img.jpg" alt="" class="navbar-user-img">
-                            <span class="navbar-user-name">Nguyễn Minh Hiệp</span>
+                            <?php
+                            if(!empty($_SESSION['user_id'])) {
+                                echo '<img src="/img/user_img.jpg" alt="" class="navbar-user-img">
+                                <span class="navbar-user-name">' .$_SESSION["name"]. '</span>';
+                            }
+                            ?>
                             <ul class="navbar-user-info">
                                 <li class="navbar-user-item">
-                                    <a href="" class="navbar-user-link">Tài khoản</a>
-                                </li>
-                                <li class="navbar-user-item">
-                                    <a href="" class="navbar-user-link">Địa chỉ</a>
+                                    <a href="{{ route('user.viewUserProfile') }}" class="navbar-user-link">Tài khoản</a>
                                 </li>
                                 <li class="navbar-user-item">
                                     <a href="" class="navbar-user-link">Đơn mua</a>
                                 </li>
                                 <li class="navbar-user-item">
-                                    <a href="" class="navbar-user-link">Đăng xuất</a>
+                                    <a href="{{ route('signOut') }}" class="navbar-user-link">Đăng xuất</a>
                                 </li>
                             </ul>
                         </li>
@@ -131,7 +127,7 @@
             <div class="grid">
                 <div class="header-with-search header-with-search-cart">
                     <div class="header__logo">
-                        <a href="" class="logo_link">
+                        <a href="{{ route('home.index') }}" class="logo_link">
                             <i class="fa-solid fa-store logo_shop "></i>
                             <div class="name_header">
                                 <span style="font-size: 1.8rem; with: 100%;">SMART</span>
@@ -152,9 +148,39 @@
         </div>
     </header>
     <!-- HEADER -->
-    
+
     <!-- CONTAINER -->
-    @yield('content_cart')
+    <div class="app__container">
+        <div class="grid">
+            <div class="grid__row app__contents_seller ">
+                <!-- CATEGORY -->
+                <div class="gird__column-2_seller">
+                    <nav class="category">
+                        <ul class="category-list">
+                            <li class="category-item category-item--active">
+                                <a href="{{ route('orders.index') }}" class="category-item__link">Quản lý đơn hàng</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="{{ route('seller.viewSeller') }}" class="category-item__link">Quản lý sản
+                                    phẩm</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Quản lý shop</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Chăm sóc khách hàng</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- CATEGORY -->
+                <!--PAGE-->
+                @yield('content_store')
+                <!--PAGE-->
+            </div>
+        </div>
+    </div>
+
     <!-- CONTAINER -->
     <script src="/js/cart.js"></script>
 </body>

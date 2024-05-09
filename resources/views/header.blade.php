@@ -11,7 +11,12 @@
     <link type="text/scss" href="/scss/seller.scss" rel="stylesheet">
     <link type="text/css" href="/scss/profile.css" rel="stylesheet">
     <link type="text/css" href="/scss/product_detail.css" rel="stylesheet">
+    <link type="text/css" href="/scss/store.css" rel="stylesheet">
+    <link type="text/css" href="/scss/product.css" rel="stylesheet">
     <link rel="stylesheet" href="/font/fontawesome-free-6.5.1-web/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -21,10 +26,12 @@
             <div class="grid">
                 <nav class="header__navbar">
                     <ul class="navbar-list">
-                        @guest
+                        <?php 
+                            if(empty($_SESSION['user_id'])) {
+                        ?>
                         <li class="navbar-item navbar-item--has-qr navbar-item--separate">
                             Vào cửa hàng ứng dụng mua sản phẩm
-                            <div class="navbar__qr">
+                            <!-- <div class="navbar__qr">
                                 <img src="/img/QRcode.png" alt="" class="navbar__qr-img">
                                 <div class="navbar__qr-apps">
                                     <a href="" class="navbar__qr-link">
@@ -35,17 +42,15 @@
                                     </a>
 
                                 </div>
-                            </div>
+                            </div> -->
                         </li>
-                        @else
+                        <?php } else { ?>
                         <li class="navbar-item">
-                            <a href="{{ route('store.index') }}" class="navbar-item-link">
+                            <a href="{{ route('seller.viewSeller') }}" class="navbar-item-link">
                                 Trang người bán
                             </a>
                         </li>
-                        @endguest
-
-
+                        <?php } ?>
                     </ul>
                     <ul class="navbar__list">
                         <li class="navbar-item navbar-item--has-notify">
@@ -79,15 +84,17 @@
                             </a>
                         </li>
                         <?php 
-                        if(empty($_SESSION['user_id'])) {
+                            if(empty($_SESSION['user_id'])) {
                         ?>
                         <li class="navbar-item navbar-item--strong navbar-item--separate">
-                            <a href="{{ route('user.createUser') }}" class="navbar-item-link">
+                            <a href="" class="modal__create navbar-item-link" data-bs-toggle="modal"
+                                data-bs-target="#create">
                                 Đăng Ký
                             </a>
                         </li>
                         <li class="navbar-item navbar-item--strong">
-                            <a href="{{ route('login') }}" class="navbar-item-link">
+                            <a href="" class="get-modal__login navbar-item-link" data-bs-toggle="modal"
+                                data-bs-target="#login">
                                 Đăng Nhập
                             </a>
                         </li>
@@ -97,7 +104,7 @@
                             <?php
                             if(!empty($_SESSION['user_id'])) {
                                 echo '<img src="/img/user_img.jpg" alt="" class="navbar-user-img">
-                                <span class="navbar-user-name">' .$_SESSION["user_name"]. '</span>';
+                                <span class="navbar-user-name">' .$_SESSION["name"]. '</span>';
                             }
                             ?>
                             <ul class="navbar-user-info">
@@ -119,7 +126,7 @@
                 <!--HEADER WITH SEARCH -->
                 <div class="header-with-search">
                     <div class="header__logo">
-                        <a href="/home" class="logo_link">
+                        <a href="{{ route('home.index') }}" class="logo_link">
                             <i class="fa-solid fa-store logo_shop "></i>
                             <div class="name_header">
                                 <span style="font-size: 1.8rem; with: 100%;">SMART</span>
@@ -131,16 +138,10 @@
                     <form class="header__search" action="{{ route('find.index')}}" method="GET">
                         <div class="header__search-input-wrap">
                             <input name="key" type="text" class="header__search-input"
-                                placeholder="Nhập sản phẩm tìm kiếm">
+                                placeholder="Nhập sản phẩm tìm kiếm" autocomplete="off">
                             <div class="header__search-history">
-                                <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
-                                <ul class="header__search-history-list">
-                                    <li class="header__search-history-item">
-                                        <a href="#" class="history-item-link">Kem dưỡng da</a>
-                                    </li>
-                                    <li class="header__search-history-item">
-                                        <a href="#" class="history-item-link">Kem dưỡng da</a>
-                                    </li>
+                                <ul class="list-group header__search-history-list list-search">
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -239,8 +240,287 @@
         <!-- FOOTER  -->
 
     </div>
+    <!-- Modal -->
+    <div class="modal-header">
+        <div class="modal_body">
+            <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="margin-top: 8%;">
+                    <div class="modal-content">
+                        <form method="POST" action="{{ route('user.authUser') }}" class="auth-form">
+                            @csrf
+                            <div class="auth-form__container">
+                                <div class="auth-form__header">
+                                    <h3 class="auth-form__heading">Đăng nhập</h3>
+                                    <span class="auth-form__switch-btn">Đăng ký</span>
+                                </div>
+
+                                <div class="auth-form__form">
+                                    <div class="auth-form__group">
+                                        <input type="text" class="auth-form__input" placeholder="Email" id="email"
+                                            class="form-control" name="email" required title="Không được bỏ trống">
+                                    </div>
+                                    <div class="auth-form__group">
+                                        <input type="password" class="auth-form__input" placeholder="Password"
+                                            id="password" class="form-control" name="password" required
+                                            title="Không được bỏ trống">
+                                    </div>
+                                    <div class="auth-form__group">
+                                        <div class="verify_user">
+                                            <input class="label_number" for="" name="get__number_verify"
+                                                readonly></input>
+                                            <input type="text" class="auth-form__input" placeholder="Enter"
+                                                name="number_verify" required title="Không được bỏ trống">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="auth-form__aside">
+                                    <p class="auth-form__help">
+                                        <a href="{{ route('forget.index') }}"
+                                            class="auth-form__help-link auth-form__help-forgot">Quên mật khẩu</a>
+                                        <span class="auth-form__help-separate"></span>
+                                        <a href="" class="auth-form__help-link">Cần trợ giúp?</a>
+                                    </p>
+                                </div>
+
+                                <div class="auth-form__controls">
+                                    <button type="button" onclick="window.location.href='{{ route('home.index') }}'"
+                                        class="btn btn__normal btn__move">TRỞ LẠI</button>
+                                    <button type="submit" class="btn btn--primary">ĐĂNG NHẬP</button>
+                                </div>
+                            </div>
+
+                            <div class="auth-form__socials">
+                                <a href="" class="btn btn__size-s btn--with-icon btn__icon-fb">
+                                    <i class="auth-form__socials-icon fa-brands fa-square-facebook"></i>
+                                    <span>Kết nối với Facebook</span>
+                                </a>
+                                <a href="" class="btn btn__size-s btn--with-icon btn__icon-google">
+                                    <i class="auth-form__socials-icon fa-brands fa-google"></i>
+                                    <span>Kết nối với Google</span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CREATE_STORE -->
+            <div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="margin-top: 5%;">
+                    <div class="modal-content">
+                        <form class="auth-form" method="POST" action="{{ route('user.postUser') }}">
+                            @csrf
+                            <div class="auth-form__container">
+                                <div class="auth-form__header">
+                                    <h3 class="auth-form__heading">Đăng ký</h3>
+                                    <span class="auth-form__switch-btn">Đăng nhập</span>
+                                </div>
+
+                                <div class="auth-form__form">
+                                    <div class="auth-form__group">
+                                        <input type="text" class="auth-form__input" placeholder="Name" name="name" required>
+                                    </div>
+                                    <div class="auth-form__group">
+                                        <input type="text" class="auth-form__input" placeholder="Email" name="email" required>
+                                    </div>
+
+                                    <div class="auth-form__group">
+                                        <input type="password" class="auth-form__input" placeholder="Password"
+                                            name="password" required>
+                                    </div>
+                                </div>
+
+                                <div class="auth-form__aside">
+                                    <p class="auth-form__policy-text">
+                                        Bằng việc đăng ký, bạn đã đồng ý với Shoppe về
+                                        <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
+                                        &
+                                        <a href="" class="auth-form__text-link">Chính xác bảo mật</a>
+                                    </p>
+                                </div>
+
+                                <div class="auth-form__controls">
+                                    <button type="button" onclick="window.location.href='{{ route('home.index')}}'"
+                                        class="btn btn__normal btn__move">TRỞ LẠI</button>
+
+                                    <button type="submit" class="btn btn--primary">ĐĂNG KÝ</button>
+                                </div>
+                            </div>
+
+                            <div class="auth-form__socials">
+                                <a href="" class="btn btn__size-s btn--with-icon btn__icon-fb">
+                                    <i class="auth-form__socials-icon fa-brands fa-square-facebook"></i>
+                                    <span>Kết nối với Facebook</span>
+
+                                </a>
+                                <a href="" class="btn btn__size-s btn--with-icon btn__icon-google">
+                                    <i class="auth-form__socials-icon fa-brands fa-google"></i>
+                                    <span>Kết nối với Google</span>
+
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /CREATE -->
+
+            <!-- CREATE_STORE -->
+            <div class="modal fade" id="store" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="margin-top: 5%;">
+                    <div class="modal-content">
+                        <form class="auth-form" method="POST" action="{{ route('user.postSeller') }}">
+                            @csrf
+                            <div class="auth-form__container">
+                                <div class="auth-form__header">
+                                    <h3 class="auth-form__heading">Đăng ký trang bán hàng</h3>
+                                </div>
+
+                                <div class="auth-form__form">
+                                    <div class="auth-form__group">
+                                        <input type="text" class="auth-form__input" placeholder="Name" name="name"
+                                            value="Minh Hiệp">
+                                    </div>
+
+                                    <div class="auth-form__group">
+                                        <input type="text" class="auth-form__input" placeholder="Name" name="phone"
+                                            value="54524432">
+                                    </div>
+                                    <div class="auth-form__group">
+                                        <input type="text" class="auth-form__input" placeholder="Địa chỉ" name="address"
+                                            value="Bình thành">
+                                    </div>
+                                    <div class="auth-form__group">
+                                        <input type="text" class="auth-form__input" placeholder="Tên cửa hàng"
+                                            name="name_company" value="Đại Lộc">
+                                    </div>
+                                    <div class="auth-form__group">
+                                        <select name="type_business" class="form-select"
+                                            aria-label="Default select example">
+                                            <option selected>Kiểu kinh doanh</option>
+                                            <option selected value="individual">Cá nhân</option>
+                                            <option value="enterprise">Doanh nghiẹp</option>
+                                        </select>
+                                    </div>
+                                    <div class="auth-form__group">
+                                        <label for="">Giới tính</label>
+                                        <div class="check__sex">
+                                            <div class="check check__sex-female">
+                                                <label for="">Nam</label>
+                                                <input name="sex" type="radio" value="nam">
+                                            </div>
+                                            <div class="check check__sex-male">
+                                                <label for="">Nữ</label>
+                                                <input name="sex" type="radio" value="nữ">
+                                            </div>
+                                            <div class="check check__sex-dif">
+                                                <label for="">Khác</label>
+                                                <input name="sex" type="radio" value="khác">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="auth-form__group">
+                                        <label for="">Ngày sinh</label>
+                                        <select name="day" class="check form-select"
+                                            aria-label="Default select example">
+                                            @for ($i = 1; $i <= 31; $i++) : ?>
+                                                @if($i==1)
+                                                <option selected value="<?= $i ?>"><?= $i ?></option>
+                                                @endif;
+                                                <option value="<?= $i ?>"><?= $i ?></option>
+                                                @endfor;
+                                        </select>
+                                        <select name="month" class="check form-select"
+                                            aria-label="Default select example">
+                                            <?php for ($i = 1; $i <= 12; $i++) : if($i == 1) : ?>
+                                            <option selected value="<?= $i ?>"><?= $i ?></option>
+                                            <?php endif;?>
+                                            <option value="<?= $i ?>"><?= $i ?></option>
+                                            <?php  endfor; ?>
+                                        </select>
+                                        <select name="year" class="check form-select"
+                                            aria-label="Default select example">
+                                            <option value="">Năm</option>
+                                            <?php for ($i = date('Y'); $i >= 1900; $i--) : ?>
+                                            <option value="<?= $i ?>"><?= $i ?></option>
+                                            <?php if($i == 1990) : ?>
+                                            <option selected value="<?= $i ?>"><?= $i ?></option>
+                                            <?php endif;?>
+
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="auth-form__aside">
+                                    <p class="auth-form__policy-text">
+                                        Bằng việc đăng ký, bạn đã đồng ý với Smart store về
+                                        <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
+                                        &
+                                        <a href="" class="auth-form__text-link">Chính xác bảo mật</a>
+                                    </p>
+                                </div>
+
+                                <div class="auth-form__controls">
+                                    <button type="button" onclick="window.location.href='{{ route('home.index')}}'"
+                                        class="btn btn__normal btn__move">TRỞ LẠI</button>
+
+                                    <button type="submit" class="btn btn--primary">ĐĂNG KÝ</button>
+                                </div>
+                            </div>
+
+                            <div class="auth-form__socials">
+                                <a href="" class="btn btn__size-s btn--with-icon btn__icon-fb">
+                                    <i class="auth-form__socials-icon fa-brands fa-square-facebook"></i>
+                                    <span>Kết nối với Facebook</span>
+
+                                </a>
+                                <a href="" class="btn btn__size-s btn--with-icon btn__icon-google">
+                                    <i class="auth-form__socials-icon fa-brands fa-google"></i>
+                                    <span>Kết nối với Google</span>
+
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /CREATE_STORE -->
+
+        </div>
+    </div>
+
     <script src="/js/action.js"></script>
     <script src="/js/dropdown.js"></script>
+    <script src="/js/verify.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    @if (session('login'))
+    <script>
+    window.onload = function() {
+        var myModal = new bootstrap.Modal(document.getElementById('login'));
+        myModal.show();
+    };
+    </script>
+    @elseif (session('register'))
+    <script>
+    window.onload = function() {
+        var myModal = new bootstrap.Modal(document.getElementById('create'));
+        myModal.show();
+    };
+    </script>
+    @elseif (session('create_store'))
+    <script>
+    window.onload = function() {
+        var myModal = new bootstrap.Modal(document.getElementById('store'));
+        myModal.show();
+    };
+    </script>
+    @endif
 </body>
 
 </html>

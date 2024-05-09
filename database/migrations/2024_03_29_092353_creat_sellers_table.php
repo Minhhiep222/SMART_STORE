@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('tbl_sellers', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id')->unique();
             $table->string('name');
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('password')->hash();
+            $table->string('username')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('password')->hash()->nullable();
             $table->string('phone')->unique();
-            $table->string('img')->nullable();
+            $table->string('img')->nullable()->nullable();
             $table->enum('sex', ['Nam', 'Nữ', 'Khác']);
             $table->date('DOB');
-            $table->text('address')->nullable();
+            $table->text('address');
             $table->text('feedback')->nullable();
             $table->text('history_transaction')->nullable();
             $table->string('name_company');

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Pagination;
+use PragmaRX\Google2FA\Google2FA;
 
 // use App\Models\User;
 use App\Models\CustomerUser;
@@ -23,14 +24,13 @@ class UserController extends Controller
     /**
      * Login page
      */
-    public function login()
-    {
-        return view('login');
-    }
 
 
     public function authUser(Request $request) {
         session_start();
+        $google2fa = new Google2FA();
+        // $otp = $google2fa->generateSecretKey();
+        // dd($otp);
         //kiểm tra email, password không được bỏ trống
         $request->validate(['email'=>'required',
         'password'=>'required']);
@@ -45,20 +45,24 @@ class UserController extends Controller
         // dd($categories);
         //
         // dd($user);
-        if(Auth::guard('tbl_customer_users')->attempt($credentials)){
-            session(['email' => $user->email]);
-            // dd(session('email'));
 
-            $_SESSION['user_id'] = $user->id;
-            $_SESSION['user_img'] = $user->img;
-            $_SESSION['user_name'] = $user->name;
-            $_SESSION['user_email'] = $user->email;
-            // Gửi cookie về trình duyệt
-            // return response('Login successful')->cookie('login_status', 'logged_in');
-            return redirect()->intended('home')->withSuccess('Sign in');
+        if($request->get__number_verify === $request->number_verify) {
+
+            if(Auth::guard('tbl_customer_users')->attempt($credentials)){
+                session(['email' => $user->email]);
+                session(['name' => $user->name]);
+                session(['img' => $user->img]);
+                // dd(session('email'));
+                $_SESSION['user_id'] = $user->id;
+                $_SESSION['name'] = $user->name;
+                $_SESSION['img'] = $user->img;
+                // Gửi cookie về trình duyệt
+                // return response('Login successful')->cookie('login_status', 'logged_in');
+                return redirect("home");
+            }
+            return redirect("home")->with('login', true);
         }
-        return redirect('login')->with("Login Failed");
-
+        return redirect("home")->with('login', true);
     }
     
 
@@ -88,7 +92,7 @@ class UserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        return redirect("login");
+        return redirect("home")->with('login', true);
     }
 
     /**

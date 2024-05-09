@@ -30,7 +30,7 @@ class SetPassword extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Shipped',
+            subject: 'smartstore.com',
         );
     }
 

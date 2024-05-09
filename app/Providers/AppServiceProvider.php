@@ -30,13 +30,15 @@ class AppServiceProvider extends ServiceProvider
                 $customerUser =CustomerUser::where('email', $email)->first();
                 $view->with('customerUser', $customerUser);
             }
-            // else {
-            //     $email = session('emailCustomerUser');
-            //     $customerUser = CustomerUser::where('email', $email)->first();
-            //     $view->with('customerUser', $customerUser);
-            // }
         });
+        
         View::composer('auth.account.header', function ($view) {
+            $email = session('email');
+            $customerUser = CustomerUser::where('email', $email)->first();
+            $view->with('customerUser', $customerUser);
+        });
+
+        View::composer('header_store', function ($view) {
             $email = session('email');
             $customerUser = CustomerUser::where('email', $email)->first();
             $view->with('customerUser', $customerUser);

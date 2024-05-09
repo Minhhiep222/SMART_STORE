@@ -93,7 +93,7 @@
                                     </span>
                                 </div>
                                 <div class="product-item__origin">
-                                    <span class="product-item__brand">{{ $product->seller->name_company }}</span>
+                                    <span class="product-item__brand"></span>
                                     <span class="product-item__origin-name">{{ $product->seller->name }}</span>
                                 </div>
                             </a>

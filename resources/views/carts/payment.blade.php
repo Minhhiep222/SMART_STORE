@@ -1,6 +1,6 @@
-@extends('header_cart')
+@extends('store.header_store')
 
-@section('content_cart')
+@section('content_store')
 <!-- CONTAINER -->
 <div class="app__container payment__cart">
     <div class="grid">

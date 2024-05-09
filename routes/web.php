@@ -10,6 +10,7 @@ use App\Http\Controllers\SellerController;
 use App\Http\Controllers\FindController;
 use App\Http\Controllers\ForgetController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CrudCustomerUsersController;
 use App\Models\CustomerUser;
 
@@ -65,11 +66,6 @@ Route::get('create_store', function () {
     return view('create_store');
 });
 
-Route::get('product_detail', function () {
-    return view('auth.product_detail');
-});
-
-
 Route::get('account/password', function () {
     return view('auth.account.password');
 });
@@ -116,7 +112,14 @@ Route::resource('find', FindController::class);
 
 Route::resource('forget', ForgetController::class);
 Route::post('set_password', [ForgetController::class, 'setPassword'])->name('user.setPassword');
+Route::post('find_user', [ForgetController::class, 'findUser'])->name('user.findUser');
 
 //test Mail
 Route::get('test-mail', [HomeController::class, 'testEmail']);
 
+//request
+
+Route::get('ajax-search', [ProductController::class, 'ajaxSearch'])->name('ajax-search');
+
+//
+Route::get('find/{name}/productname', [FindController::class, 'findProductName'])->name('find.productname');

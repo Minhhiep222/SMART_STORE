@@ -1,6 +1,6 @@
-@extends('auth.account.header')
+@extends('store.header_store')
 
-@section('content_profile')
+@section('content_store')
 <div class="grid__column-10">
     <div class="home__product">
         <div class="grid__row">
@@ -24,7 +24,7 @@
                             @if($or->PaymentStatus == "Completed")
                                 <a href="{{ route('orders.delete', $or->id) }}" class="seller__product-delete">Xóa</a>
                             @else
-                                <a href="{{ route('orders.delete', $or->id) }}" class="seller__product-delete">Mua lại</a>
+                                <a href="" class="seller__product-delete">Mua lại</a>
                             @endif
                                 <a href="{{ route('orders.show', $or->id) }}" class="seller__product-detail">Xem chi
                                 tiết</a>

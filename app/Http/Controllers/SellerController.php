@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-session_start();
+
 use Session;
 use Illuminate\Http\Request;
 use App\Models\Seller;
@@ -10,7 +10,7 @@ class SellerController extends Controller
 {
     public function index() {
         // dd($_SESSION['user_id']);
-        
+        session_start();
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
             $seller = Seller::find($id); 
