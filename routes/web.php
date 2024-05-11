@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Vite;
 use App\Http\Controllers\OrdersController;
-use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SellerController;
@@ -11,6 +10,8 @@ use App\Http\Controllers\FindController;
 use App\Http\Controllers\ForgetController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CrudCustomerUsersController;
 use App\Models\CustomerUser;
 
@@ -50,13 +51,8 @@ Route::get('update', function () {
     return view('auth.update');
 });
 
-Route::get('cart', function () {
-    return view('auth.cart');
-});
-
-Route::get('payment', function () {
-    return view('auth.payment');
-});
+Route::resource('payment',PaymentController::class);
+Route::post('payment.create_order',[PaymentController::class, 'createOrder'])->name('payment.create_order');
 
 Route::get('header_cart', function () {
     return view('header_cart');
@@ -73,7 +69,6 @@ Route::get('account/password', function () {
 Route::resource('orders', OrdersController::class);
 Route::get('orders/{id}/delete', [OrdersController::class, 'delete'])->name('orders.delete');
 
-Route::resource('order_detail', OrderDetailController::class);
 Route::get('orders/{id}/updateStatus', [OrdersController::class, 'updateStatus'])->name('orders.updateStatus'); 
 
 
@@ -123,3 +118,5 @@ Route::get('ajax-search', [ProductController::class, 'ajaxSearch'])->name('ajax-
 
 //
 Route::get('find/{name}/productname', [FindController::class, 'findProductName'])->name('find.productname');
+
+Route::resource('cart', CartController::class);

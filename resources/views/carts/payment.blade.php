@@ -1,10 +1,10 @@
-@extends('store.header_store')
+@extends('carts.header_cart')
 
-@section('content_store')
+@section('content_cart')
 <!-- CONTAINER -->
 <div class="app__container payment__cart">
     <div class="grid">
-        <div class="grid__row app__contents">
+        <form class="grid__row app__contents-cart" action="{{ route('orders.store') }}" method="POST">
             <div class="grid__column-12">
                 <div class="home-filter_payment">
                     <div class="title__home-filter">
@@ -23,6 +23,7 @@
                     <div class="grid__row">
                         <!-- PRODUCT ITEM -->
                         <div class="grid__column-product_cart">
+                            @csrf
                             <table class="table__product-payment" id="customers__payment">
                                 <tr class="">
                                     <th>Tên sản phẩm</th>
@@ -30,96 +31,32 @@
                                     <th>Số lượng</th>
                                     <th>Thành tiền</th>
                                 </tr>
+                                @foreach($cart_detail as $cart_product)
                                 <tr class="product__cart-item">
                                     <td class="seller__td-img">
                                         <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
+                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product payment-img_product">
                                             <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
+                                                <span class="seller-name_product payment-name_product"> {{ $cart_product->product_cart->product_name }} </span>
+                                                <span class="seller-description_product payment-description_product">{{ $cart_product->product_cart->description }}</span>
                                             </a>
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="price__product-cart">29900000</span>
+                                        <span class="price__product-cart payment-price_product"> {{ $cart_product->product_cart->price }}</span>
                                         <span>đ</span>
                                     </td>
                                     <td>
                                         <div class="quantity__cart">
-                                            <div class="sub_quantity">
-                                                <i class="fa-solid fa-minus"></i>
-                                            </div>
-                                            <div class="number_quantity">1</div>
-                                            <div class="add_quantity">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </div>
+                                            <div class="number_quantity payment-number_quantity">{{ $cart_product->quantity }}</div>
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="total__product-cart">29900000</span>
+                                        <span class="total__product-cart payment-total">{{ $cart_product->quantity * $cart_product->product_cart->price }}</span>
                                         <span>đ</span>
                                     </td>
                                 </tr>
-                                <tr class="product__cart-item">
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="price__product-cart">29900000</span>
-                                        <span>đ</span>
-                                    </td>
-                                    <td>
-                                        <div class="quantity__cart">
-                                            <div class="sub_quantity">
-                                                <i class="fa-solid fa-minus"></i>
-                                            </div>
-                                            <div class="number_quantity">1</div>
-                                            <div class="add_quantity">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="total__product-cart">29900000</span>
-                                        <span>đ</span>
-                                    </td>
-                                </tr>
-                                <tr class="product__cart-item">
-                                    <td class="seller__td-img">
-                                        <div class="detail__product-info">
-                                            <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
-                                            <a href="" class="information__product-link">
-                                                <span class="seller-name_product">Iphone 13</span>
-                                                <span class="seller-description_product">Mô tả chức năng</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="price__product-cart">29900000</span>
-                                        <span>đ</span>
-                                    </td>
-                                    <td>
-                                        <div class="quantity__cart">
-                                            <div class="sub_quantity">
-                                                <i class="fa-solid fa-minus"></i>
-                                            </div>
-                                            <div class="number_quantity">1</div>
-                                            <div class="add_quantity">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="total__product-cart">29900000</span>
-                                        <span>đ</span>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </table>
 
                         </div>
@@ -143,15 +80,15 @@
                     <div class="action__cart">
                         <div class="payment__cart-title">
                             Tổng tiền:
-                            <span class="price_total-payment">25.999.000 <span>đ</span></span>
+                            <span class="price_total-payment"> <input type="text" value="{{ $total }}" name="TotalAmount"> {{ $total }} <span>đ</span></span>
                         </div>
                         <div class="payment__cart-btn">
-                            <button class="btn btn--primary">Thanh toán</button>
+                            <button type="submit" class="btn btn--primary">Thanh toán</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 @endsection

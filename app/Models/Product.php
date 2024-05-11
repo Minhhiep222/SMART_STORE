@@ -28,6 +28,11 @@ class Product extends Model
     {
         return $this->belongsTo(Seller::class, 'seller_id', 'id');
     }
+
+    public function product_cart() {
+        return $this->belongsTo(Cart_detail::class, 'id', 'product_id');
+    }
+
    
      /**
      * The attributes that are mass assignable.

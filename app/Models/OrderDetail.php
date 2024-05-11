@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class OrderDetail extends Model
 {
     use HasFactory;
-
+    protected $table = "order_details";
+    protected $primaryKey = "id";
+    public $timestamps = true;
     public function orders()
     {
         return $this->belongsTo(Order::class, 'order_id', 'id');
@@ -20,7 +22,12 @@ class OrderDetail extends Model
     }
 
     //định nghĩa
-    protected $table = "order_details";
-    protected $primaryKey = "id";
-    public $timestamps = true;
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'quantity',
+        'seller_id',
+        'price',
+        'total',
+    ]; 
 }

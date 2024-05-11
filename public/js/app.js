@@ -11,7 +11,7 @@ $('input[name="key"]').keyup(function () {
             for (var result of res) {
                 const nameRegex = new RegExp('(' + keyword + ')', 'gi')
                 const productName = result.product_name.replace(nameRegex, `<span class="highlight">$1</span>`);
-                if(res.length < 9) {
+                if (res.length < 9) {
                     // listSearch.innerHTML += `<li class="header__search-history-item history-item-link get_name" >
                     //     ${productName}
                     // </li>`;
@@ -32,4 +32,19 @@ $('input[name="key"]').keyup(function () {
             })
         }
     });
+});
+
+
+$('.btn__payment').click(function () {
+    console.log("ê");
+    const checkboxs = document.querySelectorAll('.checkbox_cart');
+    $arrayId = [];
+    checkboxs.forEach(element => {
+        if(element.checked == true){
+            $arrayId.push(element.value);
+        }
+    })
+    localStorage.getItem('cart', $arrayId);
+    console.log($arrayId);
+
 });

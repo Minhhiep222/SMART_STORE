@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id(); // Tạo cột id với kiểu dữ liệu bigint auto-increment và làm khóa chính
-            $table->text("Order_Describe");
+            $table->text("Order_Describe")->nullable();
             $table->integer("customer_id");
             $table->decimal("TotalAmount");
             $table->enum('PaymentMethod', ['Credit Card', 'PayPal', 'Cash', 'Bank Transfer']);
-            $table->enum('PaymentStatus', ['Completed', 'Failed', 'Transporting']);
+            $table->enum('PaymentStatus', ['Completed', 'Failed', 'Transporting', 'Verify']);
             $table->timestamps();
         });
     }

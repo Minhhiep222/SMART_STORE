@@ -906,6 +906,10 @@ mark {
     padding-top: 34px;
 }
 
+.app__contents-cart {
+    padding-top: 0px;
+}
+
 .category{
     border-radius: 2px;
     background-color: var(--white-color);

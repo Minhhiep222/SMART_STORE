@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Category;
+use App\Models\Cart;
+use App\Models\Cart_detail;
+use App\Models\Product;
 
 class OrdersController extends Controller
 {
@@ -46,7 +49,9 @@ class OrdersController extends Controller
     }
 
     //method create order
-    public function create(Request $request) {
+    public function store(Request $request) {
+        $user_id = 1;
+        // dd($request);
         $request->validate([
             'customer_id' => 'requited',
             'PaymentMethod' => 'requited',
@@ -57,15 +62,30 @@ class OrdersController extends Controller
 
         //add order to table
         $order = Order::create([
-            'Order_Describe' => $data['Order_Describe'],
-            'customer_id' => $data['customer_id'],
+            'customer_id' => $user_id,
             'TotalAmount' => $data['TotalAmount'],
-            'PaymentMethod' => $data['PaymentMethod'],
-            'PaymentStatus' => $data['PaymentStatus'],
+            'PaymentMethod' => 'Cash',
+            'PaymentStatus' => 'Verify',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-
-        //chuyển hướng nếu cần
-        // return view()
+       
+        $cart = Cart::find($user_id)->first();
+        $cart_details = Cart_detail::where('cart_id',$cart->id)->get();
+        if($order) {
+            foreach($cart_details as $item) {
+                $product = Product::find($item->product_id)->first();
+                $order_detail =  OrderDetail::create([
+                    'order_id' => $order->id,
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                    'seller_id' => $product->seller_id,
+                    'price' => $product->price,
+                    'total' => $item->quantity * $product->price,
+                ]);
+                $item->delete();
+            }
+        }
 
     }
 
@@ -78,7 +98,7 @@ class OrdersController extends Controller
         
         //save order to table
         $order -> save();
-       
+        
 
         //chuyển hướng nếu cần
         return redirect()->route('orders.index');
