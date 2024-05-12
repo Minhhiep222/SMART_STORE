@@ -12,15 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('table_admin', function (Blueprint $table) {
-            $table->increments('admin_id'); // ID ADMIN, khóa chính, tự động tăng dần
-            $table->string('admin_name');
-            $table->string('email')->unique();
+            $table->id();
+            $table->string('name');
             $table->string('username');
+            $table->string('email')->unique();
             $table->string('password');
+            $table->string('img');
+            $table->enum('sex', ['Nam', 'Nữ', 'Khác']);
+            $table->date('DOB');
             $table->string('address');
             $table->string('phone');
-            $table->enum('permission', ['admin', 'moderator', 'user'])->default('user'); // ENUM hoặc VARCHAR
-            $table->dateTime('account_time_create'); // Thời gian tham gia
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 

@@ -53,6 +53,14 @@ return [
             'driver' => 'token',
             'provider' => 'tbl_sellers',
         ],
+        'table_admin' => [
+            'driver' => 'session',
+            'provider' => 'table_admin',
+        ],
+        'table_admin-api' => [
+            'driver' => 'token',
+            'provider' => 'table_admin',
+        ],
         'tbl_customer_users' => [
             'driver' => 'session',
             'provider' => 'tbl_customer_users',
@@ -90,6 +98,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Seller::class,
         ],
+        'table_admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
         'tbl_customer_users' => [
             'driver' => 'eloquent',
             'model' => App\Models\CustomerUser::class,
@@ -122,13 +134,16 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        'table_admin' => [
+            'provider' => 'table_admin',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
         'tbl_customer_users' => [
             'provider' => 'tbl_customer_users',
             'table' => 'password_resets',
             'expire' => 60,
         ],
     ],
-
-    'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
 ];

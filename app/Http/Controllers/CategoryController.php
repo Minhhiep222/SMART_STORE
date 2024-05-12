@@ -12,10 +12,13 @@ class CategoryController extends Controller
     public function index() {
         session_start();
         $categories = Category::all();
-        $products = Product::with('seller')->get();
+        $products = Product::with('seller')->paginate(10);
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
             $user = CustomerUser::find($id)->first();
+          session(['customerUserId' => $id]);
+          $productTotal = Product::count();
+          $pages = ceil($productTotal)/3;
             // dd($_SESSION['user_id']);
             // if(isset($_SESSION["user_id"])){
                 // unset($_SESSION['user_id']);
@@ -23,16 +26,22 @@ class CategoryController extends Controller
                 // unset($_SESSION['user_name']);
                 // unset($_SESSION['user_email']);
             // }
-            return view('auth.home', [
+            return view('auth.home', 
+            [
                 'categories' => $categories,
                 'user' => $user,
                 'products' => $products,
+                'pages' => $pages,
             ]);
         }
         else{
+            $productTotal = Product::count();
+            $pages = ceil($productTotal)/3;
+            session(['customerUserId' => 0]);
             return view('auth.home', [
                 'categories' => $categories,
                 'products' => $products,
+                'pages' => $pages,
             ]);
         }  
         
@@ -40,11 +49,14 @@ class CategoryController extends Controller
     }
 
     public function show($id) {
+        $productTotal = Product::count();
+        $pages = ceil($productTotal)/3;
         $products = Product::with('category', 'seller')->where('category_id', $id)->get();
         // dd($products);
         $categories = Category::all();  
         //
         return view('auth.home', [
+            'pages' => $pages,
             'categories' => $categories,
             'products' => $products,
         ]);

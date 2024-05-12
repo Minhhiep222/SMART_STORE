@@ -87,6 +87,9 @@ Route::get('dashboard', [UserController::class, 'dashboard']);
 Route::get('login', [UserController::class, 'login'])->name('login');
 Route::post('login', [UserController::class, 'authUser'])->name('user.authUser');
 
+Route::get('loginAdmin', [CrudCustomerUsersController::class, 'viewLoginAdmin'])->name('admin.viewLoginAdmin');
+Route::post('loginAdmin', [CrudCustomerUsersController::class, 'formLoginAdmin'])->name('admin.formLoginAdmin');
+
 Route::get('create', [UserController::class, 'createUser'])->name('user.createUser');
 Route::post('create', [UserController::class, 'postUser'])->name('user.postUser');
 
@@ -116,7 +119,30 @@ Route::get('test-mail', [HomeController::class, 'testEmail']);
 
 Route::get('ajax-search', [ProductController::class, 'ajaxSearch'])->name('ajax-search');
 
-//
+
 Route::get('find/{name}/productname', [FindController::class, 'findProductName'])->name('find.productname');
 
+//
+Route::get('adminUserCustomer', [CrudCustomerUsersController::class, 'viewAdminUserCustomer'])->name('admin.viewAdminUserCustomer');
+Route::get('adminSeller', [CrudCustomerUsersController::class, 'viewAdminSeller'])->name('admin.viewAdminSeller');
+
+Route::get('deleteAdminSeller', [CrudCustomerUsersController::class, 'deleteAdminSeller'])->name('admin.deleteAdminSeller');
+Route::get('deleteAdminCustomerUser', [CrudCustomerUsersController::class, 'deleteAdminCustomerUser'])->name('admin.deleteAdminCustomerUser');
+
+Route::get('addAdminCustomerUser', [CrudCustomerUsersController::class, 'viewAddAdminCustomerUser'])->name('admin.viewAddAdminCustomerUser');
+Route::post('addAdminCustomerUser', [CrudCustomerUsersController::class, 'formAddAdminCustomerUser'])->name('admin.formAddAdminCustomerUser');
+
+Route::get('addAdminSeller', [CrudCustomerUsersController::class, 'viewAddAdminSeller'])->name('admin.viewAddAdminSeller');
+Route::post('addAdminSeller', [CrudCustomerUsersController::class, 'formAddAdminSeller'])->name('admin.formAddAdminSeller');
+
+Route::get('updateAdminCustomerUser', [CrudCustomerUsersController::class, 'viewUpdateAdminCustomerUser'])->name('admin.viewUpdateAdminCustomerUser');
+Route::post('updateAdminCustomerUser', [CrudCustomerUsersController::class, 'formUpdateAdminCustomerUser'])->name('admin.formUpdateAdminCustomerUser');
+
+Route::get('adminSellerDetail', [CrudCustomerUsersController::class, 'adminSellerDetail'])->name('admin.adminSellerDetail');
+
+Route::get('updateAdminSeller', [CrudCustomerUsersController::class, 'viewUpdateAdminSeller'])->name('admin.viewUpdateAdminSeller');
+Route::post('updateAdminSeller', [CrudCustomerUsersController::class, 'formUpdateAdminSeller'])->name('admin.formUpdateAdminSeller');
+//
+
+Route::get('viewProductPage', [CrudCustomerUsersController::class, 'viewProductPage'])->name('user.viewProductPage');
 Route::resource('cart', CartController::class);
