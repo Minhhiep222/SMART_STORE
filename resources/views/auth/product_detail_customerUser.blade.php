@@ -21,11 +21,19 @@
                     <div class="product-detail-id" style="display: none;">{{$product->id}}</div>
                     <div class="product-detail-info">
                         <div class="product-detail-rate">
-                            <i class="product-item__star--gold fa-solid fa-star"></i>
-                            <i class="product-item__star--gold fa-solid fa-star"></i>
-                            <i class="product-item__star--gold fa-solid fa-star"></i>
-                            <i class="product-item__star--gold fa-solid fa-star"></i>
-                            <i class=" fa-solid fa-star"></i>
+                            @if($evarageStars > 0)
+                             @php
+                                $floorEvarageStars = floor($evarageStars);
+                            @endphp
+                            @for($i = 1; $i <= $floorEvarageStars; $i++) 
+                                <i class="product-item__star--gold fa-solid fa-star"></i>
+                            @endfor
+
+                            @if(is_float($evarageStars)) 
+                            <i id="star-gradient" class="fa-solid fa-star"></i>
+                            @endif
+                            @endif
+                          
                         </div>
                         <div class="product-detail product-detail-Evaluate">Đánh giá</div>
                         <div class="product-detail product-detail-sold">Đã bán</div>
@@ -494,13 +502,25 @@
     <h2>{{$product->product_name}}</h2>
     <div class="totalComment">
         <div class="groupStar">
-            <h5>4.0</h5>
+            <h5>{{round($evarageStars,1)}}</h5>
             <h5 style="opacity: 0">.</h5>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>   
+         
+
+            @if($evarageStars > 0)
+    @php
+        $floorEvarageStars = floor($evarageStars);
+    @endphp
+
+    @for($i = 1; $i <= $floorEvarageStars; $i++) 
+        <i class="fa-solid fa-star"></i>
+    @endfor
+
+    @if(is_float($evarageStars)) 
+        <i id="star-gradient" class="fa-solid fa-star"></i>
+    @endif
+
+@endif
+           
             <h5 style="opacity: 0">.</h5>
             <p>{{$totalComments}} </p>
             <p style="opacity: 0">.</p>
@@ -639,7 +659,6 @@
          <img src="{{('img/img_auth/' . $product->img) }}" alt="">
       </div>
      <div class="formCommentName">
-    
      </div>
      <div class="formCommentContent">
      <textarea id="descriptionDetail" name="description" placeholder="Chia sẻ cảm nhận..." id="w3review" name="w3review" rows="4" cols="60"></textarea>
@@ -662,9 +681,18 @@
      </button>
       <p id="sendImage" onclick="document.getElementById('getFile').click()">Gửi ảnh thực tế</p>
      </div>
-     <input name="productId" value="{{$product->id}}" type="hidden">
-     <input name="customerUserId" value="<?php !empty($_SESSION['user_id']) ? $_SESSION['user_id'] : null ?>" type="hidden">
+     <input name="productId" value="{{$product->id}}" type="">
+     <input id="customerUserId" name="customerUserId" value="{{ $customerUserId }}" type="text">
      <button type="submit" class="btn-submit">Gửi Đánh Giá</button>
     </div>
    </form>
+   <script>
+
+let formComment = document.getElementById('formComment');
+let customerUserId = document.getElementById('customerUserId');
+ if(customerUserId.value === '0') {
+    formComment.style.display = 'none';
+ }
+
+</script>
 @endsection

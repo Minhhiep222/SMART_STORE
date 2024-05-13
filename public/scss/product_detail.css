@@ -660,3 +660,10 @@
   color: white;
   margin-bottom: 30px;
 }/*# sourceMappingURL=productDetail.css.map */
+#star-gradient {
+  display: inline;
+  overflow: hidden;
+  background: linear-gradient(to left, #ffffff 10%, orange);
+  -webkit-background-clip: text;
+  color: transparent;
+}

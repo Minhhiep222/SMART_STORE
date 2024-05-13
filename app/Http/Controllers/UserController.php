@@ -39,9 +39,10 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         //
         // dd($request->email);
-        $user = CustomerUser::where('email',$request->email)->first();
+        $user = CustomerUser::where('email',$request->email)->first();  
         // dd($user);
         $categories = Category::all();
+      
         // dd($categories);
         //
         // dd($user);

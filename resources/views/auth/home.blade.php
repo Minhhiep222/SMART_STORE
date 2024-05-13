@@ -105,13 +105,14 @@
                             <form class="formProductDetail" method="post"
                                 action="{{ route('user.detailIndexCustomerUser')}}">
                                 @csrf
+                                <input name="productId" value="{{$product->id}}" type="hidden">
                                 <div class="product-item">
                                     <div class="product-item__img"
                                         style="background-image: url({{('img/img_auth/' . $product->img)}});">
                                     </div>
                                     <input name="customerUserId" value="<?php !empty($_SESSION['user_id']) ? $_SESSION['user_id'] : null ?>" type="hidden">
                                     <input name="productId" value="{{$product->id}}" type="hidden">
-                                    <h4 class="product-item__name">{{$product->product_name}}</h4>
+                                    <h4 class="product-item__name">{{$product->product_name}}</h4>  
                                     <div class="product-item__price">
                                         <span class="product-item__price_old">1.200.000đ</span>
                                         <span class="product-item__price_current">{{$product->price}}</span>
@@ -153,21 +154,14 @@
                             <i class="pagination-item__icon fa-solid fa-angle-left"></i>
                         </a>
                     </li>
-                    <li class="pagination-item pagination-item--active">
-                        <a href="" class="pagination-item__link">1</a>
-                    </li>
+                    <!-- <li class="pagination-item pagination-item--active">
+                        <a href="" class="pagination-item__link">0</a>
+                    </li> -->
+                    @foreach (range(1, $pages) as $page)
                     <li class="pagination-item">
-                        <a href="" class="pagination-item__link">2</a>
+                    <a href="{{ route('user.viewProductPage', ['page' => $page]) }}" class="pagination-item__link">{{ $page }}</a>
                     </li>
-                    <li class="pagination-item">
-                        <a href="" class="pagination-item__link">3</a>
-                    </li>
-                    <li class="pagination-item">
-                        <a href="" class="pagination-item__link">...</a>
-                    </li>
-                    <li class="pagination-item">
-                        <a href="" class="pagination-item__link">10</a>
-                    </li>
+                    @endforeach
                     <li class="pagination-item">
                         <a href="" class="pagination-item__link">
                             <i class="pagination-item__icon fa-solid fa-angle-right"></i>
@@ -176,7 +170,6 @@
 
                 </ul>
                 <!-- PAGINATION -->
-
 
             </div>
         </div>

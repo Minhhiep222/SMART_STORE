@@ -54,6 +54,7 @@ class DatabaseSeeder extends Seeder
             SellerSeeder::class,
             CartSeeder::class,
             Cart_detailSeeder::class,
+            AdminSeeder::class
         ]);
     
     }

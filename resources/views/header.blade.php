@@ -102,10 +102,10 @@
                         <!-- USER -->
                         <li class="navbar-item navbar-user">
                             <?php
-                            if(!empty($_SESSION['user_id'])) {
-                                echo '<img src="/img/user_img.jpg" alt="" class="navbar-user-img">
-                                <span class="navbar-user-name">' .$_SESSION["name"]. '</span>';
-                            }
+                          if (!empty($_SESSION['user_id'])) {
+                            echo '<img src="/img/img_auth/' . $_SESSION["img"] . '" alt="" class="navbar-user-img">
+                                  <span class="navbar-user-name">' . $_SESSION["name"] . '</span>';
+                        }
                             ?>
                             <ul class="navbar-user-info">
                                 <li class="navbar-user-item">

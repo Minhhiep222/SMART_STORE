@@ -8,10 +8,10 @@
             <div class="gird__column-2_seller">
                 <div class="home__profile-user">
                     <div class="profile__img-item">
-                    <img src="{{ asset('img/img_auth/' . $customerUser->img) }}" alt="" class="img__profile">
+                    <img src="/img/img_auth/{{ $_SESSION['img'] }}" alt="" class="img__profile">
                     </div>
                     <div class="home__profile-info">
-                        <div class="home__profile-name">{{$customerUser->name}}</div>
+                        <div class="home__profile-name">{{$_SESSION['name']}}</div>
                         <div class="home__profile-edit_profile">
                             <i class="fa-solid fa-user-pen"></i>
                             Chỉnh sửa hồ sơ
