@@ -61,7 +61,7 @@
   font-size: 1.6rem;
   line-height: 15px;
   text-align: center;
-  max-height: 30px;
+  min-height: 30px;
   color: var(--outline-color);
   min-width: 35px;
 }

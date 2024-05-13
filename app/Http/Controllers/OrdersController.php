@@ -50,8 +50,20 @@ class OrdersController extends Controller
 
     //method create order
     public function store(Request $request) {
-        $user_id = 1;
-        // dd($request);
+        session_start();
+        $user_id = $_SESSION['user_id'];
+        // Lấy giá trị của cookie "carts" từ $_COOKIE
+        $cookieValue = isset($_COOKIE['carts']) ? $_COOKIE['carts'] : '';
+        
+        // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
+        $arrayCart = json_decode($cookieValue, true);
+        //xử lý kho trong mảng chỉ có 1 phần tử
+        if(count($arrayCart) == 1) {
+            $arrayCart[count($arrayCart)] = null;
+        }
+
+        // dd($arrayCart);
+
         $request->validate([
             'customer_id' => 'requited',
             'PaymentMethod' => 'requited',
@@ -70,22 +82,33 @@ class OrdersController extends Controller
             'updated_at' => now(),
         ]);
        
-        $cart = Cart::find($user_id)->first();
+        $cart = Cart::where('user_id', $user_id)->first();
         $cart_details = Cart_detail::where('cart_id',$cart->id)->get();
         if($order) {
-            foreach($cart_details as $item) {
-                $product = Product::find($item->product_id)->first();
-                $order_detail =  OrderDetail::create([
-                    'order_id' => $order->id,
-                    'product_id' => $item->product_id,
-                    'quantity' => $item->quantity,
-                    'seller_id' => $product->seller_id,
-                    'price' => $product->price,
-                    'total' => $item->quantity * $product->price,
-                ]);
-                $item->delete();
+            foreach($cart_details as $index => $item) {
+                $product = Product::where('id', $arrayCart[$index])->first();
+                if($arrayCart[$index] == null) {
+                    return redirect("home")->with('success', true);
+                }
+                if($product->id == $arrayCart[$index]) {
+                    $order_detail =  OrderDetail::create([
+                        'order_id' => $order->id,
+                        'product_id' => $item->product_id,
+                        'quantity' => $item->quantity,
+                        'seller_id' => $product->seller_id,
+                        'price' => $product->price,
+                        'total' => $item->quantity * $product->price,
+                    ]);
+                    $product -> sold = $product->sold + $item->quantity;
+                    $product -> quantity = $product->quantity - $item->quantity;
+                    $product->save();
+                    $item->delete();
+                }
             }
+            setcookie('carts','', time() - 3600, '/');
         }
+
+        return redirect("home")->with('success', true);
 
     }
 
@@ -98,10 +121,8 @@ class OrdersController extends Controller
         
         //save order to table
         $order -> save();
-        
 
         //chuyển hướng nếu cần
         return redirect()->route('orders.index');
-
     }
 }

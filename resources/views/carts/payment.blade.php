@@ -80,7 +80,7 @@
                     <div class="action__cart">
                         <div class="payment__cart-title">
                             Tổng tiền:
-                            <span class="price_total-payment"> <input type="text" value="{{ $total }}" name="TotalAmount"> {{ $total }} <span>đ</span></span>
+                            <span class="price_total-payment"> <input type="text" value="{{ $total }}" name="TotalAmount" style="display: none"> {{ $total }} <span>đ</span></span>
                         </div>
                         <div class="payment__cart-btn">
                             <button type="submit" class="btn btn--primary">Thanh toán</button>

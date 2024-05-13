@@ -1,4 +1,4 @@
-@extends('auth.account.header')
+<!-- @extends('auth.account.header')
 
 @section('content_profile')
 <div class="grid__column-10">
@@ -29,4 +29,4 @@
     </div>
 </div>
 
-@endsection
+@endsection -->

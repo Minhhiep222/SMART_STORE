@@ -16,6 +16,13 @@ class Cart_detail extends Model
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
+    protected $fillable = [
+        'cart_id',
+        'product_id',
+        'quantity',
+    ]; 
+
+
     // public function user_cart() {
     //     return $this->belongsTo(Customer::class, 'product_id', 'id');
     // }

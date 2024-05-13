@@ -18,7 +18,6 @@
                     <i class="fa-regular fa-circle-check"></i>
                 </h3>
             </div>
-            <!-- LogIn form -->
             <div class="comeback-btn">
                 <button onclick="window.location.href='{{ route('home.index') }}'" class="auth-form btn btn--primary">
                     Trang chủ

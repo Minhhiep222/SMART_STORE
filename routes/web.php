@@ -72,10 +72,6 @@ Route::get('orders/{id}/delete', [OrdersController::class, 'delete'])->name('ord
 Route::get('orders/{id}/updateStatus', [OrdersController::class, 'updateStatus'])->name('orders.updateStatus'); 
 
 
-Route::get('register', function () {
-    return view('register');
-});
-
 Route::get('account/oder_detail', function () {
     return view('auth.account.oder_detail');
 });
@@ -112,11 +108,11 @@ Route::post('find_user', [ForgetController::class, 'findUser'])->name('user.find
 //test Mail
 Route::get('test-mail', [HomeController::class, 'testEmail']);
 
-//request
-
 Route::get('ajax-search', [ProductController::class, 'ajaxSearch'])->name('ajax-search');
 
 //
 Route::get('find/{name}/productname', [FindController::class, 'findProductName'])->name('find.productname');
 
 Route::resource('cart', CartController::class);
+
+Route::get('addToCart', [CartController::class, 'addToCart'])->name('addToCart');

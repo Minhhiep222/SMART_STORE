@@ -15,7 +15,7 @@
     <link type="text/css" href="/scss/product.css" rel="stylesheet">
     <link rel="stylesheet" href="/font/fontawesome-free-6.5.1-web/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -141,7 +141,7 @@
                                 placeholder="Nhập sản phẩm tìm kiếm" autocomplete="off">
                             <div class="header__search-history">
                                 <ul class="list-group header__search-history-list list-search">
-                                    
+
                                 </ul>
                             </div>
                         </div>
@@ -169,7 +169,9 @@
                     <!-- HEADER WITH CART -->
                     <div class="header__cart">
                         <div class="header__cart-wrap">
-                            <i class="cart-icon fa-solid fa-cart-shopping"></i>
+                            <i class="cart-icon fa-solid fa-cart-shopping">
+                                <span class="number_cart"></span>
+                            </i>
 
                             <div class="header__cart-list header__cart-no-cart">
                                 <!-- <img src="/img/no-cart.png" alt="" class="header__cart-no-cart-img">
@@ -217,7 +219,8 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <button onclick="hef" class="header__cart-view btn btn--primary">Xem giỏ hàng</button>
+                                <button onclick="window.location.href='{{ route('cart.index') }}'"
+                                    class="header__cart-view btn btn--primary">Xem giỏ hàng</button>
                             </div>
 
                         </div>
@@ -319,10 +322,12 @@
 
                                 <div class="auth-form__form">
                                     <div class="auth-form__group">
-                                        <input type="text" class="auth-form__input" placeholder="Name" name="name" required>
+                                        <input type="text" class="auth-form__input" placeholder="Name" name="name"
+                                            required>
                                     </div>
                                     <div class="auth-form__group">
-                                        <input type="text" class="auth-form__input" placeholder="Email" name="email" required>
+                                        <input type="text" class="auth-form__input" placeholder="Email" name="email"
+                                            required>
                                     </div>
 
                                     <div class="auth-form__group">
@@ -488,6 +493,28 @@
             </div>
             <!-- /CREATE_STORE -->
 
+            <!-- SUCCESS -->
+            <div class="modal fade" id="success" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="margin-top: 5%;">
+                    <div class="modal-content">
+                        <div class="modal__body">
+                            <div class="content-success">
+                                <h3>Thành công
+                                    <i class="fa-regular fa-circle-check"></i>
+                                </h3>
+                            </div>
+                            <div class="comeback-btn">
+                                <button onclick="window.location.href='{{ route('home.index') }}'"
+                                    class="auth-form btn btn--primary">
+                                    Trang chủ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /SUCCESS -->
+
         </div>
     </div>
 
@@ -517,6 +544,13 @@
     <script>
     window.onload = function() {
         var myModal = new bootstrap.Modal(document.getElementById('store'));
+        myModal.show();
+    };
+    </script>
+    @elseif (session('success'))
+    <script>
+    window.onload = function() {
+        var myModal = new bootstrap.Modal(document.getElementById('success'));
         myModal.show();
     };
     </script>

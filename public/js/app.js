@@ -34,9 +34,59 @@ $('input[name="key"]').keyup(function () {
     });
 });
 
+$('.btn--cart').click(function () {
+    const num_cart_product = document.querySelector('.product-detail-number')
+    const id_cart_product = document.querySelector('.product-detail-id')
+    const cart = document.querySelector('.cart-icon')
+    const number_cart = document.querySelector('.number_cart')
+
+    if (num_cart_product && id_cart_product) {
+        const num_cart_product_text = num_cart_product.textContent;
+        const id_cart_product_text = id_cart_product.textContent;
+    
+        const arrayId = [num_cart_product_text, id_cart_product_text];
+        const arrayIdWithQuantity = JSON.stringify(arrayId);
+    
+        $.ajax({
+            url: 'http://127.0.0.1:8000/addToCart',
+            type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: { data: arrayIdWithQuantity },
+            success: function(res) {
+                number_cart.textContent = res;
+            }
+        });
+    } else {
+        console.log('Không tìm thấy phần tử có lớp .product-detail-number hoặc .product-detail-id.');
+    }
+});
+
+
+const checkboxs = document.querySelectorAll('.checkbox_cart');
+const btn_payment = document.querySelector('.btn__payment');
+// btn_payment.style.opacity = 0.5;
+checkboxs.forEach(element => {
+    element.addEventListener('click', ()=>{
+        console.log("ê");
+        $arrayId = [];
+        checkboxs.forEach(item => {
+            if(item.checked == true){
+                $arrayId.push(item.value);
+            }
+        })
+        if($arrayId.length > 0) {
+            btn_payment.disabled = false;
+            btn_payment.style.opacity = 1;
+        }else {
+            btn_payment.disabled = true;
+            btn_payment.style.opacity = 0.5;
+        }
+    })
+})
 
 $('.btn__payment').click(function () {
-    console.log("ê");
     const checkboxs = document.querySelectorAll('.checkbox_cart');
     $arrayId = [];
     checkboxs.forEach(element => {
@@ -44,7 +94,19 @@ $('.btn__payment').click(function () {
             $arrayId.push(element.value);
         }
     })
-    localStorage.getItem('cart', $arrayId);
     console.log($arrayId);
+
+    var jsonStr = JSON.stringify($arrayId);
+
+    document.cookie = "name=value; expires=expiry; path=path; domain=domain; secure";
+
+    document.cookie = "carts=" + jsonStr;
+
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)carts\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+    var retrievedArray = JSON.parse(cookieValue);
+
+    console.log(retrievedArray);
+
 
 });

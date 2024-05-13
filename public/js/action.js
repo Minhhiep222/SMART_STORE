@@ -21,7 +21,6 @@ function change(){
         dem=0
     };
     lastItem = img_Item[dem];
-    img_Main.src = lastItem.src
    
 }
 

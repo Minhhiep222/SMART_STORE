@@ -22,7 +22,7 @@
                                 <tr class="product__cart-item">
                                         <td class="seller__td-img">
                                         <div class="detail__product-info">
-                                            <input class="checkbox_cart" type="checkbox" name="{{ $cart_product->id }}" value="{{ $cart_product->id }}">
+                                            <input class="checkbox_cart" type="checkbox" name="{{ $cart_product->id }}" value="{{ $cart_product->product_cart->id  }}">
                                             <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
                                             <a href="" class="information__product-link">
                                                 <span class="seller-name_product"> {{ $cart_product->product_cart->product_name }} </span>
@@ -56,27 +56,19 @@
                                 @endforeach
                             </table>
 
-                        </div>
+                        </div>  
                         <!-- PRODUCT ITEM -->
                         <div class="grid payment__cart-item">
                             <div class="action__cart">
-                                <div class="payment__cart-title">
-                                    Tổng tiền:
-                                    <span class="price_total-payment">{{ $total }}<span>đ</span></span>
-                                </div>
                                 <div class="payment__cart-btn">
-                                    <button class="btn btn--primary btn__payment" >Thanh toán</button>
+                                    <button class="btn btn--primary btn__payment" onclick='window.location.href="{{ route("payment.index") }}"' disabled style="opacity: 0.5;">Thanh toán</button>
                                 </div>
-                                <!-- onclick='window.location.href="{{ route("payment.index") }}"' -->
                             </div>
                         </div>
                     </div>
-                </div>
-                
+                </div>           
             </div>
         </div>
-
     </div>
-
 </div>
 @endsection

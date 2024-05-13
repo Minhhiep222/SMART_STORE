@@ -11,7 +11,8 @@ class CartController extends Controller
     //
     public function index() {
         session_start();
-        $cart = Cart::find(1)->first();
+        $user_id = $_SESSION['user_id'];
+        $cart = Cart::where('id', $user_id)->first();
         $cart_detail = Cart_detail::with('product_cart')
         ->where('cart_id', $cart->id)->get();
         $total = 0;
@@ -24,4 +25,30 @@ class CartController extends Controller
             'total' => $total,
         ]);
     }
+
+    //
+    public function addToCart() {
+        session_start();
+        $user_id = $_SESSION['user_id'];
+        $data = request('data');
+        $arrayIdWithQuantity = json_decode($data, true);
+        $cart = Cart::where('id', $user_id)->first();
+        if($cart == null) {
+            $cart = Cart::create([
+                'user_id' => $user_id,
+            ]);
+        }
+        
+        if($cart) {
+            $cart_detail = Cart_detail::create([
+                'cart_id' => $cart->id,
+                'product_id' => $arrayIdWithQuantity[1],
+                'quantity' => $arrayIdWithQuantity[0],
+            ]);
+        }
+
+        $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
+        return $count_cart ;
+    }
+
 }

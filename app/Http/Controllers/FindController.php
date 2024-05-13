@@ -41,10 +41,8 @@ class FindController extends Controller
     public function show($id) {
         session_start();
         $products = Product::with('category', 'seller')->where('category_id', $id)->get();
-        // dd($products);
         $categories = Category::all();  
         //
-        // dd($user);
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
             $user = CustomerUser::find($id);
@@ -64,17 +62,14 @@ class FindController extends Controller
     }
 
     public function findProductName($name) {
-        // dd($name);
         session_start();
         $categories = Category::all();
         $products = Product::find($name)
         ->first();
-        // $seller = Seller::find()
         dd($products);
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
             $user = CustomerUser::find($id)->first();
-            // dd($products[3]->seller->name_company);
             return view('auth.find', [
                 'categories' => $categories,
                 'user' => $user,

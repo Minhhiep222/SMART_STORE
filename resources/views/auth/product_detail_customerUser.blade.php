@@ -18,6 +18,7 @@
             <div class="grid__column-7">
                 <div class="title_product-detail">
                     <div class="product-detail-name">{{$product->product_name}}</div>
+                    <div class="product-detail-id" style="display: none;">{{$product->id}}</div>
                     <div class="product-detail-info">
                         <div class="product-detail-rate">
                             <i class="product-item__star--gold fa-solid fa-star"></i>

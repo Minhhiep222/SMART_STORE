@@ -5,10 +5,9 @@ const priceProduct = document.querySelectorAll('.price__product-cart')
 const totalProduct = document.querySelectorAll('.total__product-cart')
 
 let counts = Array.from({ length: addQuantities.length }, () => 1);
-console.log(counts)
 
 addQuantities.forEach( (addQuantity, index ) => {
-    addQuantity.addEventListener('click', ()=>{    
+    addQuantity.addEventListener('click', ()=>{  
         counts[index] ++
         numberQuantity[index].innerHTML = counts[index]
         var total = parseInt(priceProduct[index].textContent) * counts[index]

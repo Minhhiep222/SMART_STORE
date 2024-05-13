@@ -3,47 +3,10 @@
 @section('content_store')
 <!-- CONTAINER -->
 <div class="grid__column-10">
-    <div class="home-filter">
-        <span class="home-filter-title">Sắp xếp theo</span>
-        <button class="home-filter__btn btn">Phổ biến</button>
-        <button class="home-filter__btn btn btn--primary">Mới nhất</button>
-        <button class="home-filter__btn btn">Bán chạy</button>
-
-        <div class="select-input">
-            <span class="home-filter__label" for="">Giá</span>
-            <i class="search-icon fa-solid fa-angle-down"></i>
-
-            <!-- SELECT-INPUT-LIST -->
-            <ul class="select-input__list">
-                <li class="select-input__item">
-                    <a href="" class="select-input__link">Giá: cao đến thấp</a>
-                </li>
-                <li class="select-input__item">
-                    <a href="" class="select-input__link">Giá: thấp đến cao</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="home-filter__paginate">
-            <span class="home-filter__page-num">
-                <span class="page-current">1</span>
-                /14
-            </span>
-
-            <div class="home-filter__page-control">
-                <a href="" class="page-control-link page-control-link-icon-disabled">
-                    <i class="page-control-link-icon fa-solid fa-angle-left"></i>
-                </a>
-                <a href="" class="page-control-link">
-                    <i class="page-control-link-icon fa-solid fa-angle-right"></i>
-                </a>
-            </div>
-        </div>
-    </div>
     <div class="home__product">
         <div class="grid__row">
             <!-- pRODUCT ITEM -->
-            <div class="grid__column-product_cart">
+            <div class="grid__column-product_cart grid__column-product_order">
                 <table class="table__product-cart" id="customers">
                     <tr class="">
                         <th>Tên sản phẩm</th>

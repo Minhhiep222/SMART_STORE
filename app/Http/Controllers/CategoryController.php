@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\CustomerUser;
+use App\Models\Cart;
+use App\Models\Cart_detail;
 
 class CategoryController extends Controller
 {
@@ -16,6 +18,9 @@ class CategoryController extends Controller
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
             $user = CustomerUser::find($id)->first();
+            $cart = Cart::where('user_id', $id)->first();
+            $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
+
             // dd($_SESSION['user_id']);
             // if(isset($_SESSION["user_id"])){
                 // unset($_SESSION['user_id']);
@@ -27,6 +32,7 @@ class CategoryController extends Controller
                 'categories' => $categories,
                 'user' => $user,
                 'products' => $products,
+                // 'number' => $count_cart,
             ]);
         }
         else{

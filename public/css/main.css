@@ -593,8 +593,23 @@ input[name="get__number_verify"] {
     color: var(--white-color);
     font-size: 2.6rem;
     cursor: pointer;
+    position: relative;
 }
 
+.number_cart {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 15px;
+    height: 15px;
+    background-color: var(--white-color);
+    border-radius: 50%;
+    color: black;
+    font-size: 10px;
+    text-align: center;
+    line-height: 15px;
+    font-weight: 600;
+}
 
 .header__search-input {
     width: 100%;

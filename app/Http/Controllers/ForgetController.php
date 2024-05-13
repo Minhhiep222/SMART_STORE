@@ -53,7 +53,7 @@ class ForgetController extends Controller
             if($user != null) {
                 $user->password = Hash::make($request['password_new']);
                 $user->save();
-                return view('emails.setPasswordSuccess');
+                return redirect("home")->with('success', true);
             }
         }
         return redirect('forget')->with("sai mã otp");

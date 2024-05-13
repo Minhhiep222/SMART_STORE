@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Seller;
 use App\Models\Comment;
+use App\Models\Cart;
+use App\Models\Cart_detail;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,23 +27,45 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('header', function ($view) {
+            
             if(session()->has('email')) {
+                session_start();
                 $email = session('email');
-                $customerUser =CustomerUser::where('email', $email)->first();
-                $view->with('customerUser', $customerUser);
+                $id = $_SESSION['user_id'];
+                $customerUser = CustomerUser::where('email', $email)->first();
+                $cart = Cart::where('user_id', $id)->first();
+                $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
+                dd($count_cart);
+                $view->with([
+                    'customerUser'=> $customerUser,
+                    'number' => $count_cart,
+                ]);
+
             }
         });
         
         View::composer('auth.account.header', function ($view) {
-            $email = session('email');
-            $customerUser = CustomerUser::where('email', $email)->first();
-            $view->with('customerUser', $customerUser);
+            if(session()->has('email')) {
+                $email = session('email');
+                $customerUser = CustomerUser::where('email', $email)->first();
+                $view->with('customerUser', $customerUser);
+            }
         });
 
         View::composer('header_store', function ($view) {
-            $email = session('email');
-            $customerUser = CustomerUser::where('email', $email)->first();
-            $view->with('customerUser', $customerUser);
+            if(session()->has('email')) {
+                $email = session('email');
+                $customerUser = CustomerUser::where('email', $email)->first();
+                $view->with('customerUser', $customerUser);
+            }
+        });
+
+        View::composer('header_cart', function ($view) {
+            if(session()->has('email')) {
+                $email = session('email');
+                $customerUser = CustomerUser::where('email', $email)->first();
+                $view->with('customerUser', $customerUser);
+            }
         });
     }
 }
