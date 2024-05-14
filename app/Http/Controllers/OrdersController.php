@@ -58,11 +58,6 @@ class OrdersController extends Controller
         // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
         $arrayCart = json_decode($cookieValue, true);
         //xử lý kho trong mảng chỉ có 1 phần tử
-        if(count($arrayCart) == 1) {
-            $arrayCart[count($arrayCart)] = null;
-        }
-
-        // dd($arrayCart);
 
         $request->validate([
             'customer_id' => 'requited',
@@ -81,33 +76,24 @@ class OrdersController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-       
         $cart = Cart::where('user_id', $user_id)->first();
-        $cart_details = Cart_detail::where('cart_id',$cart->id)->get();
-        if($order) {
-            foreach($cart_details as $index => $item) {
-                $product = Product::where('id', $arrayCart[$index])->first();
-                if($arrayCart[$index] == null) {
-                    return redirect("home")->with('success', true);
-                }
-                if($product->id == $arrayCart[$index]) {
-                    $order_detail =  OrderDetail::create([
-                        'order_id' => $order->id,
-                        'product_id' => $item->product_id,
-                        'quantity' => $item->quantity,
-                        'seller_id' => $product->seller_id,
-                        'price' => $product->price,
-                        'total' => $item->quantity * $product->price,
-                    ]);
-                    $product -> sold = $product->sold + $item->quantity;
-                    $product -> quantity = $product->quantity - $item->quantity;
-                    $product->save();
-                    $item->delete();
-                }
-            }
-            setcookie('carts','', time() - 3600, '/');
+        foreach($arrayCart as $product_id) {
+            $product = Product::where('id', $product_id)->first();
+            $cart_detail = Cart_detail::where('cart_id',$cart->id)
+            ->first();
+            $order_detail =  OrderDetail::create([
+                'order_id' => $order->id,
+                'product_id' => $cart_detail->product_id,
+                'quantity' => $cart_detail->quantity,
+                'seller_id' => $product->seller_id,
+                'price' => $product->price,
+                'total' => $cart_detail->quantity * $product->price,
+            ]);
+            $product -> sold = $product->sold + $cart_detail->quantity;
+            $product -> quantity = $product->quantity - $cart_detail->quantity;
+            $product->save();
+            $cart_detail->delete();
         }
-
         return redirect("home")->with('success', true);
 
     }

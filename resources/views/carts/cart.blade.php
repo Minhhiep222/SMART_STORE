@@ -22,7 +22,7 @@
                                 <tr class="product__cart-item">
                                         <td class="seller__td-img">
                                         <div class="detail__product-info">
-                                            <input class="checkbox_cart" type="checkbox" name="{{ $cart_product->id }}" value="{{ $cart_product->product_cart->id  }}">
+                                            <input class="checkbox_cart" type="checkbox" name="{{ $cart_product->id }}" value="{{ $cart_product->id  }}">
                                             <img src="/img/img_auth/iphone-15.webp" alt="" class="seller-img_product">
                                             <a href="" class="information__product-link">
                                                 <span class="seller-name_product"> {{ $cart_product->product_cart->product_name }} </span>

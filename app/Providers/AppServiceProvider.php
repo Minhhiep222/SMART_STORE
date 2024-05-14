@@ -29,13 +29,10 @@ class AppServiceProvider extends ServiceProvider
         View::composer('header', function ($view) {
             
             if(session()->has('email')) {
-                session_start();
                 $email = session('email');
-                $id = $_SESSION['user_id'];
                 $customerUser = CustomerUser::where('email', $email)->first();
-                $cart = Cart::where('user_id', $id)->first();
+                $cart = Cart::where('user_id', $customerUser->id)->first();
                 $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
-                dd($count_cart);
                 $view->with([
                     'customerUser'=> $customerUser,
                     'number' => $count_cart,
@@ -48,7 +45,12 @@ class AppServiceProvider extends ServiceProvider
             if(session()->has('email')) {
                 $email = session('email');
                 $customerUser = CustomerUser::where('email', $email)->first();
-                $view->with('customerUser', $customerUser);
+                $cart = Cart::where('user_id', $customerUser->id)->first();
+                $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
+                $view->with([
+                    'customerUser'=> $customerUser,
+                    'number' => $count_cart,
+                ]);
             }
         });
 
@@ -56,7 +58,12 @@ class AppServiceProvider extends ServiceProvider
             if(session()->has('email')) {
                 $email = session('email');
                 $customerUser = CustomerUser::where('email', $email)->first();
-                $view->with('customerUser', $customerUser);
+                $cart = Cart::where('user_id', $customerUser->id)->first();
+                $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
+                $view->with([
+                    'customerUser'=> $customerUser,
+                    'number' => $count_cart,
+                ]);
             }
         });
 
@@ -64,7 +71,12 @@ class AppServiceProvider extends ServiceProvider
             if(session()->has('email')) {
                 $email = session('email');
                 $customerUser = CustomerUser::where('email', $email)->first();
-                $view->with('customerUser', $customerUser);
+                $cart = Cart::where('user_id', $customerUser->id)->first();
+                $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
+                $view->with([
+                    'customerUser'=> $customerUser,
+                    'number' => $count_cart,
+                ]);
             }
         });
     }

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('table_comment', function (Blueprint $table) {
             $table->increments('comment_id')->unique(); // ID category, khóa chính, tự động tăng dần
             $table->string('description');
-            $table->string('img');
+            $table->string('img')->nullable();
             $table->integer('customerUserId');
             $table->integer('productId');
-            $table->integer('star');
+            $table->integer('star')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ use PragmaRX\Google2FA\Google2FA;
 // use App\Models\User;
 use App\Models\CustomerUser;
 use App\Models\Category;    
+use App\Models\Cart;    
 /**
  * CRUD User controller
  */
@@ -28,25 +29,17 @@ class UserController extends Controller
 
     public function authUser(Request $request) {
         session_start();
-        $google2fa = new Google2FA();
-        // $otp = $google2fa->generateSecretKey();
-        // dd($otp);
+
         //kiểm tra email, password không được bỏ trống
         $request->validate(['email'=>'required',
         'password'=>'required']);
 
         //only : chỉ lấy giá trị được chỉ định
         $credentials = $request->only('email', 'password');
-        //
-        // dd($request->email);
         $user = CustomerUser::where('email',$request->email)->first();  
-        // dd($user);
-        $categories = Category::all();
-      
-        // dd($categories);
-        //
-        // dd($user);
-
+        //kiểm tra có sai mật khẩu hay email không
+        
+        //kiểm tra đúng mã otp không
         if($request->get__number_verify === $request->number_verify) {
 
             if(Auth::guard('tbl_customer_users')->attempt($credentials)){
@@ -58,12 +51,20 @@ class UserController extends Controller
                 $_SESSION['name'] = $user->name;
                 $_SESSION['img'] = $user->img;
                 // Gửi cookie về trình duyệt
-                // return response('Login successful')->cookie('login_status', 'logged_in');
                 return redirect("home");
             }
-            return redirect("home")->with('login', true);
+            else {
+                return redirect("home")
+                ->with('login', true)
+                ->with('pass_wrong', true);
+            }
+        }else {
+            return redirect("home")
+            ->with('login', true)
+            ->with('otp_wrong', true);
         }
-        return redirect("home")->with('login', true);
+        
+        
     }
     
 
@@ -80,20 +81,39 @@ class UserController extends Controller
      */
     public function postUser(Request $request)
     {
+        $data = $request->all(); 
+
+        $check = CustomerUser::where('email', $data['email'])->first();
+        if($check != null) {
+            return redirect("home")
+            ->with('register', true)
+            ->with('exit_email', true);
+        }else if( strlen($data['password']) < 6 ){
+            return redirect("home")
+            ->with('register', true)
+            ->with('invalid_pass', true);
+        }
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
 
-        $data = $request->all();
-        $check = CustomerUser::create([
+        $user = CustomerUser::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        if($user) {
+            $cart = Cart::create([
+                'user_id' => $user->id,
+            ]);
+        }
 
-        return redirect("home")->with('login', true);
+        return redirect("home")
+        ->with('login', true)
+        ->with('success', true);
     }
 
     /**

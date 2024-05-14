@@ -14,8 +14,7 @@
     <link type="text/css" href="/scss/store.css" rel="stylesheet">
     <link type="text/css" href="/scss/product.css" rel="stylesheet">
     <link rel="stylesheet" href="/font/fontawesome-free-6.5.1-web/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -170,7 +169,12 @@
                     <div class="header__cart">
                         <div class="header__cart-wrap">
                             <i class="cart-icon fa-solid fa-cart-shopping">
-                                <span class="number_cart"></span>
+                                <?php if (!empty($_SESSION['user_id'])) {
+                                ?>
+                                <span class="number_cart">{{  $number }}</span>
+                                <?php } else {?>
+                                <span class="number_cart">0</span>
+                                <?php }?>
                             </i>
 
                             <div class="header__cart-list header__cart-no-cart">
@@ -243,7 +247,8 @@
         <!-- FOOTER  -->
 
     </div>
-    <!-- Modal -->
+
+    <!-- Login -->
     <div class="modal-header">
         <div class="modal_body">
             <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -276,7 +281,14 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                @if (session('pass_wrong'))
+                                    <p class="error-message">Mật khẩu hoặc email không chính xác. Vui lòng thử lại.</p>
+                                @elseif (session('otp_wrong'))
+                                    <p class="error-message">OTP không chính xác. Vui lòng thử lại.</p>
+                                @elseif (session('success'))
+                                    <p class="success">Đăng ký thành công. Vui lòng đăng nhập</p>
+                                @endif
+                                
                                 <div class="auth-form__aside">
                                     <p class="auth-form__help">
                                         <a href="{{ route('forget.index') }}"
@@ -335,10 +347,14 @@
                                             name="password" required>
                                     </div>
                                 </div>
-
+                                @if (session('exit_email'))
+                                    <p class="error-message">Email đã tồn tại. Vui lòng thử lại.</p>
+                                @elseif (session('invalid_pass'))
+                                    <p class="error-message">Mật khẩu phải hơn 6 số. Vui lòng thử lại.</p>
+                                @endif
                                 <div class="auth-form__aside">
                                     <p class="auth-form__policy-text">
-                                        Bằng việc đăng ký, bạn đã đồng ý với Shoppe về
+                                        Bằng việc đăng ký, bạn đã đồng ý với SmartStore về
                                         <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
                                         &
                                         <a href="" class="auth-form__text-link">Chính xác bảo mật</a>

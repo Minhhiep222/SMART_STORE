@@ -103,7 +103,7 @@ class ProductSeeder extends Seeder
                 "sold" => "30",
                 "img" => "iphone-15.webp",
                 "category_id" => "1",
-                "seller_id" => "3"
+                "seller_id" => "2"
             ],
             [
                 "product_name" => "Sản Phẩm 33",
@@ -113,7 +113,7 @@ class ProductSeeder extends Seeder
                 "sold" => "30",
                 "img" => "iphone-15.webp",
                 "category_id" => "1",
-                "seller_id" => "3"
+                "seller_id" => "2"
             ],
             [
                 "product_name" => "Sản Phẩm 333",
@@ -123,7 +123,7 @@ class ProductSeeder extends Seeder
                 "sold" => "30",
                 "img" => "iphone-15.webp",
                 "category_id" => "1",
-                "seller_id" => "3"
+                "seller_id" => "2"
             ],
             [
                 "product_name" => "Sản Phẩm 3333",
@@ -133,7 +133,7 @@ class ProductSeeder extends Seeder
                 "sold" => "30",
                 "img" => "iphone-15.webp",
                 "category_id" => "1",
-                "seller_id" => "3"
+                "seller_id" => "2"
             ]
         ]);
     }

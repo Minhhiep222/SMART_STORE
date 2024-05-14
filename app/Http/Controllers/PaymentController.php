@@ -21,25 +21,21 @@ class PaymentController extends Controller
         // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
         $arrayCart = json_decode($cookieValue, true);
 
-        if(count($arrayCart) == 1) {
-            $arrayCart[count($arrayCart)] = '';
-        } 
         if($arrayCart == null) {
             return redirect("cart");
         }
         
         $cart = Cart::where('user_id',$user_id)->first();
-        $cart_details = Cart_detail::with('product_cart')
-        ->where('cart_id', $cart->id)->get();
         $total = 0;
         $product_cart = [];
-        foreach($cart_details as $index => $item) {
-            if($item->product_id == $arrayCart[$index]) {
-                $product_cart[$index] = $item;
-                $total += $item->quantity * $item->product_cart->price;
-            }
-        }
-        
+        foreach($arrayCart as $index => $cart_detail_id) {
+            $cart_detail = Cart_detail::with('product_cart')
+            ->where('cart_id', $cart->id)
+            ->where('id', $cart_detail_id)
+            ->first();
+            $product_cart[$index] = $cart_detail;
+            $total += $cart_detail->quantity * $cart_detail->product_cart->price;
+        } 
         return view('carts.payment', [
             'cart_detail' => $product_cart,
             'total' => $total,

@@ -37,7 +37,6 @@ $('input[name="key"]').keyup(function () {
 $('.btn--cart').click(function () {
     const num_cart_product = document.querySelector('.product-detail-number')
     const id_cart_product = document.querySelector('.product-detail-id')
-    const cart = document.querySelector('.cart-icon')
     const number_cart = document.querySelector('.number_cart')
 
     if (num_cart_product && id_cart_product) {

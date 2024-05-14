@@ -39,14 +39,6 @@ class DatabaseSeeder extends Seeder
 
         Product::factory()->count(10)->create();
 
-        Category::factory()->count(10)->create();
-
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         $this->call([
             CustomerUserSeeder::class,
             CategorySeeder::class,

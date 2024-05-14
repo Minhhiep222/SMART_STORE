@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\CustomerUser;
 use App\Models\Seller;
+use App\Models\Cart;
+use App\Models\Cart_detail;
 
 class FindController extends Controller
 {
@@ -18,47 +20,38 @@ class FindController extends Controller
         ->orWhere('description', 'like', '%' . $request->key . '%')
         ->orWhere('price', 'like', '%' . $request->key . '%')
         ->get();
-        // $seller = Seller::find()
-        // dd($products);
+        $count_cart = 0;
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
             $user = CustomerUser::find($id);
-            // dd($products[3]->seller->name_company);
-            return view('auth.find', [
-                'categories' => $categories,
-                'user' => $user[0],
-                'products' => $products,
-            ]);
+            $cart = Cart::where('user_id', $id)->first();
+            $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
         }
-        else{
-            return view('auth.find', [
-                'categories' => $categories,
-                'products' => $products,
-            ]);
-        }  
+        return view('auth.find', [
+            'categories' => $categories,
+            'user' => $user[0],
+            'products' => $products,
+            'number' => $count_cart,
+        ]);
     }
 
     public function show($id) {
         session_start();
         $products = Product::with('category', 'seller')->where('category_id', $id)->get();
         $categories = Category::all();  
-        //
+        $count_cart = 0;
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
             $user = CustomerUser::find($id);
-            // dd($_SESSION['user_id']);
-            return view('auth.find', [
-                'categories' => $categories,
-                'user' => $user,
-                'products' => $products,
-            ]);
+            $cart = Cart::where('user_id', $id)->first();
+            $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
         }
-        else{
-            return view('auth.find', [
-                'categories' => $categories,
-                'products' => $products,
-            ]);
-        }  
+        return view('auth.find', [
+            'categories' => $categories,
+            'user' => $user,
+            'products' => $products,
+            'number' => $count_cart,
+        ]);
     }
 
     public function findProductName($name) {

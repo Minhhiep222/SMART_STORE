@@ -14,6 +14,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Seller;
 use App\Models\Comment;
+use App\Models\Cart;
+use App\Models\Cart_detail;
 session_start();
 // ly do luc dau ham delete sai vi khong the truyen qua seller id , ham update co id cua seller product da co seller id 
 // san roi , ham read duoc truyen truc tiep seller id qua dia chi , con delete chi truyen duoc id cua product thoi 
@@ -41,11 +43,17 @@ class CrudCustomerUsersController extends Controller
         $year = $parts[0];
         $month = $parts[1];
         $day = $parts[2];
+        $id = $_SESSION['user_id'];
+        $user = CustomerUser::find($id)->first();
+        $cart = Cart::where('user_id', $user->id)->first();
+        $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
+
         return view('auth.account.profile', [
             'customerUser' => $customerUser,
             'year' => $year,
             'month' => $month,
-            'day' => $day
+            'day' => $day,
+            'number' => $count_cart
         ]);
     }
     
@@ -208,6 +216,7 @@ class CrudCustomerUsersController extends Controller
             $customerUserId = session()->get('customerUserId');
             $product = Product::with('Category')->find($productId);  
             $seller = Seller::find($product->seller_id);
+
             $userComments = Comment::with('CustomerUser')->where('productId',$productId)->orderBy('created_at', 'desc')->get();
 
             $customerUser = CustomerUser::find($customerUserId);
@@ -231,13 +240,24 @@ class CrudCustomerUsersController extends Controller
             $percenThreeStar = ($totalComments > 0) ? ceil(($threeStar / $totalComments) * 100) : 0;
             $percenFourStar = ($totalComments > 0) ? ceil(($fourStar / $totalComments) * 100) : 0;
             $percenFiveStar = ($totalComments > 0) ? ceil(($fiveStar / $totalComments) * 100) : 0;
+
+            if(!empty($_SESSION['user_id'])){
+                $id = $_SESSION['user_id'];
+                $user = CustomerUser::find($id)->first();
+                session(['customerUserId' => $id]);
+                $productTotal = Product::count();
+                $pages = ceil($productTotal)/3;
+                $cart = Cart::where('user_id', $id)->first();
+                $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
+                return view('auth.product_detail_customerUser', ['number' => $count_cart  ,'product' => $product, 'seller' => $seller, 'customerUser' => $customerUser, 'userComments' => $userComments, 'totalComments' => $totalComments,'percenOneStar' => $percenOneStar,'percenTwoStar' => $percenTwoStar,'percenThreeStar' => $percenThreeStar,'percenFourStar' => $percenFourStar, 'percenFiveStar' => $percenFiveStar, 'evarageStars' => $evarageStars,'customerUserId' => $customerUserId]);
+            }
         
    
-     return view('auth.product_detail_customerUser', ['product' => $product, 'seller' => $seller, 'customerUser' => $customerUser, 'userComments' => $userComments, 'totalComments' => $totalComments,'percenOneStar' => $percenOneStar,'percenTwoStar' => $percenTwoStar,'percenThreeStar' => $percenThreeStar,'percenFourStar' => $percenFourStar, 'percenFiveStar' => $percenFiveStar, 'evarageStars' => $evarageStars,'customerUserId' => $customerUserId]);
+        return view('auth.product_detail_customerUser', ['product' => $product, 'seller' => $seller, 'customerUser' => $customerUser, 'userComments' => $userComments, 'totalComments' => $totalComments,'percenOneStar' => $percenOneStar,'percenTwoStar' => $percenTwoStar,'percenThreeStar' => $percenThreeStar,'percenFourStar' => $percenFourStar, 'percenFiveStar' => $percenFiveStar, 'evarageStars' => $evarageStars,'customerUserId' => $customerUserId]);
     }
 
     public function formComment(Request $request)
-    {     
+    {    
         $request->validate([
             'description' => 'required',
             'img' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -296,6 +316,34 @@ class CrudCustomerUsersController extends Controller
             $percenThreeStar = ($totalComments > 0) ? ceil(($threeStar / $totalComments) * 100) : 0;
             $percenFourStar = ($totalComments > 0) ? ceil(($fourStar / $totalComments) * 100) : 0;
             $percenFiveStar = ($totalComments > 0) ? ceil(($fiveStar / $totalComments) * 100) : 0;
+            
+            $categories = Category::all();
+            $products = Product::with('seller')->paginate(10);
+            if(!empty($_SESSION['user_id'])){
+                $id = $_SESSION['user_id'];
+                $user = CustomerUser::find($id)->first();
+                session(['customerUserId' => $id]);
+                $productTotal = Product::count();
+                $pages = ceil($productTotal)/3;
+                $cart = Cart::where('user_id', $id)->first();
+                $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
+
+                return view('auth.product_detail_customerUser', [
+                    'number' => $count_cart,
+                    'product' => $product, 
+                    'seller' => $seller, 
+                    'customerUser' => $customerUser, 
+                    'userComments' => $userComments, 
+                    'totalComments' => $totalComments,
+                    'percenOneStar' => $percenOneStar,
+                    'percenTwoStar' => $percenTwoStar,
+                    'percenThreeStar' => $percenThreeStar,
+                    'percenFourStar' => $percenFourStar, 
+                    'percenFiveStar' => $percenFiveStar, 
+                    'evarageStars' =>  $evarageStars,
+                    'customerUserId' => $customerUserId,
+                ]);
+            }
         
             return view('auth.product_detail_customerUser', [
                 'product' => $product, 
@@ -761,4 +809,3 @@ class CrudCustomerUsersController extends Controller
             return redirect('loginAdmin');
         }
 }
-    

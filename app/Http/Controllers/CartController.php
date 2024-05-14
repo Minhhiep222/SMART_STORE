@@ -11,19 +11,24 @@ class CartController extends Controller
     //
     public function index() {
         session_start();
-        $user_id = $_SESSION['user_id'];
-        $cart = Cart::where('id', $user_id)->first();
-        $cart_detail = Cart_detail::with('product_cart')
-        ->where('cart_id', $cart->id)->get();
-        $total = 0;
-        foreach($cart_detail as $cart_product) {
-            $total += $cart_product->quantity * $cart_product->product_cart->price;
+        if(!empty($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            $cart = Cart::where('id', $user_id)->first();
+            $cart_detail = Cart_detail::with('product_cart')
+            ->where('cart_id', $cart->id)->get();
+            $total = 0;
+            foreach($cart_detail as $cart_product) {
+                $total += $cart_product->quantity * $cart_product->product_cart->price;
+            }
+            // dd($cart_detail);
+            return view('carts.cart', [
+                'cart_detail' => $cart_detail,
+                'total' => $total,
+            ]);
         }
-        // dd($cart_detail);
-        return view('carts.cart', [
-            'cart_detail' => $cart_detail,
-            'total' => $total,
-        ]);
+        else {
+            return redirect("home")->with('login', true);
+        }
     }
 
     //

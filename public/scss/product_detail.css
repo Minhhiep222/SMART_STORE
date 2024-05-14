@@ -102,10 +102,7 @@
 .title_product-detail .btn--cart:hover {
   opacity: 0.9;
 }
-#btnPrimary {
-  font-size: 14px;
-  line-height: 24px;
-}
+
 .info__shop {
   margin-top: 10px;
   width: 100%;
