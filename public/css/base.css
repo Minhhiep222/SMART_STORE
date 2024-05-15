@@ -4,7 +4,7 @@
     --black-color: #000;
     --text-color: #333;
     --border-color: #dbdbdb;
-
+    --outline-color: rgb(17, 162, 235);    --outline-color: rgb(48, 89, 110);
     --height-navbar: 38px;
     --height-header : 120px;
     --height-header-with-search: calc(var(--height-header) - var(--height-navbar))
@@ -26,9 +26,14 @@ body {
     margin: 0;
 }
 
+.logo_link:hover {
+    color: var(--white-color);
+    filter: blur(0.01rem);
+}
+
 /* reponsive */
 .grid{
-    width: 1250px;
+    width: 1200px;
     max-width: 100%;
     margin: 0 auto;
 }
@@ -44,10 +49,29 @@ body {
     margin-right: -5px;
 }
 
+.grid__row-product {
+    display: flex;
+    flex-wrap: wrap;
+    /* margin-left: -5px;
+    margin-right: -5px; */
+}
+
 .gird__column-2 {
     padding-left: 5px;
     padding-right: 5px;
     width: 16.6667%;
+}
+
+.grid__column-4 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width:  33.3334%;
+}
+
+.grid__column-8 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width:  66.6667%;
 }
 
 .gird__column-2_seller {
@@ -65,11 +89,24 @@ body {
     width: 20%;
 }
 
+.grid__column-5 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width:  41.6667%;
+}
+
+.grid__column-7 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width:  58.3334%;
+}
+
 .grid__column-10 {
     padding-left: 5px;
     padding-right: 5px;
     width: 83.3334%;
 }
+
 
 .grid__column-12 {
     padding-left: 5px;
@@ -86,6 +123,33 @@ body {
     overflow: scroll;
 }
 
+.grid__column-order {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+    height: 500px;
+    overflow: scroll;
+}
+
+.grid__column-product_cart {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.grid__column-product_order {
+    margin-top: 10px;
+}
+
+.payment__cart-item {
+    margin-left: 5px;
+    margin-right: 5px;
+    display: flex;
+    align-items:end;
+    justify-content: end;
+}
+
 /* modal */
 .modal{
     position: fixed;
@@ -96,6 +160,8 @@ body {
     display: flex;
     animation: fadeIn linear 0.1s;
 }
+
+
 
 /* hiệu ứng xuất hiện từ từ */
 @keyframes fadeIn {
@@ -160,8 +226,8 @@ body {
 
 /* .class.class: "yêu cầu một element phải có đầy đủ cả hai class thì mới thực hiện" */
 .btn.btn--primary{
-    color: var(--white-color);
-    background-color: var(--primary-color)
+    color: var(--white-color) ;
+    background-color: var(--primary-color) 
 }
 
 .btn.btn--primary:hover{

@@ -4,6 +4,10 @@
     background-color: var(--primary-color);
     /* position: fixed;
     z-index: 1; */
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    box-shadow: 0 1px 6px rgba(0,0,0, 0.5);
 }
 
 .header__navbar {
@@ -15,6 +19,7 @@
 .navbar-list {
     list-style: none;
     padding-left: 0;
+    margin-top: 5px;
 }
 
 .navbar-item {
@@ -41,7 +46,7 @@
     font-size: 1.3rem;
     color: var(--white-color);
     text-decoration: none;
-    font-weight: 300;
+    /* font-weight: 300; */
 }
 
 .navbar-item.navbar-user:hover .navbar-user-info{
@@ -206,7 +211,7 @@
 
 /* header notifycation */
 .navbar__notify {
-    z-index: 999;
+    z-index: 1;
     position: absolute;
     top: 145%;
     width: 304px;
@@ -369,7 +374,7 @@
 }
 
 .auth-form__container {
-    padding: 0 32px;
+    padding: 30px 32px;
 }
 
 .auth-form__header {
@@ -400,6 +405,17 @@
    border-radius: 4px;
    font-size: 1.4rem;
    outline: none;
+}
+
+input[name="get__number_verify"] {
+    font-size: 3rem;
+    max-width: 100px;
+    text-align: center;
+    font-weight: 600;
+    height: 40px;
+    margin-top: 16px;
+    color: var(--outline-color);
+    margin-right: 10px;
 }
 
 .auth-form__input:focus {
@@ -507,7 +523,7 @@
 }
 
 .name_header {
-    /* display: flex; */
+    line-height: 20px;
 }
 
 .name_shop {
@@ -577,8 +593,23 @@
     color: var(--white-color);
     font-size: 2.6rem;
     cursor: pointer;
+    position: relative;
 }
 
+.number_cart {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 15px;
+    height: 15px;
+    background-color: var(--white-color);
+    border-radius: 50%;
+    color: black;
+    font-size: 10px;
+    text-align: center;
+    line-height: 15px;
+    font-weight: 600;
+}
 
 .header__search-input {
     width: 100%;
@@ -711,7 +742,6 @@
     background-color: var(--white-color);
     box-shadow: 0 0 5px #c2c2c2;
     border-radius: 2px;
-    display: none;
 }
 
 /* .header__search-history::before {
@@ -734,12 +764,14 @@
     padding-left: 0;
     list-style: none;
     margin-bottom: 0;
+    max-height: 50vh;
 }
 
 .header__search-history-item {
     /* làm như vậy để khi hover có thể chiếm 100% element b mong muốn */
     padding: 8px 12px;
     cursor: pointer;
+    font-size: 1.6rem;
 }
 .header__search-history-item:last-child {
     border-bottom-left-radius: 2px;
@@ -747,10 +779,22 @@
 }
 .history-item-link {
     text-decoration: none;
-    font-size: 1.4rem;
+    font-size: 1.5rem !important;
     color: var(--text-color);
     display: block;
     height: 100%;
+}
+
+.highlight {
+    color: #EE4D2D;
+}
+
+/* CSS để chỉnh màu sắc cho từ khóa được đánh dấu */
+mark {
+    background-color: white !important; 
+    color: #EE4D2D; /* Màu chữ cho từ khóa */
+    font-weight: bold; /* Độ đậm của từ khóa */
+    padding: 0 !important;
 }
 
 .header__search-history-item:hover  {
@@ -877,6 +921,10 @@
     padding-top: 34px;
 }
 
+.app__contents-cart {
+    padding-top: 0px;
+}
+
 .category{
     border-radius: 2px;
     background-color: var(--white-color);
@@ -907,6 +955,7 @@
     list-style: none;
     text-decoration: none;
     position: relative;
+    padding: 10px 16px;
 }
 
 .category-item::after {
@@ -930,17 +979,17 @@
     font-size: 1.5rem;
     text-decoration: none;
     color: var(--text-color);
-    padding: 8px 16px;
+    /* padding: 2px 10px; */
     /* a không phải là một khối */
     display: block;
 }
 
 .category-item__link:hover {
-    color: var(--primary-color);
+    color: var(--outline-color);
 }
 
 .category-item--active .category-item__link {
-    color: var(--primary-color);
+    color: var(--outline-color);
 }
 
 .home-filter {
@@ -1046,7 +1095,7 @@
     line-height: 1.8rem;
     margin: 10px 10px 6px;
     /* xử lý cắt giảm tên quá dài */
-    height: 3.6rem;
+    max-height: 3.6rem;
     overflow: hidden;
     display: block;
     /* chạy trên trình duyệt webkit-box */
@@ -1253,4 +1302,124 @@ li.pagination-item--active .pagination-item__link{
     align-items: center;
     color: var(--white-color);
     font-weight: 100;
+}
+
+.content-success {
+    /* height: 200px; */
+    color: var(--text-color);
+    font-size: 4rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 100px;
+}
+.content-success h3 {
+    /* margin-bottom: 0; */
+}
+.content-success h3 i {
+    display: block;
+    font-size: 10rem;
+    margin-bottom: 10px;
+    color: #469B5B;
+}
+
+.home__profile-item-forget {
+    margin: 30px;
+    display: flex;
+
+}
+
+.form_profile--password-forget {
+    margin-top: 150px;
+    width: 30%;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 2px;
+}
+
+.home__profile-item-forget input {
+    flex: 1 !important;
+}
+
+
+#ipImg {
+    opacity: 0;
+    position: absolute;
+    margin-left: 295px;
+    height:80px;
+    width:80px;
+}
+#main-imgPr {
+    height: 45px;
+}
+#main-imgPr2 {
+    width: 69px;
+    height: 70px;
+}
+#customerUserImg {
+    opacity: 0;
+    position: absolute;
+    margin-left: 708px;
+    margin-top: -200px;
+    width: 123px;
+    height: 36px;
+}
+#delete_Product {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    color: rgb(48, 89, 110);
+}
+#imgComment {
+   width: 25px;
+   height: 25px;
+   position: absolute;
+   margin-left: -25px;
+   margin-top: 5px;
+   opacity: 0;
+}
+
+.verify_user {
+    display: flex;
+}
+
+input[name="get__number_verify"] {
+    font-size: 3rem;
+    max-width: 100px;
+    text-align: center;
+    font-weight: 600;
+    height: 40px;
+    margin-top: 16px;
+    color: var(--outline-color);
+    margin-right: 10px;
+}
+
+.home__info--find {
+    display: flex;
+    justify-content: center
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    border: 1px solid rgba(234, 8, 8, 0.7);
+    background-color: rgba(234, 8, 8, 0.116);
+    height: 30px;
+    text-align: center;
+    border-radius: 2px;
+    line-height: 30px;
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+
+.success {
+    color: rgb(0, 255, 94);
+    font-weight: bold;
+    border: 1px solid rgba(27, 234, 8, 0.7);
+    background-color: rgba(8, 234, 80, 0.098);
+    height: 30px;
+    text-align: center;
+    border-radius: 2px;
+    line-height: 30px;
+    font-size: 1.4rem;
+    font-weight: 300;
 }

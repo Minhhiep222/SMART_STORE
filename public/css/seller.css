@@ -10,22 +10,29 @@
 
 #customers td,
 #customers th {
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   padding: 8px;
   font-size: 1.4rem;
   text-align: center;
+  min-width: 160px;
 }
 
-#customers tr:nth-child(even) {
-  background-color: #f2f2f2;
+#customers tr{
+  background-color: var(--white-color);
 }
 
 #customers th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: var(--primary-color);
   color: white;
+}
+
+#customers td {
+  color: var(--text-color);
+  height: 150px;
+  padding: 10px;
 }
 
 .detail__product-info {
@@ -66,10 +73,30 @@
   list-style: none;
   text-decoration: none;
   font-size: 1.3rem;
-  color: rgb(17, 162, 235);
+  color: var(--outline-color);
   line-height: 20px;
 }
 
 .action__product a:hover{
   color: rgb(48, 89, 110);
 }
+#btn-sellect-priceASC {
+	background-color: white;
+    width: 110%;
+    text-align: left;
+    border: none;
+    padding: 7px 0px;
+ }
+ #btn-sellect-priceDESC {
+	background-color: white;
+    width: 110%;
+    text-align: left;
+    border: none;
+    padding: 7px 0px;
+  }
+  #btn-sellect-priceASC:hover {
+    cursor: pointer;
+  }
+  #btn-sellect-priceDESC:hover {
+    cursor: pointer;
+  }
