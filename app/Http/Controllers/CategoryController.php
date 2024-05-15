@@ -35,7 +35,6 @@ class CategoryController extends Controller
         return view('auth.home', 
         [
             'categories' => $categories,
-            // 'user' => $user,
             'products' => $products,
             'pages' => $pages,
             'number' => $count_cart,
@@ -61,7 +60,6 @@ class CategoryController extends Controller
         return view('auth.home', 
         [
                 'categories' => $categories,
-                // 'user' => $user,
                 'products' => $products,
                 'pages' => $pages,
                 'number' => $count_cart,

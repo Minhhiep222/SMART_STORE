@@ -45,7 +45,7 @@
                             </div>
                         </li>
                         <li class="category-item category-item--active">
-                            <a href="{{ route('orders.index') }}" class="category-item__link">
+                            <a href="{{ route('user.viewUserOrder') }}" class="category-item__link">
                                 <div class="title__category">
                                     <span>
                                         <i class="fa-solid fa-user"></i>

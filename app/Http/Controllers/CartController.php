@@ -20,7 +20,6 @@ class CartController extends Controller
             foreach($cart_detail as $cart_product) {
                 $total += $cart_product->quantity * $cart_product->product_cart->price;
             }
-            // dd($cart_detail);
             return view('carts.cart', [
                 'cart_detail' => $cart_detail,
                 'total' => $total,
@@ -43,7 +42,6 @@ class CartController extends Controller
                 'user_id' => $user_id,
             ]);
         }
-        
         if($cart) {
             $cart_detail = Cart_detail::create([
                 'cart_id' => $cart->id,
@@ -54,6 +52,36 @@ class CartController extends Controller
 
         $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
         return $count_cart ;
+    }
+
+    public function addQuantity() {
+        $data = request('data');
+        $cartIdWithQuantity = json_decode($data, true);
+        $cart_detail = Cart_detail::where('id', $cartIdWithQuantity[0])->first();
+        $cart_detail->quantity = $cartIdWithQuantity[1];
+        $cart_detail->save();
+        return $cart_detail->quantity ;
+    }   
+
+    public function subQuantity() {
+        $data = request('data');
+        $cartIdWithQuantity = json_decode($data, true);
+        $cart_detail = Cart_detail::where('id', $cartIdWithQuantity[0])->first();
+        $cart_detail->quantity = $cartIdWithQuantity[1];
+        $cart_detail->save();
+        return $cart_detail->quantity ;
+    }
+
+    public function delete($id) {
+        //find object
+        $cart_detail = Cart_detail::find($id);
+        
+        $cart_detail->delete();
+        //kiểm tra đơn hàng đã hoàn thành hay chưa
+
+        // Chuyển hướng người dùng về trang danh sách đơn hàng với thông báo thành công
+        return redirect()->route('cart.index')->with('success', 'Bạn đã xóa giỏ hàng thành công');
+
     }
 
 }

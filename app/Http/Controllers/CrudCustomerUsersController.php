@@ -142,6 +142,7 @@ class CrudCustomerUsersController extends Controller
         }  
         
     }
+
     public function viewAddProduct(Request $request)
     {   
        
@@ -363,7 +364,7 @@ class CrudCustomerUsersController extends Controller
     public function arrangeIndexUserCustomer(Request $request)
     {   
         $customerUserId = $request->get('customerUserId');
-        $customerUser = CustomerUser::find($customerUserId);
+        $customerUser = CustomerUser::find($customerUserId);    
          if($request->has('newest')) {
             session(['sort_type' => 'newest']);
             $products = Product::with('Category')->orderByDESC('id')->paginate(10);
@@ -453,7 +454,6 @@ class CrudCustomerUsersController extends Controller
         $product -> description = $input['des'];
         $product -> quantity = $input['quantity'];
         $product -> category_id = $input['category_id'];
-      
         if ($request->hasFile('img')) {
             // Xóa hình ảnh cũ (nếu có)
             Storage::delete('img/img_auth/' . $product->img);

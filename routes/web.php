@@ -14,6 +14,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CrudCustomerUsersController;
 use App\Models\CustomerUser;
+use App\Models\Order;
+use App\Models\OrderDetail;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +47,7 @@ Route::post('arrangeIndexUserCustomer', [CrudCustomerUsersController::class, 'ar
 Route::post('comment', [CrudCustomerUsersController::class, 'formComment'])->name('user.formComment');
 Route::get('account/profile', [CrudCustomerUsersController::class, 'viewUserProfile'])->name('user.viewUserProfile');
 Route::post('account/profile', [CrudCustomerUsersController::class, 'updateUserProfile'])->name('user.UpdateUserProfile');
+Route::get('account/orders', [OrdersController::class, 'viewUserOrder'])->name('user.viewUserOrder');
 Route::post('returnHome', [CrudCustomerUsersController::class, 'returnHome'])->name('returnHome');
 
 Route::get('update', function () {
@@ -68,7 +71,6 @@ Route::get('account/password', function () {
 
 Route::resource('orders', OrdersController::class);
 Route::get('orders/{id}/delete', [OrdersController::class, 'delete'])->name('orders.delete');
-
 Route::get('orders/{id}/updateStatus', [OrdersController::class, 'updateStatus'])->name('orders.updateStatus'); 
 
 
@@ -117,8 +119,11 @@ Route::get('ajax-search', [ProductController::class, 'ajaxSearch'])->name('ajax-
 Route::get('find/{name}/productname', [FindController::class, 'findProductName'])->name('find.productname');
 
 Route::resource('cart', CartController::class);
+Route::get('cart/{id}/delete', [CartController::class, 'delete'])->name('cart.delete');
 
 Route::get('addToCart', [CartController::class, 'addToCart'])->name('addToCart');
+Route::get('addQuantity', [CartController::class, 'addQuantity'])->name('addQuantity');
+Route::get('subQuantity', [CartController::class, 'subQuantity'])->name('subQuantity');
 //
 Route::get('adminUserCustomer', [CrudCustomerUsersController::class, 'viewAdminUserCustomer'])->name('admin.viewAdminUserCustomer');
 Route::get('adminSeller', [CrudCustomerUsersController::class, 'viewAdminSeller'])->name('admin.viewAdminSeller');

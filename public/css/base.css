@@ -27,7 +27,7 @@ body {
 }
 
 .logo_link:hover {
-    color: var(--white-color) !important;
+    color: var(--white-color);
     filter: blur(0.01rem);
 }
 
@@ -204,34 +204,34 @@ body {
 
 /* Button style */
 .btn {
-    color: var(--text-color) !important;
-    min-width: 124px !important;
-    height: 36px !important;
-    text-decoration: none !important;
-    border: none !important;
-    border-radius: 2px !important;
-    font-size: 1.5rem !important;
-    font-weight: 400 !important;
-    outline: none !important;
-    cursor: pointer !important;
-    display: inline-flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    overflow: hidden !important;
+    color: var(--text-color);
+    min-width: 124px;
+    height: 36px;
+    text-decoration: none;
+    border: none;
+    border-radius: 2px;
+    font-size: 1.5rem;
+    font-weight: 400;
+    outline: none;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 .btn.btn__normal:hover{
-    background-color: rgba(0, 0, 0, 0.04) !important;
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 /* .class.class: "yêu cầu một element phải có đầy đủ cả hai class thì mới thực hiện" */
 .btn.btn--primary{
-    color: var(--white-color) !important;
-    background-color: var(--primary-color) !important
+    color: var(--white-color) ;
+    background-color: var(--primary-color) 
 }
 
 .btn.btn--primary:hover{
-    opacity: 0.9 !important;
+    opacity: 0.9;
 }
 /* hiệu ứng vô hiệu hóa */
 .btn.btn--disabled {

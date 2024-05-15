@@ -111,4 +111,16 @@ class OrdersController extends Controller
         //chuyển hướng nếu cần
         return redirect()->route('orders.index');
     }
+
+    // public function viewUserOrder(Request $request)
+    // {
+    //     session_start();
+    //     $customerUserId = $_SESSION['user_id'];
+    //     $Order = Order::where('user_id', $customerUserId);
+    //     $order = OrderDetail::where('user_id', $customerUserId)->get();
+    //     dd($order); 
+    //     return view('auth.account.order', [
+    //         'orders' => $order,
+    //     ]);
+    // }
 }

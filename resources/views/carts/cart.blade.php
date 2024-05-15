@@ -50,7 +50,7 @@
                                         <span>đ</span>
                                     </td>
                                     <td class="action__product">
-                                        <a href="" class="seller__product-delete">Xóa</a>
+                                        <a href="{{ route('cart.delete', $cart_product->id) }}" class="seller__product-delete">Xóa</a>
                                     </td>
                                 </tr>
                                 @endforeach

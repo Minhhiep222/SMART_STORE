@@ -22,7 +22,6 @@ $('input[name="key"]').keyup(function () {
             markjs.mark(keyword);
 
             const get_name = document.querySelectorAll('.get_name');
-            console.log(get_name)
             get_name.forEach(element => {
                 element.addEventListener('click', () => {
                     const search = document.querySelector('input[name="key"]');

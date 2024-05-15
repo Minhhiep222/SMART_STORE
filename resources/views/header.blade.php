@@ -169,12 +169,12 @@
                     <div class="header__cart">
                         <div class="header__cart-wrap">
                             <i class="cart-icon fa-solid fa-cart-shopping">
-                                <?php if (!empty($_SESSION['user_id'])) {
+                                <!-- <?php if (!empty($_SESSION['user_id'])) {
                                 ?>
-                                <span class="number_cart">{{  $number }}</span>
+                                    <span class="number_cart"></span>
                                 <?php } else {?>
-                                <span class="number_cart">0</span>
-                                <?php }?>
+                                    <span class="number_cart">0</span>
+                                <?php }?> -->
                             </i>
 
                             <div class="header__cart-list header__cart-no-cart">
