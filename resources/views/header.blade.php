@@ -184,6 +184,7 @@
                                 <h3 class="cart-heading">Sản phẩm đã thêm</h3>
                                 <ul class="cart-list-item">
                                     <!-- cart-item -->
+                                  
                                     <li class="cart-item">
                                         <img src="https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lia0026vdexeff"
                                             alt="" class="cart-item-img">
@@ -204,6 +205,7 @@
                                             </div>
                                         </div>
                                     </li>
+                              
                                     <li class="cart-item">
                                         <img src="https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lia0026vdexeff"
                                             alt="" class="cart-item-img">

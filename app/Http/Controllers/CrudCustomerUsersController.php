@@ -59,6 +59,13 @@ class CrudCustomerUsersController extends Controller
             'number' => $count_cart
         ]);
     }
+    public function viewThank(Request $request)
+    {   
+            $productId = $request->get('id');
+            $product = Product::with('Category')->find($productId);  
+            return view('auth.thanks',['product' => $product]);
+    }
+    
     
     public function updateUserProfile(Request $request)  {   
         $input = $request->all();

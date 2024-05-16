@@ -128,6 +128,8 @@ Route::get('subQuantity', [CartController::class, 'subQuantity'])->name('subQuan
 Route::get('adminUserCustomer', [CrudCustomerUsersController::class, 'viewAdminUserCustomer'])->name('admin.viewAdminUserCustomer');
 Route::get('adminSeller', [CrudCustomerUsersController::class, 'viewAdminSeller'])->name('admin.viewAdminSeller');
 
+Route::get('thank', [CrudCustomerUsersController::class, 'viewThank'])->name('thank.viewThank'); 
+
 Route::get('deleteAdminSeller', [CrudCustomerUsersController::class, 'deleteAdminSeller'])->name('admin.deleteAdminSeller');
 Route::get('deleteAdminCustomerUser', [CrudCustomerUsersController::class, 'deleteAdminCustomerUser'])->name('admin.deleteAdminCustomerUser');
 
