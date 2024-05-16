@@ -29,6 +29,21 @@ class CartController extends Controller
             return redirect("home")->with('login', true);
         }
     }
+    public function miniCart() {
+        session_start();
+        if(!empty($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+            $cart = Cart::where('id', $user_id)->first();
+            $cart_detail = Cart_detail::with('product_cart')
+            ->where('cart_id', $cart->id)->get();
+            $total = 0;
+           
+            return view('header', [
+                'cart_detail' => $cart_detail,
+            ]);
+        }
+      
+    }
 
     //
     public function addToCart() {
