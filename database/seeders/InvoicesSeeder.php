@@ -18,25 +18,19 @@ class InvoicesSeeder extends Seeder
         DB::table("tbl_invoices")->insert([
             [
                 'user_Id' => 1,
-                'Order_Describe' => 'Mô tả đơn hàng cho đối tượng đầu tiên',
+                'Order_Describe' => 'Sản phẩm tốt đầu tiên',
                 'TotalAmount' => 100.00,
                 'PaymentMethod' => 'Credit Card',
                 'PaymentStatus' => 'Completed',
             ],
             [
                 'user_Id' => 2,
-                'Order_Describe' => 'Mô tả đơn hàng cho đối tượng thứ hai',
+                'Order_Describe' => 'Sản phẩm tốt thứ hai',
                 'TotalAmount' => 150.00,
                 'PaymentMethod' => 'PayPal',
                 'PaymentStatus' => 'Completed',
             ],
-            [
-                'user_Id' => 3,
-                'Order_Describe' => 'Mô tả đơn hàng cho đối tượng thứ ba',
-                'TotalAmount' => 200.00,
-                'PaymentMethod' => 'Cash',
-                'PaymentStatus' => 'Failed',
-            ]
+            
     ]);
     }
 }

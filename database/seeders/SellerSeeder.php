@@ -17,7 +17,7 @@ class SellerSeeder extends Seeder
         //
         DB::table("tbl_sellers")->insert([
             [
-                "user_id" => 5,
+                "user_id" => 1,
                 "name" => "Thành Đạt",
                 "username" => "nnguyendat",
                 "email" => "nnguyendat@gmail.com",
@@ -31,7 +31,7 @@ class SellerSeeder extends Seeder
                 "type_business" => "individual",
             ],
             [
-                "user_id" => 6,
+                "user_id" => 2,
                 "name" => "Phú Thảo",
                 "username" => "pphuthao",
                 "email" => "pphuthao@gmail.com",
@@ -44,20 +44,7 @@ class SellerSeeder extends Seeder
                 "name_company" => "Thế giới di động",
                 "type_business" => "enterprise",
             ],
-            [
-                "user_id" => 7,
-                "name" => "Nguyễn Thành Đạt",
-                "username" => "nnguyen",
-                "email" => "nnguyendat72@gmail.com",
-                "password" =>  Hash::make('123'),
-                "phone" => "011131231",
-                "sex" => "Nam",
-                "img" => "havert.jpg",
-                "DOB" => "2001-01-03",
-                "address" => "Hoang Huu Nam / Thu Duc2",
-                "name_company" => "Thế giới manh động",
-                "type_business" => "individual",
-            ]
+            
         ]);
     }
 }

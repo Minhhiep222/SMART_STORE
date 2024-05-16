@@ -109,7 +109,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                         <li class="navbar-item navbar-user">
                             <?php
                             if(!empty($_SESSION['user_id'])) {
-                                echo '<img src="/img/user_img.jpg" alt="" class="navbar-user-img">
+                                echo '<img src="/img/img_auth/' . $_SESSION["img"] . '" alt="" class="navbar-user-img">
                                 <span class="navbar-user-name">' .$_SESSION["name"]. '</span>';
                             }
                             ?>
@@ -148,7 +148,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                     </div>
 
                     <div class="header__title-page">
-                        Giỏ hàng
+                        Trang Người Bán
                     </div>
                 </div>
             </div>

@@ -39,6 +39,9 @@ class CrudCustomerUsersController extends Controller
         $customerUserId = $_SESSION['user_id'];
         $customerUser = CustomerUser::find($customerUserId);
         $dob = $customerUser->DOB;
+        if($dob == null) {
+            $dob = "1990-01-01";
+        }
         $parts = explode('-', $dob);
         $year = $parts[0];
         $month = $parts[1];
@@ -66,6 +69,9 @@ class CrudCustomerUsersController extends Controller
         $customerUser->email = $input['email'];
         $customerUser->phone = $input['phone'];
         $customerUser->address = $input['address'];
+        if($request->get('sex') == "") {
+            $input['sex'] = null;
+        }
         $customerUser->sex =  $input['sex'];
         $customerUser->DOB =  $dob;
 
@@ -85,7 +91,7 @@ class CrudCustomerUsersController extends Controller
         $_SESSION['img'] = $customerUser->img;
         $_SESSION['name'] = $customerUser->name;
         $customerUser->save();
-       return redirect("home");
+       return redirect("account/profile");
         
     }
    

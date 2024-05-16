@@ -15,7 +15,7 @@ class Order extends Model
     //mối quan hệ
     public function orders()
     {
-        return $this->belongsTo(OrderDetail::class, 'id', 'id');
+        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
     }
     
     protected $fillable = [

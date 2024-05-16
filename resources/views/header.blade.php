@@ -111,7 +111,7 @@
                                     <a href="{{ route('user.viewUserProfile') }}" class="navbar-user-link">Tài khoản</a>
                                 </li>
                                 <li class="navbar-user-item">
-                                    <a href="" class="navbar-user-link">Đơn mua</a>
+                                    <a href="{{ route('user.viewUserOrder') }}" class="navbar-user-link">Đơn mua</a>
                                 </li>
                                 <li class="navbar-user-item">
                                     <a href="{{ route('signOut') }}" class="navbar-user-link">Đăng xuất</a>
@@ -288,7 +288,6 @@
                                 @elseif (session('success'))
                                     <p class="success">Đăng ký thành công. Vui lòng đăng nhập</p>
                                 @endif
-                                
                                 <div class="auth-form__aside">
                                     <p class="auth-form__help">
                                         <a href="{{ route('forget.index') }}"
@@ -473,7 +472,13 @@
                                         </select>
                                     </div>
                                 </div>
-
+                                @if (session('pass_wrong'))
+                                    <p class="error-message">Mật khẩu hoặc email không chính xác. Vui lòng thử lại.</p>
+                                @elseif (session('create_fail'))
+                                    <p class="error-message">Đăng ký thất bại. Vui lòng điền đầy đủ thông tin!.</p>
+                                @elseif (session('create_success'))
+                                    <p class="success">Đăng ký thành công. Vào trnag người bán để thực hiện</p>
+                                @endif
                                 <div class="auth-form__aside">
                                     <p class="auth-form__policy-text">
                                         Bằng việc đăng ký, bạn đã đồng ý với Smart store về
@@ -519,12 +524,13 @@
                                     <i class="fa-regular fa-circle-check"></i>
                                 </h3>
                             </div>
-                            <div class="comeback-btn">
-                                <button onclick="window.location.href='{{ route('home.index') }}'"
-                                    class="auth-form btn btn--primary">
-                                    Trang chủ
-                                </button>
-                            </div>
+                            @if (session('pass_wrong'))
+                                    <p class="error-message">Mật khẩu hoặc email không chính xác. Vui lòng thử lại.</p>
+                            @elseif (session('create_fail'))
+                                    <p class="error-message">Đăng ký thất bại. Vui lòng điền đầy đủ thông tin!.</p>
+                            @elseif (session('create_success'))
+                            <p class="success">Đăng ký thành công. Vào trang người bán để thực hiện bán sản phẩm</p>
+                            @endif
                         </div>
                     </div>
                 </div>

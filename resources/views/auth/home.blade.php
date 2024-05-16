@@ -108,7 +108,7 @@
                                 <input name="productId" value="{{$product->id}}" type="hidden">
                                 <div class="product-item">
                                     <div class="product-item__img"
-                                        style="background-image: url({{('img/img_auth/' . $product->img)}});">
+                                        style="background-image: url('{{ asset('img/img_auth/' . $product->img) }}');">
                                     </div>
                                     <input name="customerUserId" value="<?php !empty($_SESSION['user_id']) ? $_SESSION['user_id'] : null ?>" type="hidden">
                                     <input name="productId" value="{{$product->id}}" type="hidden">

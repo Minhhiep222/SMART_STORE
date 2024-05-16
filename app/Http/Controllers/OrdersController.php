@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Cart;
 use App\Models\Cart_detail;
 use App\Models\Product;
+use App\Models\CustomerUser;
 
 class OrdersController extends Controller
 {
@@ -52,6 +53,13 @@ class OrdersController extends Controller
     public function store(Request $request) {
         session_start();
         $user_id = $_SESSION['user_id'];
+        //kiểm tra xem người dùng có nhập thông tin đầy đủ chưa
+        $user = CustomerUser::where('id', $user_id)->first();
+        if($user->name == null || $user->DOB == null || $user->address  == null || $user->sex  == null || $user->phone  == null) {
+            return redirect("account/profile")
+                ->with('verify_profile', true);
+        }
+        
         // Lấy giá trị của cookie "carts" từ $_COOKIE
         $cookieValue = isset($_COOKIE['carts']) ? $_COOKIE['carts'] : '';
         
@@ -112,15 +120,14 @@ class OrdersController extends Controller
         return redirect()->route('orders.index');
     }
 
-    // public function viewUserOrder(Request $request)
-    // {
-    //     session_start();
-    //     $customerUserId = $_SESSION['user_id'];
-    //     $Order = Order::where('user_id', $customerUserId);
-    //     $order = OrderDetail::where('user_id', $customerUserId)->get();
-    //     dd($order); 
-    //     return view('auth.account.order', [
-    //         'orders' => $order,
-    //     ]);
-    // }
+    public function viewUserOrder(Request $request)
+    {
+        session_start();
+        $customerUserId = $_SESSION['user_id'];
+        $order_user = Order::where('customer_id', $customerUserId)->get();
+
+        return view('auth.account.order', [
+            'order_user' => $order_user,
+        ]);
+    }
 }

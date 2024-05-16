@@ -37,17 +37,17 @@ class Cart_detailSeeder extends Seeder
                 'quantity' => 1,
             ],
             [
-                'cart_id' => 3,
+                'cart_id' => 2,
                 'product_id' => 1,
                 'quantity' => 1,
             ],
             [
-                'cart_id' => 3,
+                'cart_id' => 1,
                 'product_id' => 1,
                 'quantity' => 1,
             ],
             [
-                'cart_id' => 3,
+                'cart_id' => 2,
                 'product_id' => 7,
                 'quantity' => 1,
             ]

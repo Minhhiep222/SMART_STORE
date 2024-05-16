@@ -20,7 +20,7 @@ class OrderFactory extends Factory
     {
         return [
             'Order_Describe' => $this->faker->text,
-            'customer_id' => $this->faker->numberBetween(1, 10),
+            'customer_id' => $this->faker->numberBetween(1, 2),
             'TotalAmount' => $this->faker->randomFloat(2, 10, 1000), // Thay đổi phạm vi của tổng số tiền theo nhu cầu của bạn
             'PaymentMethod' => $this->faker->randomElement(['Credit Card', 'PayPal', 'Cash', 'Bank Transfer']),
             'PaymentStatus' => $this->faker->randomElement(['Completed', 'Failed']),

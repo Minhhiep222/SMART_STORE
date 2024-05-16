@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('password')->hash()->nullable();
             $table->string('phone')->unique();
             $table->string('img')->nullable()->nullable();
-            $table->enum('sex', ['Nam', 'Nữ', 'Khác']);
-            $table->date('DOB');
-            $table->text('address');
+            $table->enum('sex', ['Nam', 'Nữ', 'Khác'])->nullable();
+            $table->date('DOB')->nullable();
+            $table->text('address')->nullable();
             $table->text('feedback')->nullable();
             $table->text('history_transaction')->nullable();
             $table->string('name_company');

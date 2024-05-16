@@ -1,3 +1,10 @@
+<?php
+// Kiểm tra xem session đã được bắt đầu hay chưa
+if (session_status() === PHP_SESSION_ACTIVE) {
+} else {
+    session_start();
+}
+?>
 @extends('header')
 
 @section('content')

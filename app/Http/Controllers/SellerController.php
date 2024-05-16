@@ -29,15 +29,21 @@ class SellerController extends Controller
 
     public function postSeller(Request $request)
     {
-        // dd( $request);
+        session_start();
+        $data = $request->all();
+        // dd($data['name']);
+        if($data['name'] == "" ||  $data['phone'] == "" || $data['address'] == "" ) {
+            return redirect("home")
+            ->with('create_store', true)
+            ->with('create_fail', true);
+        }
+
         $request->validate([
             'name' => 'required',
             'phone' => 'required',
-            'sex' => 'required',
             'address' => 'required',
             'name_company' => 'required',
             'type_business' => 'required',
-            
         ]);
 
         $day = $_POST['day'];
@@ -48,19 +54,23 @@ class SellerController extends Controller
             // Tạo ngày sinh
             $DOB = $year . '-' . $month . '-' . $day;
         } 
-        $data = $request->all();
+        
+        if($request->get('sex') == "") {
+            $data['sex'] = null;
+        }
         $check = Seller::create([
             'id' => $_SESSION['user_id'],
             'user_id' => $_SESSION['user_id'],
             'name' => $data['name'],
             'phone' => $data['phone'],
             'sex' => $data['sex'],
-            'DOB' =>  $DOB,
             'address' => $data['address'],
             'name_company' => $data['name_company'],
             'type_business' => $data['type_business'],
         ]);
-
-        return redirect("home");
+    
+         return redirect("home")
+        ->with('success', true)
+        ->with('create_success', true);
     }
 }

@@ -22,9 +22,7 @@ class CartSeeder extends Seeder
             [
                 'user_id' => 2,
             ],
-            [
-                'user_id' => 3,
-            ]
+
     ]);
     }
 }

@@ -4,7 +4,7 @@
 <div class="grid__column-10">
     <div class="home-filter">
         <span class="home-filter-title">Sắp xếp theo</span>
-        <p>{{$sellerTotal}}</p>
+        
 
         <form action="{{ route('seller.viewSeller') }}" method="POST">
             @csrf
@@ -34,14 +34,12 @@
 
 
         <div class="home-filter__paginate">
-            <a href="{{ route('seller.viewAddProduct', ['id' => $idSeller]) }}" class="seller__product-edit">Thêm</a>
-
             <div class="home-filter__page-control">
                 <a href="" class="page-control-link page-control-link-icon-disabled">
-                    <i class="page-control-link-icon fa-solid fa-angle-left"></i>
+                    <p>{{$sellerTotal}}</p>
                 </a>
-                <a href="" class="page-control-link">
-                    <i class="page-control-link-icon fa-solid fa-angle-right"></i>
+                <a href="{{ route('seller.viewAddProduct', ['id' => $idSeller]) }}" class="page-control-link">
+                    Thêm
                 </a>
             </div>
         </div>
@@ -68,7 +66,7 @@
                                 <img src="{{('img/img_auth/' . $product->img) }}" alt="" class="seller-img_product">
                                 <a href="" class="information__product-link">
                                     <span class="seller-name_product">{{ $product->product_name }}</span>
-                                    <span class="seller-description_product">{{ $product->description }}</span>
+                                    <span class="seller-description_product">{{ substr($product->description, 0, 50) }}...</span>
                                 </a>
                             </div>
                         </td>

@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('bank_Account')->nullable();
             $table->text('notification')->nullable();
             $table->integer('coin')->nullable();
-           
             $table->rememberToken();
             $table->timestamps();
         });
