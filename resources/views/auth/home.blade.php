@@ -55,7 +55,8 @@
                     <span class="home-filter-title">Sắp xếp theo</span>
                     <form action="{{ route('user.arrangeIndexUserCustomer') }}" method="post">
                         @csrf
-                        <input name="customerUserId" value="<?php !empty($_SESSION['user_id']) ? $_SESSION['user_id'] : null ?>" type="hidden">
+                        <input name="customerUserId"
+                            value="<?php !empty($_SESSION['user_id']) ? $_SESSION['user_id'] : null ?>" type="hidden">
 
                         <button name="oldest" type="submit" class="home-filter__btn btn">Cũ nhất</button>
                         <button name="newest" type="submit" class="home-filter__btn btn btn--primary">Mới nhất</button>
@@ -110,9 +111,11 @@
                                     <div class="product-item__img"
                                         style="background-image: url('{{ asset('img/img_auth/' . $product->img) }}');">
                                     </div>
-                                    <input name="customerUserId" value="<?php !empty($_SESSION['user_id']) ? $_SESSION['user_id'] : null ?>" type="hidden">
+                                    <input name="customerUserId"
+                                        value="<?php !empty($_SESSION['user_id']) ? $_SESSION['user_id'] : null ?>"
+                                        type="hidden">
                                     <input name="productId" value="{{$product->id}}" type="hidden">
-                                    <h4 class="product-item__name">{{$product->product_name}}</h4>  
+                                    <h4 class="product-item__name">{{$product->product_name}}</h4>
                                     <div class="product-item__price">
                                         <span class="product-item__price_old">1.200.000đ</span>
                                         <span class="product-item__price_current">{{$product->price}}</span>
@@ -159,7 +162,8 @@
                     </li> -->
                     @foreach (range(1, $pages) as $page)
                     <li class="pagination-item">
-                    <a href="{{ route('user.viewProductPage', ['page' => $page]) }}" class="pagination-item__link">{{ $page }}</a>
+                        <a href="{{ route('user.viewProductPage', ['page' => $page]) }}"
+                            class="pagination-item__link">{{ $page }}</a>
                     </li>
                     @endforeach
                     <li class="pagination-item">
@@ -172,6 +176,86 @@
                 <!-- PAGINATION -->
 
             </div>
+        </div>
+        <div class="grid__column-12">
+            <div class="title__home-product">
+                <div class="title__home">Gợi ý liên quan</div>
+            </div>
+
+            <div class="home__product">
+                <div class="grid__row">
+                    @foreach($products as $product)
+                    <!-- PRODUCT ITEM -->
+                    <div class="grid__column-2-4">
+                        <form class="formProductDetail" method="post"
+                            action="{{ route('user.detailIndexCustomerUser')}}">
+                            @csrf
+                            <input name="productId" value="{{$product->id}}" type="hidden">
+                            <div class="product-item">
+                                <div class="product-item__img"
+                                    style="background-image: url('{{ asset('img/img_auth/' . $product->img) }}');">
+                                </div>
+                                <input name="customerUserId"
+                                    value="<?php !empty($_SESSION['user_id']) ? $_SESSION['user_id'] : null ?>"
+                                    type="hidden">
+                                <input name="productId" value="{{$product->id}}" type="hidden">
+                                <h4 class="product-item__name">{{$product->product_name}}</h4>
+                                <div class="product-item__price">
+                                    <span class="product-item__price_old">1.200.000đ</span>
+                                    <span class="product-item__price_current">{{$product->price}}</span>
+                                </div>
+                                <div class="product-item__action">
+                                    <span class="product-item_like product-item_liked">
+                                        <i class="product-item_like-icon-empty fa-regular fa-heart"></i>
+                                        <i class="product-item_liked-icon-fill fa-solid fa-heart"></i>
+                                    </span>
+                                    <div class="product-item__rating">
+                                        <i class="product-item__star--gold fa-solid fa-star"></i>
+                                        <i class="product-item__star--gold fa-solid fa-star"></i>
+                                        <i class="product-item__star--gold fa-solid fa-star"></i>
+                                        <i class="product-item__star--gold fa-solid fa-star"></i>
+                                        <i class=" fa-solid fa-star"></i>
+                                    </div>
+                                    <span class="product-item__sold">
+                                        <span class="product-item__star--sold-quantity">{{$product->quantity}}</span>
+                                        Đã bán
+                                    </span>
+                                </div>
+                                <div class="product-item__origin">
+                                    <span class="product-item__brand">Whoo</span>
+                                    <span class="product-item__origin-name">{{$product->category->category_name}}</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- PAGINATION -->
+            <ul class="pagination home__product-pagination">
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">
+                        <i class="pagination-item__icon fa-solid fa-angle-left"></i>
+                    </a>
+                </li>
+                <!-- <li class="pagination-item pagination-item--active">
+                        <a href="" class="pagination-item__link">0</a>
+                    </li> -->
+                @foreach (range(1, $pages) as $page)
+                <li class="pagination-item">
+                    <a href="{{ route('user.viewProductPage', ['page' => $page]) }}"
+                        class="pagination-item__link">{{ $page }}</a>
+                </li>
+                @endforeach
+                <li class="pagination-item">
+                    <a href="" class="pagination-item__link">
+                        <i class="pagination-item__icon fa-solid fa-angle-right"></i>
+                    </a>
+                </li>
+
+            </ul>
+            <!-- PAGINATION -->
         </div>
     </div>
 </div>

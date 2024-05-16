@@ -102,7 +102,7 @@ class OrdersController extends Controller
             $product->save();
             $cart_detail->delete();
         }
-        return redirect("home")->with('success', true);
+        return redirect("thank");
 
     }
 

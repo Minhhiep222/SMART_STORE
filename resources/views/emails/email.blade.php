@@ -6,7 +6,7 @@
     <title>Email</title>
 </head>
 <body>
-    <h1>Hi Tui là Hiệp</h1>
-    <p>Mật khẩu để bạn có thể đăng nhập vào <a href="{{ route('forget.index') }}">smartstore.com</a> là: {{ $pass }}</p>
+    <h1>SMART STORE</h1>
+    <p>Mã OTP để bạn có thể đổi mật khẩu <a href="{{ route('forget.index') }}">smartstore.com</a> là: {{ $pass }}</p>
 </body>
 </html>

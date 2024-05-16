@@ -83,7 +83,7 @@
                             <span class="price_total-payment"> <input type="text" value="{{ $total }}" name="TotalAmount" style="display: none"> {{ $total }} <span>đ</span></span>
                         </div>
                         <div class="payment__cart-btn">
-                            <button type="button" class="btn btn--primary"onclick=" window.location.href = 'thank' ">Thanh toán</button>
+                            <button type="submit" class="btn btn--primary">Thanh toán</button>
                         </div>
                     </div>
                 </div>
