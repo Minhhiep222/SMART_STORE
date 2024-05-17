@@ -13,10 +13,10 @@
                     </div>
                     <div class="filter_payment-content">
                         <div class="payment-content-info">
-                            <div class="content__info-name">Nguyễn Minh Hiệp</div>
-                            <div class="content__info-phone">0834983286</div>
+                            <div class="content__info-name">{{ $user->name }}</div>
+                            <div class="content__info-phone">{{ $user->phone }}</div>
                         </div>
-                        <div class="payment-content-address">Bình Thành, Đức Huệ, Long An</div>
+                        <div class="payment-content-address">{{ $user->address }}</div>
                     </div>
                 </div>
                 <div class="home__product">

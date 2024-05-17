@@ -15,8 +15,15 @@ class OrdersController extends Controller
 {
     //method index
     public function index() {
+        session_start(); 
         $order = Order::all();
-        // dd($order); 
+        if(!empty($_SESSION['user_id'])) {
+            $order = Order::where('customer_id', $_SESSION['user_id'])->get();
+            // dd($order);
+            return view('orders.orders', [
+                'order' => $order,
+            ]);
+        } 
         return view('orders.orders', [
             'order' => $order,
         ]);

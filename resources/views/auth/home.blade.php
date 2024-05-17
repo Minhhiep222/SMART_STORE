@@ -80,22 +80,6 @@
                             </ul>
                         </div>
                     </form>
-
-                    <div class="home-filter__paginate">
-                        <span class="home-filter__page-num">
-                            <span class="page-current">1</span>
-                            /14
-                        </span>
-
-                        <div class="home-filter__page-control">
-                            <a href="" class="page-control-link page-control-link-icon-disabled">
-                                <i class="page-control-link-icon fa-solid fa-angle-left"></i>
-                            </a>
-                            <a href="" class="page-control-link">
-                                <i class="page-control-link-icon fa-solid fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="home__product">

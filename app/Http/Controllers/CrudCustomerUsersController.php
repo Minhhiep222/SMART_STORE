@@ -90,13 +90,14 @@ class CrudCustomerUsersController extends Controller
             $image = $request->file('img');
             $imageName = time().'.'.$image->getClientOriginalExtension();
             $image->move(public_path('img/img_auth'), $imageName);
-    
+            
             // Cập nhật tên hình ảnh mới cho sản phẩm
             $customerUser->img = $imageName;
             
         }
         $_SESSION['img'] = $customerUser->img;
         $_SESSION['name'] = $customerUser->name;
+        session()->put('email', $customerUser->email);
         $customerUser->save();
        return redirect("account/profile");
         

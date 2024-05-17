@@ -407,20 +407,20 @@
                                 <div class="auth-form__form">
                                     <div class="auth-form__group">
                                         <input type="text" class="auth-form__input" placeholder="Name" name="name"
-                                            value="Minh Hiệp">
+                                            value="">
                                     </div>
 
                                     <div class="auth-form__group">
-                                        <input type="text" class="auth-form__input" placeholder="Name" name="phone"
-                                            value="54524432">
+                                        <input type="text" class="auth-form__input" placeholder="Số điện thoại" name="phone"
+                                            value="">
                                     </div>
                                     <div class="auth-form__group">
                                         <input type="text" class="auth-form__input" placeholder="Địa chỉ" name="address"
-                                            value="Bình thành">
+                                            value="">
                                     </div>
                                     <div class="auth-form__group">
                                         <input type="text" class="auth-form__input" placeholder="Tên cửa hàng"
-                                            name="name_company" value="Đại Lộc">
+                                            name="name_company" value="">
                                     </div>
                                     <div class="auth-form__group">
                                         <select name="type_business" class="form-select"
@@ -430,7 +430,7 @@
                                             <option value="enterprise">Doanh nghiẹp</option>
                                         </select>
                                     </div>
-                                    <div class="auth-form__group">
+                                    <!-- <div class="auth-form__group">
                                         <label for="">Giới tính</label>
                                         <div class="check__sex">
                                             <div class="check check__sex-female">
@@ -477,7 +477,7 @@
 
                                             <?php endfor; ?>
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 @if (session('pass_wrong'))
                                     <p class="error-message">Mật khẩu hoặc email không chính xác. Vui lòng thử lại.</p>

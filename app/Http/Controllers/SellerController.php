@@ -46,14 +46,14 @@ class SellerController extends Controller
             'type_business' => 'required',
         ]);
 
-        $day = $_POST['day'];
-        $month = $_POST['month'];
-        $year = $_POST['year'];
-        $DOB = null;
-        if ($day && $month && $year) {
-            // Tạo ngày sinh
-            $DOB = $year . '-' . $month . '-' . $day;
-        } 
+        // $day = $_POST['day'];
+        // $month = $_POST['month'];
+        // $year = $_POST['year'];
+        // $DOB = null;
+        // if ($day && $month && $year) {
+        //     // Tạo ngày sinh
+        //     $DOB = $year . '-' . $month . '-' . $day;
+        // } 
         
         if($request->get('sex') == "") {
             $data['sex'] = null;

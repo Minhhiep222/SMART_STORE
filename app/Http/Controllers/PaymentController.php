@@ -38,6 +38,7 @@ class PaymentController extends Controller
         return view('carts.payment', [
             'cart_detail' => $product_cart,
             'total' => $total,
+            'user' => $user,
         ]);
     }
 
@@ -67,6 +68,7 @@ class PaymentController extends Controller
         return view('carts.payment', [
             'cart_detail' => $product_cart,
             'total' => $total,
+            'user' => $user
         ]);
     }
 }
