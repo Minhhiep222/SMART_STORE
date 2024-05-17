@@ -15,7 +15,7 @@
 
             <div class="grid__column-7">
                 <div class="title_product-detail">
-                    <div class="product-detail-name" >{{$product->id}}</div>
+                    <div class="product-detail-name" >{{$product->product_name}}</div>
                     <div class="product-detail-info">
                         <div class="product-detail-rate">
                             <i class="product-item__star--gold fa-solid fa-star"></i>
@@ -67,7 +67,7 @@
                            <form action="{{ route('seller.viewSeller') }}" method="post">
                            @csrf 
                            <button type="submit" class="btn info__shop-btn__see">
-                                <input name="id_seller" value="{{$product->seller_id}}" type="">
+                                <input name="id_seller" value="{{$product->seller_id}}" type="" style="display: none;">
                                 <i class="fa-regular fa-eye"></i>
                                 Xem shop
                             </button>

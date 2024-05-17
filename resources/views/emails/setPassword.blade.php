@@ -126,7 +126,7 @@
                                 <input name="otp" type="text" value="" placeholder="Nhập OTP của bạn" required title="">
                             </div>
                             <div class="home__profile-item-forget">
-                                <input name="password_new" type="text" value="" placeholder="Nhập password mới" required title="vui lòng nhập email người dùng!">
+                                <input name="password_new" type="password" value="" placeholder="Nhập password mới" required title="vui lòng nhập email người dùng!">
                             </div>
                             <div class="btn__save">
                                 <button class="btn save">Tiếp theo</button>

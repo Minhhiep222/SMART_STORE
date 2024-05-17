@@ -18,14 +18,12 @@ class PaymentController extends Controller
         //bỏ session ở đây để chọn ra cart_detail
         // Lấy giá trị của cookie "carts" từ $_COOKIE
         $cookieValue = isset($_COOKIE['carts']) ? $_COOKIE['carts'] : '';
-        
         // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
         $arrayCart = json_decode($cookieValue, true);
 
         if($arrayCart == null) {
             return redirect("cart");
         }
-        
         $cart = Cart::where('user_id',$user_id)->first();
         $total = 0;
         $product_cart = [];
@@ -50,14 +48,11 @@ class PaymentController extends Controller
         //bỏ session ở đây để chọn ra cart_detail
         // Lấy giá trị của cookie "carts" từ $_COOKIE
         $cookieValue = isset($_COOKIE['payment']) ? $_COOKIE['payment'] : '';
-        
         // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
         $arrayCart = json_decode($cookieValue, true);
-
         if($arrayCart == null) {
             return redirect("cart");
         }
-        
         $cart = Cart::where('user_id',$user_id)->first();
         $total = 0;
         $product_cart = null;

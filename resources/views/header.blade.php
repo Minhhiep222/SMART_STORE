@@ -74,10 +74,13 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <footer class="navbar__notify-footer">
+                                    <a href="{{route('customer.notificatiomCustomerUser')}}" class="navbar__notify-footer-btn">Xem tất cả</a>
+                                </footer>
                             </div>
                             </form>
                         <li class="navbar-item">
-                            <a href="#" class="navbar-item-link">
+                            <a href="{{route('customer.supportCustomerUser')}}" class="navbar-item-link">
                                 <i class="navbar-icon-link fa-regular fa-circle-question"></i>
                                 Trợ giúp
                             </a>
@@ -289,6 +292,8 @@
                                     <p class="error-message">OTP không chính xác. Vui lòng thử lại.</p>
                                 @elseif (session('success'))
                                     <p class="success">Đăng ký thành công. Vui lòng đăng nhập</p>
+                                @elseif (session('set_success'))
+                                    <p class="success">Đổi mật khẩu thành công. Vui lòng đăng nhập</p>
                                 @endif
                                 <div class="auth-form__aside">
                                     <p class="auth-form__help">

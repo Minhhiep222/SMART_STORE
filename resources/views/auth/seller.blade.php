@@ -35,11 +35,9 @@
 
         <div class="home-filter__paginate">
             <div class="home-filter__page-control">
-                <a href="" class="page-control-link page-control-link-icon-disabled">
-                    <p>{{$sellerTotal}}</p>
-                </a>
-                <a href="{{ route('seller.viewAddProduct', ['id' => $idSeller]) }}" class="page-control-link">
-                    Thêm
+                <p> tổng {{$sellerTotal}} sản phẩm</p>
+                <a href="{{ route('seller.viewAddProduct', ['id' => $idSeller]) }}" class="">
+                    <span> Thêm </span>
                 </a>
             </div>
         </div>

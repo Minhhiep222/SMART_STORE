@@ -1046,10 +1046,26 @@ mark {
     border-radius: 2px;
     overflow: hidden;
     display: flex;
-    width: 72px;
+    min-width: 180px;
     height: 36px;
     gap: 2px;
     box-shadow: 0 0 3px #dcdcdc;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-filter__page-control p {
+    min-width: 100px;
+}
+
+.home-filter__page-control a {
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.home-filter__page-control span {
+    font-size: 1.4rem;
+    color: var(--outline-color);
 }
 
 .page-control-link-icon-disabled {

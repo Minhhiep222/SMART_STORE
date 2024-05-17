@@ -53,7 +53,9 @@ class ForgetController extends Controller
             if($user != null) {
                 $user->password = Hash::make($request['password_new']);
                 $user->save();
-                return redirect("home")->with('success', true);
+                return redirect("home")
+                ->with('login', true)
+                ->with('set_success', true);
             }
         }
         return redirect('forget')->with("sai mã otp");

@@ -16,6 +16,8 @@ use App\Http\Controllers\CrudCustomerUsersController;
 use App\Models\CustomerUser;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Http\Controllers\CustomerSupportController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -152,3 +154,15 @@ Route::post('updateAdminSeller', [CrudCustomerUsersController::class, 'formUpdat
 
 Route::get('viewProductPage', [CrudCustomerUsersController::class, 'viewProductPage'])->name('user.viewProductPage');
 Route::resource('cart', CartController::class);
+
+
+Route::get('/customer-support', [CustomerSupportController::class, 'index'])->name('customer.support');
+Route::get('/customer-support/submit-request', [CustomerSupportController::class, 'submitRequest'])->name('customer.support.submit_request');
+Route::get('/customer-support/send-response', [CustomerSupportController::class, 'sendResponse'])->name('customer.support.send_response');
+
+
+Route::get('supportCustomerUser', [CustomerSupportController::class, 'supportCustomerUser'])->name('customer.supportCustomerUser');
+Route::get('notificatiomCustomerUser', [CustomerSupportController::class, 'notificatiomCustomerUser'])->name('customer.notificatiomCustomerUser');
+
+Route::get('/notifications', 'App\Http\Controllers\NotificationController@show');
+Route::get('/support', 'App\Http\Controllers\NotificationController@support');
