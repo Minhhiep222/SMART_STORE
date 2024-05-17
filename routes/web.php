@@ -56,6 +56,7 @@ Route::get('update', function () {
 
 Route::resource('payment',PaymentController::class);
 Route::post('payment.create_order',[PaymentController::class, 'createOrder'])->name('payment.create_order');
+Route::get('order_payment', [PaymentController::class,'store_payment'])->name('store.payment');
 
 Route::get('header_cart', function () {
     return view('header_cart');
@@ -70,6 +71,7 @@ Route::get('account/password', function () {
 });
 
 Route::resource('orders', OrdersController::class);
+Route::get('store_payment', [OrdersController::class,'store_payment'])->name('orders.payment');
 Route::get('orders/{id}/delete', [OrdersController::class, 'delete'])->name('orders.delete');
 Route::get('orders/{id}/updateStatus', [OrdersController::class, 'updateStatus'])->name('orders.updateStatus'); 
 

@@ -56,9 +56,7 @@ $('.btn--cart').click(function () {
                 number_cart.textContent = res;
             }
         });
-    } else {
-        console.log('Không tìm thấy phần tử có lớp .product-detail-number hoặc .product-detail-id.');
-    }
+    } 
 });
 
 
@@ -105,6 +103,32 @@ $('.btn__payment').click(function () {
     var retrievedArray = JSON.parse(cookieValue);
 
     console.log(retrievedArray);
+});
 
+$('#btnPrimary').click(function () {
+    const number = document.querySelector('.product-detail-number');
+    const id_product = document.querySelector('.product-detail-id');
+    const price = document.querySelector('.product-detail-price');
 
+    const price_product = parseFloat(price.textContent);
+    const number_product = parseInt(number.textContent, 10);
+    $arrayId = [
+        number.textContent,
+        id_product.textContent,
+        price_product * number_product,
+    ]
+
+    // console.log($arrayId);
+
+    var jsonStr = JSON.stringify($arrayId);
+
+    document.cookie = "name=value; expires=expiry; path=path; domain=domain; secure";
+
+    document.cookie = "payment=" + jsonStr;
+
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)payment\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+    var retrievedArray = JSON.parse(cookieValue);
+
+    console.log(retrievedArray);
 });

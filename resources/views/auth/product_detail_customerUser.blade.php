@@ -2,15 +2,15 @@
 
 @section('content')
 <style>
-      .modal {
-  /* display: flex; */
-  align-items: center;
-  justify-content: center;
+.modal {
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-dialog {
-  margin: 15%;
-  left: 230px;
+    margin: 15%;
+    left: 230px;
 }
 </style>
 <div class="app__container">
@@ -31,18 +31,18 @@
                     <div class="product-detail-info">
                         <div class="product-detail-rate">
                             @if($evarageStars > 0)
-                             @php
-                                $floorEvarageStars = floor($evarageStars);
+                            @php
+                            $floorEvarageStars = floor($evarageStars);
                             @endphp
-                            @for($i = 1; $i <= $floorEvarageStars; $i++) 
-                                <i class="product-item__star--gold fa-solid fa-star"></i>
-                            @endfor
+                            @for($i = 1; $i <= $floorEvarageStars; $i++) <i
+                                class="product-item__star--gold fa-solid fa-star"></i>
+                                @endfor
 
-                            @if(is_float($evarageStars)) 
-                            <i id="star-gradient" class="fa-solid fa-star"></i>
-                            @endif
-                            @endif
-                          
+                                @if(is_float($evarageStars))
+                                <i id="star-gradient" class="fa-solid fa-star"></i>
+                                @endif
+                                @endif
+
                         </div>
                         <div class="product-detail product-detail-Evaluate">Đánh giá</div>
                         <div class="product-detail product-detail-sold">Đã bán</div>
@@ -61,35 +61,43 @@
                                 <i class="fa-solid fa-minus"></i>
                             </div>
                         </div>
-                        <div class="product-detail-sold"><span>{{$product->quantity - $product->sold}}</span>Sản phẩm còn lại</div>
+                        <div class="product-detail-sold"><span>{{$product->quantity - $product->sold}}</span>Sản phẩm
+                            còn lại</div>
                     </div>
                     <div class="product-detail-button">
-                    <div class="btn btn--cart" onclick="openSuccessModal()">
-                      <i class="fa-solid fa-cart-plus"></i>
-                         Thêm vào giỏ hàng
-                    </div>      
-                        <div id="btnPrimary" class="btn btn--primary">Mua ngay</div>
+                        <div class="btn btn--cart" onclick="openSuccessModal()">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            Thêm vào giỏ hàng
+                        </div>
+                        <form action="{{ route('store.payment')}}" method="get">
+                            <button id="btnPrimary" class="btn btn--primary">Mua ngay</button>
+                        </form>
                     </div>
-                 <!-- modal -->
-                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" z-index: 3>
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2 class="modal-title" id="exampleModalLabel">Thêm vào giỏ hàng thành công</h2>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <!-- Nội dung bạn muốn hiển thị trong modal -->
-              <h4>Chúc mừng! Sản phẩm đã được thêm vào giỏ hàng thành công. Cảm ơn bạn đã mua sắm từ chúng tôi</h4>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-              <button type="button" class="btn btn--primary"onclick=" window.location.href = 'cart' ">Xem Giỏ Hàng</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--  -->
+                    <!-- modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true" z-index: 3>
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="modal-title" id="exampleModalLabel">Thêm vào giỏ hàng thành công</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Nội dung bạn muốn hiển thị trong modal -->
+                                    <h4>Chúc mừng! Sản phẩm đã được thêm vào giỏ hàng thành công. Cảm ơn bạn đã mua sắm
+                                        từ chúng tôi</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn--primary"
+                                        onclick=" window.location.href = 'cart' ">Xem Giỏ Hàng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
                 </div>
             </div>
 
@@ -99,18 +107,18 @@
                     <img class="info__shop-img" src="{{('img/img_auth/' . $seller->img)}}">
                     <div class="info__shop-item">
                         <div class="info__shop-information">
-                        <div class="info__shop-name">{{ $seller->name }}</div>
+                            <div class="info__shop-name">{{ $seller->name }}</div>
                             <div class="info__shop-phone">{{$seller->phone}}</div>
                         </div>
                         <div class="info__shop-btn">
-                           <form action="" method="post">
-                           @csrf 
-                           <button id="seeShopDetail" type="submit" class="btn info__shop-btn__see">
-                                <input name="id_seller" value="{{$product->seller_id}}" type="hidden">
-                                <i class="fa-regular fa-eye"></i>
-                                Xem shop
-                            </button>
-                           </form>
+                            <form action="" method="post">
+                                @csrf
+                                <button id="seeShopDetail" type="submit" class="btn info__shop-btn__see">
+                                    <input name="id_seller" value="{{$product->seller_id}}" type="hidden">
+                                    <i class="fa-regular fa-eye"></i>
+                                    Xem shop
+                                </button>
+                            </form>
                             <button id="chatShopDetail" class="btn btn--primary info__shop-btn__chat">
                                 Chat shop
                                 <i class="fa-regular fa-comment"></i>
@@ -532,27 +540,26 @@
         <div class="groupStar">
             <h5>{{round($evarageStars,1)}}</h5>
             <h5 style="opacity: 0">.</h5>
-         
+
 
             @if($evarageStars > 0)
-    @php
-        $floorEvarageStars = floor($evarageStars);
-    @endphp
+            @php
+            $floorEvarageStars = floor($evarageStars);
+            @endphp
 
-    @for($i = 1; $i <= $floorEvarageStars; $i++) 
-        <i class="fa-solid fa-star"></i>
-    @endfor
+            @for($i = 1; $i <= $floorEvarageStars; $i++) <i class="fa-solid fa-star"></i>
+                @endfor
 
-    @if(is_float($evarageStars)) 
-        <i id="star-gradient" class="fa-solid fa-star"></i>
-    @endif
+                @if(is_float($evarageStars))
+                <i id="star-gradient" class="fa-solid fa-star"></i>
+                @endif
 
-@endif
-           
-            <h5 style="opacity: 0">.</h5>
-            <p>{{$totalComments}} </p>
-            <p style="opacity: 0">.</p>
-            <p> Đánh Giá</p>
+                @endif
+
+                <h5 style="opacity: 0">.</h5>
+                <p>{{$totalComments}} </p>
+                <p style="opacity: 0">.</p>
+                <p> Đánh Giá</p>
         </div>
     </div>
     <!-- Star ratings -->
@@ -567,54 +574,54 @@
         </div>
         <p>{{$percenOneStar}}%</p>
     </div>
-   
+
     <div class="twoStar">
         <div class="groupStart">
-         <p>2</p>
-         <p style="opacity: 0;">.</p>
-        <i class="fa-solid fa-star"></i>
+            <p>2</p>
+            <p style="opacity: 0;">.</p>
+            <i class="fa-solid fa-star"></i>
         </div>
         <div class="progress">
-           <div class="progress-bar bg-warning" style="width:{{$percenTwoStar}}%"></div>
+            <div class="progress-bar bg-warning" style="width:{{$percenTwoStar}}%"></div>
         </div>
         <p>{{$percenTwoStar}}%</p>
-        </div>
+    </div>
 
-        <div class="threeStar">
+    <div class="threeStar">
         <div class="groupStart">
-         <p>3</p>
-         <p style="opacity: 0;">.</p>
-        <i class="fa-solid fa-star"></i>
+            <p>3</p>
+            <p style="opacity: 0;">.</p>
+            <i class="fa-solid fa-star"></i>
         </div>
         <div class="progress">
-           <div class="progress-bar bg-warning" style="width:{{$percenThreeStar}}%"></div>
+            <div class="progress-bar bg-warning" style="width:{{$percenThreeStar}}%"></div>
         </div>
         <p>{{$percenThreeStar}}%</p>
-        </div>
+    </div>
 
-        <div class="fourStar">
+    <div class="fourStar">
         <div class="groupStart">
-         <p>4</p>
-         <p style="opacity: 0;">.</p>
-        <i class="fa-solid fa-star"></i>
+            <p>4</p>
+            <p style="opacity: 0;">.</p>
+            <i class="fa-solid fa-star"></i>
         </div>
         <div class="progress">
-           <div class="progress-bar bg-warning" style="width:{{$percenFourStar}}%"></div>
+            <div class="progress-bar bg-warning" style="width:{{$percenFourStar}}%"></div>
         </div>
         <p>{{$percenFourStar}}%</p>
-        </div>
+    </div>
 
-        <div class="fiveStar">
+    <div class="fiveStar">
         <div class="groupStart">
-         <p>5</p>
-         <p style="opacity: 0;">.</p>
-        <i class="fa-solid fa-star"></i>
+            <p>5</p>
+            <p style="opacity: 0;">.</p>
+            <i class="fa-solid fa-star"></i>
         </div>
         <div class="progress">
-           <div class="progress-bar bg-warning" style="width:{{$percenFiveStar}}%"></div>
+            <div class="progress-bar bg-warning" style="width:{{$percenFiveStar}}%"></div>
         </div>
         <p>{{$percenFiveStar}}%</p>
-        </div>
+    </div>
     <!-- Title for filtering -->
     <!-- <div class="titleFilterEva">
         <h2>Lọc Đánh Giá</h2>   
@@ -648,29 +655,29 @@
     </form> -->
 
     <!-- Filtering options -->
-  
+
 
     <!-- User comments -->
-    
+
     @foreach($userComments as $userComment)
     <div class="CommentUser">
         <div class="nameUser">
             <h4>{{$userComment->CustomerUser->name}}</h4>
-          
+
             <i class="fa-solid fa-circle-check"></i>
             <p>Đã mua tại Smartstore</p>
         </div>
         <div class="commentUserStar">
-        @for ($i = 0; $i < $userComment->star; $i++)
-        <i class="fa-solid fa-star"></i>
-        @endfor
+            @for ($i = 0; $i < $userComment->star; $i++)
+                <i class="fa-solid fa-star"></i>
+                @endfor
         </div>
         <div class="CommentImageUser">
             <img src="{{('img/img_auth/' . $userComment->img) }}" alt="">
         </div>
         <div class="commentUserContent">
             <p>{{$userComment->description}}</p>
-           
+
         </div>
         <div class="ThanhNgang"></div>
     </div>
@@ -678,54 +685,53 @@
 </div> <!-- Closing viewComment div -->
 
 <script>
-    function openSuccessModal() {
-        // Sử dụng jQuery để chọn modal và gọi phương thức modal('show') để mở modal
-        $('#exampleModal').modal('show');
-    }
+function openSuccessModal() {
+    // Sử dụng jQuery để chọn modal và gọi phương thức modal('show') để mở modal
+    $('#exampleModal').modal('show');
+}
 </script>
 
-    
-<form method="POST" action="{{ route('user.formComment')}}" enctype="multipart/form-data">
-@csrf 
-   <div id="formComment" class="formComment">
-      <div class="formCommentImg">
-         <img src="{{('img/img_auth/' . $product->img) }}" alt="">
-      </div>
-     <div class="formCommentName">
-     </div>
-     <div class="formCommentContent">
-     <textarea id="descriptionDetail" name="description" placeholder="Chia sẻ cảm nhận..." id="w3review" name="w3review" rows="4" cols="60"></textarea>
-   
-     </div>
-     <label for="fiveStartForm">5 Sao</label>
-     <input name="star" value="5" id="fiveStartForm" type="radio">
-     <label for="fourStartForm">4 Sao</label>
-     <input name="star" value="4" id="fourStartForm" type="radio">
-     <label for="threeStartForm">3 Sao</label>
-     <input name="star" value="3" id="threeStartForm" type="radio">
-     <label for="twoStartForm">2 Sao</label>
-     <input name="star" value="2" id="twoStartForm" type="radio">
-     <label for="oneStartForm">1 Sao</label>
-     <input name="star" value="1" id="oneStartForm" type="radio">
-     <div class="formCommentImg">
-     <button class="btn--textFile" onclick="document.getElementById('getFile').click()">
-      <i class="fa-solid fa-camera"></i>
-      <input id="imgComment" class="" type='file' id="getFile" style="" name="img">                  
-     </button>
-      <p id="sendImage" onclick="document.getElementById('getFile').click()">Gửi ảnh thực tế</p>
-     </div>
-     <input name="productId" value="{{$product->id}}" type="">
-     <input id="customerUserId" name="customerUserId" value="{{ $customerUserId }}" type="text">
-     <button type="submit" class="btn-submit">Gửi Đánh Giá</button>
-    </div>
-   </form>
-   <script>
 
+<form method="POST" action="{{ route('user.formComment')}}" enctype="multipart/form-data">
+    @csrf
+    <div id="formComment" class="formComment">
+        <div class="formCommentImg">
+            <img src="{{('img/img_auth/' . $product->img) }}" alt="">
+        </div>
+        <div class="formCommentName">
+        </div>
+        <div class="formCommentContent">
+            <textarea id="descriptionDetail" name="description" placeholder="Chia sẻ cảm nhận..." id="w3review"
+                name="w3review" rows="4" cols="60"></textarea>
+
+        </div>
+        <label for="fiveStartForm">5 Sao</label>
+        <input name="star" value="5" id="fiveStartForm" type="radio">
+        <label for="fourStartForm">4 Sao</label>
+        <input name="star" value="4" id="fourStartForm" type="radio">
+        <label for="threeStartForm">3 Sao</label>
+        <input name="star" value="3" id="threeStartForm" type="radio">
+        <label for="twoStartForm">2 Sao</label>
+        <input name="star" value="2" id="twoStartForm" type="radio">
+        <label for="oneStartForm">1 Sao</label>
+        <input name="star" value="1" id="oneStartForm" type="radio">
+        <div class="formCommentImg">
+            <button class="btn--textFile" onclick="document.getElementById('getFile').click()">
+                <i class="fa-solid fa-camera"></i>
+                <input id="imgComment" class="" type='file' id="getFile" style="" name="img">
+            </button>
+            <p id="sendImage" onclick="document.getElementById('getFile').click()">Gửi ảnh thực tế</p>
+        </div>
+        <input name="productId" value="{{$product->id}}" type="">
+        <input id="customerUserId" name="customerUserId" value="{{ $customerUserId }}" type="text">
+        <button type="submit" class="btn-submit">Gửi Đánh Giá</button>
+    </div>
+</form>
+<script>
 let formComment = document.getElementById('formComment');
 let customerUserId = document.getElementById('customerUserId');
- if(customerUserId.value === '0') {
+if (customerUserId.value === '0') {
     formComment.style.display = 'none';
- }
-
+}
 </script>
 @endsection

@@ -88,6 +88,7 @@
 .title_product-detail .product-detail-button {
   position: absolute;
   bottom: 15px;
+  display: flex;
 }
 .title_product-detail .btn--cart {
   color: var(--outline-color);

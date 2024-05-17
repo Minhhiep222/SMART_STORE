@@ -59,22 +59,17 @@ class OrdersController extends Controller
             return redirect("account/profile")
                 ->with('verify_profile', true);
         }
-        
         // Lấy giá trị của cookie "carts" từ $_COOKIE
         $cookieValue = isset($_COOKIE['carts']) ? $_COOKIE['carts'] : '';
-        
         // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
         $arrayCart = json_decode($cookieValue, true);
         //xử lý kho trong mảng chỉ có 1 phần tử
-
         $request->validate([
             'customer_id' => 'requited',
             'PaymentMethod' => 'requited',
             'PaymentStatus' => 'requited',
         ]);
-
         $data = $request->all();
-
         //add order to table
         $order = Order::create([
             'customer_id' => $user_id,
@@ -103,7 +98,57 @@ class OrdersController extends Controller
             $cart_detail->delete();
         }
         return redirect("thank");
+    }
 
+    public function store_payment() {
+        session_start();
+        $user_id = $_SESSION['user_id'];
+        //kiểm tra xem người dùng có nhập thông tin đầy đủ chưa
+        $user = CustomerUser::where('id', $user_id)->first();
+        if($user->name == null || $user->DOB == null || $user->address  == null || $user->sex  == null || $user->phone  == null) {
+            return redirect("account/profile")
+                ->with('verify_profile', true);
+        }
+        // Lấy giá trị của cookie "carts" từ $_COOKIE
+        $cookieValue = isset($_COOKIE['payment']) ? $_COOKIE['payment'] : '';
+        // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
+        $arrayCart = json_decode($cookieValue, true);
+
+        // dd($arrayCart);
+        //xử lý kho trong mảng chỉ có 1 phần tử
+        // $request->validate([
+        //     'customer_id' => 'requited',
+        //     'PaymentMethod' => 'requited',
+        //     'PaymentStatus' => 'requited',
+        // ]);
+        // $data = $request->all();
+        //add order to table
+        $order = Order::create([
+            'customer_id' => $user_id,
+            'TotalAmount' => $arrayCart[2],
+            'PaymentMethod' => 'Cash',
+            'PaymentStatus' => 'Verify',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $cart = Cart::where('user_id', $user_id)->first();
+        $product = Product::where('id', $arrayCart[1])->first();
+        // $cart_detail = Cart_detail::where('cart_id',$cart->id)
+        // ->first();
+        $order_detail =  OrderDetail::create([
+            'order_id' => $order->id,
+            'product_id' => $product->id,
+            'quantity' => $arrayCart[0],
+            'seller_id' => $product->seller_id,
+            'price' => $product->price,
+            'total' => $arrayCart[0] * $product->price,
+        ]);
+
+        // dd( $order_detail);
+        $product -> sold = $product->sold + $arrayCart[0];
+        $product -> quantity = $product->quantity - $arrayCart[0];
+        $product->save();
+        return redirect("thank");
     }
 
     //method update order

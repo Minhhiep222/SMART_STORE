@@ -29,16 +29,12 @@ class UserController extends Controller
 
     public function authUser(Request $request) {
         session_start();
-
         //kiểm tra email, password không được bỏ trống
         $request->validate(['email'=>'required',
         'password'=>'required']);
-
         //only : chỉ lấy giá trị được chỉ định
         $credentials = $request->only('email', 'password');
         $user = CustomerUser::where('email',$request->email)->first();  
-        //kiểm tra có sai mật khẩu hay email không
-        
         //kiểm tra đúng mã otp không
         if($request->get__number_verify === $request->number_verify) {
 
@@ -50,7 +46,6 @@ class UserController extends Controller
                 $_SESSION['user_id'] = $user->id;
                 $_SESSION['name'] = $user->name;
                 $_SESSION['img'] = $user->img;
-                // Gửi cookie về trình duyệt
                 return redirect("home");
             }
             else {
@@ -63,8 +58,6 @@ class UserController extends Controller
             ->with('login', true)
             ->with('otp_wrong', true);
         }
-        
-        
     }
     
 
