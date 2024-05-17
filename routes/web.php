@@ -42,8 +42,7 @@ Route::get('product_detail', [CrudCustomerUsersController::class, 'viewDetailPro
 
 
 Route::match(['get', 'post'], 'product_detailIndexCustomerUser', [CrudCustomerUsersController::class, 'viewDetailProductIndexCusTomerUser'])->name('user.detailIndexCustomerUser');
-Route::post('arrangeIndexUserCustomer', [CrudCustomerUsersController::class, 'arrangeIndexUserCustomer'])->name('user.arrangeIndexUserCustomer');
-
+Route::match(['get', 'post'], 'arrangeIndexUserCustomer', [CrudCustomerUsersController::class, 'arrangeIndexUserCustomer'])->name('user.arrangeIndexUserCustomer');
 Route::post('comment', [CrudCustomerUsersController::class, 'formComment'])->name('user.formComment');
 Route::get('account/profile', [CrudCustomerUsersController::class, 'viewUserProfile'])->name('user.viewUserProfile');
 Route::post('account/profile', [CrudCustomerUsersController::class, 'updateUserProfile'])->name('user.UpdateUserProfile');
@@ -146,5 +145,5 @@ Route::get('updateAdminSeller', [CrudCustomerUsersController::class, 'viewUpdate
 Route::post('updateAdminSeller', [CrudCustomerUsersController::class, 'formUpdateAdminSeller'])->name('admin.formUpdateAdminSeller');
 //
 
-Route::get('viewProductPage', [CrudCustomerUsersController::class, 'viewProductPage'])->name('user.viewProductPage');
+Route::match(['get', 'post'], 'viewProductPage', [CrudCustomerUsersController::class, 'viewProductPage'])->name('user.viewProductPage');
 Route::resource('cart', CartController::class);

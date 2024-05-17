@@ -49,7 +49,6 @@
                                     <td>{{$seller->phone}}</td>   
                                     <td class="action__product">
                                         <a href="{{ route('admin.viewUpdateAdminSeller', ['id' => $seller->id]) }}" class="seller__product-edit">Cập nhật</a>
-                                        <a href="{{ route('admin.adminSellerDetail', ['id' => $seller->id])}}" class="seller__product-detail">Xem thêm</a>
                                         <form action="{{ route('seller.deleteProduct') }}" method="post">
                                         @csrf 
                                      <input name="productId" value="" type="hidden">

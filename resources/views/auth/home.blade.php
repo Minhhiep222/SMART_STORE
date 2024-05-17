@@ -1,5 +1,33 @@
 @extends('header')
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #home-filter__bt {
+            background-color: white;
+            font-size: 15px;
+        }
+        #btnArrange {
+            font-size: 15px;
+            background-color: white;
+        }
+        #btnArrangePri {
+            font-size: 15px;
+        }
+        .select-input {
+            top: 4px;
+          
+        }
+        .select-input__list{
+            margin-top: 5px;
+            width: 98%;
+        }
+    </style>
+</head>
+<body>
 @section('content')
 <!-- CONTAINER -->
 <div class="app__container">
@@ -57,9 +85,9 @@
                         @csrf
                         <input name="customerUserId" value="<?php !empty($_SESSION['user_id']) ? $_SESSION['user_id'] : null ?>" type="hidden">
 
-                        <button name="oldest" type="submit" class="home-filter__btn btn">Cũ nhất</button>
-                        <button name="newest" type="submit" class="home-filter__btn btn btn--primary">Mới nhất</button>
-                        <button name="bestselling" type="submit" class="home-filter__btn btn">Bán chạy</button>
+                        <button name="oldest" type="submit" id="btnArrange" class="home-filter__btn btn btnArrangeOldest">Cũ nhất</button>
+                        <button name="newest" type="submit" id="btnArrangePri" class="home-filter__btn btn btn--primary btnArrangeNewest">Mới nhất</button>
+                        <button  name="bestselling" type="submit" id="btnArrange" class="home-filter__btn btn btnArrangeBestselling">Bán chạy</button>
 
 
                         <div class="select-input">
@@ -67,12 +95,12 @@
                             <i class="search-icon fa-solid fa-angle-down"></i>
 
                             <!-- SELECT-INPUT-LIST -->
-                            <ul class="select-input__list">
-                                <li class="select-input__item">
+                            <ul id="select-input__list" class="select-input__list">
+                                <li id="select-input__item" class="select-input__item">
                                     <button id="btn-sellect-priceASC" name="priceASC" type="submit">Cao Đến
                                         Thấp</button>
                                 </li>
-                                <li class="select-input__item">
+                                <li id="select-input__item" class="select-input__item">
                                     <button id="btn-sellect-priceDESC" name="priceDESC" type="submit">Thấp Đến
                                         Cao</button>
                                 </li>
@@ -150,7 +178,7 @@
                 <!-- PAGINATION -->
                 <ul class="pagination home__product-pagination">
                     <li class="pagination-item">
-                        <a href="" class="pagination-item__link">
+                        <a href="{{ $products->previousPageUrl()}}" class="pagination-item__link">
                             <i class="pagination-item__icon fa-solid fa-angle-left"></i>
                         </a>
                     </li>
@@ -163,7 +191,7 @@
                     </li>
                     @endforeach
                     <li class="pagination-item">
-                        <a href="" class="pagination-item__link">
+                        <a href="{{ $products->nextPageUrl()}}" class="pagination-item__link">
                             <i class="pagination-item__icon fa-solid fa-angle-right"></i>
                         </a>
                     </li>
@@ -187,7 +215,10 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
 </script>
 
-<!-- /CONTAINER -->
 @endsection
+</body>
+</html>

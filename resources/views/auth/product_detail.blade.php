@@ -67,7 +67,7 @@
                            <form action="{{ route('seller.viewSeller') }}" method="post">
                            @csrf 
                            <button type="submit" class="btn info__shop-btn__see">
-                                <input name="id_seller" value="{{$product->seller_id}}" type="">
+                                <input name="id_seller" value="{{$product->seller_id}}" type="hidden">
                                 <i class="fa-regular fa-eye"></i>
                                 Xem shop
                             </button>

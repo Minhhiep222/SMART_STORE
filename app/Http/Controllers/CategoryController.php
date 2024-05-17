@@ -17,7 +17,7 @@ class CategoryController extends Controller
         $products = Product::with('seller')->paginate(10); 
         $count_cart = 0;
         $productTotal = Product::count();
-        $pages = ceil($productTotal)/3;
+        $pages = ceil($productTotal/10);
         if(!empty($_SESSION['user_id'])){
             $id = $_SESSION['user_id'];
             $user = CustomerUser::find($id)->first();

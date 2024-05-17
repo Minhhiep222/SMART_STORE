@@ -61,7 +61,7 @@
   font-size: 1.6rem;
   line-height: 15px;
   text-align: center;
-  min-height: 30px;
+  max-height: 30px;
   color: var(--outline-color);
   min-width: 35px;
 }
@@ -102,7 +102,10 @@
 .title_product-detail .btn--cart:hover {
   opacity: 0.9;
 }
-
+#btnPrimary {
+  font-size: 14px;
+  line-height: 24px;
+}
 .info__shop {
   margin-top: 10px;
   width: 100%;
@@ -192,7 +195,7 @@
   border-radius: 10px;
   margin-left: 30px;
   margin-top: 30px;
-  margin-bottom: 90px;
+  margin-bottom: 250px;
 
 }
 .viewComment h2 {
@@ -235,6 +238,8 @@
 }
 .totalComment .groupStar i:nth-child(7) {
   font-size: 20px;
+  color: orange;
+ 
 }
 .totalComment .groupStar h5 {
   margin-top: -10px;
@@ -661,5 +666,24 @@
   display: inline;
   overflow: hidden;
   background: linear-gradient(to left, #ffffff 10%, orange);
+  -webkit-background-clip: text;
   color: transparent;
+}
+.starCommentr {
+  margin-left: 40px;
+}
+.starCommentr label {
+  font-size: 15px;
+}
+.starCommentr input {
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  margin-top: 5px;
+  margin-left:2px;
+  opacity: 0;
+}
+.starCommentr i {
+  font-size: 15px;
+  color: black;
 }

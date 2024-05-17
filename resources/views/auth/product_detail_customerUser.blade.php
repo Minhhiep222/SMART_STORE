@@ -1,5 +1,13 @@
 @extends('header')
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>    
@@ -498,7 +506,7 @@
     </div>
 </div>
 
-<div class="viewComment">
+<div id="viewComment" class="viewComment">
     <h2>{{$product->product_name}}</h2>
     <div class="totalComment">
         <div class="groupStar">
@@ -651,7 +659,6 @@
 
    
 
-    
 <form method="POST" action="{{ route('user.formComment')}}" enctype="multipart/form-data">
 @csrf 
    <div id="formComment" class="formComment">
@@ -664,16 +671,28 @@
      <textarea id="descriptionDetail" name="description" placeholder="Chia sẻ cảm nhận..." id="w3review" name="w3review" rows="4" cols="60"></textarea>
    
      </div>
-     <label for="fiveStartForm">5 Sao</label>
+    <div class="starCommentr">
+    <label for="fiveStartForm">5</label>
      <input name="star" value="5" id="fiveStartForm" type="radio">
-     <label for="fourStartForm">4 Sao</label>
+     <i id="iconStar5" class="product-item__star--gold fa-solid fa-star"></i>
+     <br>
+     <label for="fourStartForm">4</label>
      <input name="star" value="4" id="fourStartForm" type="radio">
-     <label for="threeStartForm">3 Sao</label>
+     <i id="iconStar4" class="product-item__star--gold fa-solid fa-star"></i>
+     <br>
+     <label for="threeStartForm">3</label>
      <input name="star" value="3" id="threeStartForm" type="radio">
-     <label for="twoStartForm">2 Sao</label>
+     <i id="iconStar3" class="product-item__star--gold fa-solid fa-star"></i>
+     <br>
+     <label for="twoStartForm">2</label>
      <input name="star" value="2" id="twoStartForm" type="radio">
-     <label for="oneStartForm">1 Sao</label>
+     <i id="iconStar2" class="product-item__star--gold fa-solid fa-star"></i>
+     <br>
+     <label for="oneStartForm">1</label>
      <input name="star" value="1" id="oneStartForm" type="radio">
+     <i id="iconStar1" class="product-item__star--gold fa-solid fa-star"></i>
+     <br>
+    </div>
      <div class="formCommentImg">
      <button class="btn--textFile" onclick="document.getElementById('getFile').click()">
       <i class="fa-solid fa-camera"></i>
@@ -681,18 +700,75 @@
      </button>
       <p id="sendImage" onclick="document.getElementById('getFile').click()">Gửi ảnh thực tế</p>
      </div>
-     <input name="productId" value="{{$product->id}}" type="">
-     <input id="customerUserId" name="customerUserId" value="{{ $customerUserId }}" type="text">
+     <input name="productId" value="{{$product->id}}" type="hidden">
+     <input id="customerUserId" name="customerUserId" value="{{ $customerUserId }}" type="hidden">
      <button type="submit" class="btn-submit">Gửi Đánh Giá</button>
     </div>
+    
    </form>
+
    <script>
 
 let formComment = document.getElementById('formComment');
 let customerUserId = document.getElementById('customerUserId');
- if(customerUserId.value === '0') {
+ if(customerUserId.value == "") {
     formComment.style.display = 'none';
  }
 
+ const fiveStartForm = document.querySelector('#fiveStartForm');
+const fourStartForm = document.querySelector('#fourStartForm');
+const threeStartForm = document.querySelector('#threeStartForm');
+const twoStartForm = document.querySelector('#twoStartForm');
+const oneStartForm = document.querySelector('#oneStartForm');
+
+const iconStar5 = document.querySelector('#iconStar5');
+const iconStar4 = document.querySelector('#iconStar4');
+const iconStar3 = document.querySelector('#iconStar3');
+const iconStar2 = document.querySelector('#iconStar2');
+const iconStar1 = document.querySelector('#iconStar1');
+
+fiveStartForm.addEventListener('click',function() {
+    iconStar5.style.color = "yellow";
+    iconStar4.style.color = "black";
+    iconStar3.style.color = "black";
+    iconStar2.style.color = "black";
+    iconStar1.style.color = "black";
+    
+});
+fourStartForm.addEventListener('click',function() {
+    iconStar4.style.color = "yellow";
+    iconStar5.style.color = "black";
+    iconStar3.style.color = "black";
+    iconStar2.style.color = "black";
+    iconStar1.style.color = "black";
+    
+});
+threeStartForm.addEventListener('click',function() {
+    iconStar3.style.color = "yellow";
+    iconStar4.style.color = "black";
+    iconStar5.style.color = "black";
+    iconStar2.style.color = "black";
+    iconStar1.style.color = "black";
+    
+});
+twoStartForm.addEventListener('click',function() {
+    iconStar2.style.color = "yellow";
+    iconStar3.style.color = "black";
+    iconStar4.style.color = "black";
+    iconStar5.style.color = "black";
+    iconStar1.style.color = "black";
+    
+});
+oneStartForm.addEventListener('click',function() {
+    iconStar1.style.color = "yellow";
+    iconStar2.style.color = "black";
+    iconStar3.style.color = "black";
+    iconStar4.style.color = "black";
+    iconStar5.style.color = "black";
+});
+
 </script>
 @endsection
+
+</body>
+</html>

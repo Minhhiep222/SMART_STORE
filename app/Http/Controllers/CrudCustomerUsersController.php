@@ -39,6 +39,9 @@ class CrudCustomerUsersController extends Controller
         $customerUserId = $_SESSION['user_id'];
         $customerUser = CustomerUser::find($customerUserId);
         $dob = $customerUser->DOB;
+        if($dob == null) {
+            $dob = "1990-01-01";
+        }
         $parts = explode('-', $dob);
         $year = $parts[0];
         $month = $parts[1];
@@ -66,9 +69,12 @@ class CrudCustomerUsersController extends Controller
         $customerUser->email = $input['email'];
         $customerUser->phone = $input['phone'];
         $customerUser->address = $input['address'];
+        if($request->get('sex') == "") {
+            $input['sex'] = "";
+        }
+
         $customerUser->sex =  $input['sex'];
         $customerUser->DOB =  $dob;
-
         if ($request->hasFile('img')) {
             // Xóa hình ảnh cũ (nếu có)
             Storage::delete('img/img_auth/' . $customerUser->img);
@@ -80,11 +86,12 @@ class CrudCustomerUsersController extends Controller
     
             // Cập nhật tên hình ảnh mới cho sản phẩm
             $customerUser->img = $imageName;
-            
+        
         }
         $_SESSION['img'] = $customerUser->img;
         $_SESSION['name'] = $customerUser->name;
         $customerUser->save();
+        session()->put('email',$customerUser->email);
        return redirect("home");
         
     }
@@ -247,7 +254,7 @@ class CrudCustomerUsersController extends Controller
                 $user = CustomerUser::find($id)->first();
                 session(['customerUserId' => $id]);
                 $productTotal = Product::count();
-                $pages = ceil($productTotal)/3;
+                $pages = ceil($productTotal/10);
                 $cart = Cart::where('user_id', $id)->first();
                 $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
                 return view('auth.product_detail_customerUser', ['number' => $count_cart  ,'product' => $product, 'seller' => $seller, 'customerUser' => $customerUser, 'userComments' => $userComments, 'totalComments' => $totalComments,'percenOneStar' => $percenOneStar,'percenTwoStar' => $percenTwoStar,'percenThreeStar' => $percenThreeStar,'percenFourStar' => $percenFourStar, 'percenFiveStar' => $percenFiveStar, 'evarageStars' => $evarageStars,'customerUserId' => $customerUserId]);
@@ -325,7 +332,7 @@ class CrudCustomerUsersController extends Controller
                 $user = CustomerUser::find($id)->first();
                 session(['customerUserId' => $id]);
                 $productTotal = Product::count();
-                $pages = ceil($productTotal)/3;
+                $pages = ceil($productTotal/10);
                 $cart = Cart::where('user_id', $id)->first();
                 $count_cart = Cart_detail::where('cart_id', $cart->id)->count();
 
@@ -370,7 +377,7 @@ class CrudCustomerUsersController extends Controller
             $products = Product::with('Category')->orderByDESC('id')->paginate(10);
             $categories = Category::get();
             $productTotal = Product::count();
-            $pages = ceil($productTotal)/3;
+            $pages = ceil($productTotal/10);
             return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products,'categories' => $categories, 'pages' => $pages]);
            }
         else if($request->has('oldest')) {
@@ -378,7 +385,7 @@ class CrudCustomerUsersController extends Controller
             $products = Product::with('Category')->orderBy('id')->paginate(10);
             $categories = Category::get();
             $productTotal = Product::count();
-            $pages = ceil($productTotal)/3;
+            $pages = ceil($productTotal/10);
             return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products,'categories' => $categories, 'pages' => $pages]);
            }
         else if($request->has('bestselling')) {
@@ -386,7 +393,7 @@ class CrudCustomerUsersController extends Controller
             $products = Product::with('Category')->orderBy('sold')->paginate(10);
             $categories = Category::get();
             $productTotal = Product::count();
-            $pages = ceil($productTotal)/3;
+            $pages = ceil($productTotal/10);
             return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products,'categories' => $categories, 'pages' => $pages]);
            }
          else if($request->has('priceASC')) {
@@ -394,7 +401,7 @@ class CrudCustomerUsersController extends Controller
             $products = Product::with('Category')->orderByDESC('price')->paginate(10);
             $categories = Category::get();
             $productTotal = Product::count();
-            $pages = ceil($productTotal)/3;
+            $pages = ceil($productTotal/10);
             return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products,'categories' => $categories, 'pages' => $pages]);
            }
          else if($request->has('priceDESC')) {
@@ -402,7 +409,7 @@ class CrudCustomerUsersController extends Controller
             $products = Product::with('Category')->orderBy('price')->paginate(10);
             $categories = Category::get();
             $productTotal = Product::count();
-            $pages = ceil($productTotal)/3;
+            $pages = ceil($productTotal/10);
             return view('auth.home', ['idCustomer' => $customerUser , 'products' => $products,'categories' => $categories, 'pages' => $pages]);
            }
 
@@ -772,7 +779,7 @@ class CrudCustomerUsersController extends Controller
              // Tạo các biến $categories, $productTotal, $pages chỉ khi cần thiết
              $categories = Category::get();
              $productTotal = Product::count();
-             $pages = ceil($productTotal) / 3;
+             $pages = ceil($productTotal/10);
  
              // Lấy thông tin khách hàng nếu cần
              $email = session('emailCustomerUser');
@@ -784,7 +791,7 @@ class CrudCustomerUsersController extends Controller
              $products = Product::with('Category')->orderByDesc('id')->paginate(10);
              $categories = Category::get();
              $productTotal = Product::count();
-             $pages = ceil($productTotal) / 3;
+             $pages = ceil($productTotal/10);
  
              // Lấy thông tin khách hàng nếu cần
              $email = session('emailCustomerUser');

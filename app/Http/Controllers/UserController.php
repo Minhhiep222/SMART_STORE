@@ -44,6 +44,7 @@ class UserController extends Controller
 
             if(Auth::guard('tbl_customer_users')->attempt($credentials)){
                 session(['email' => $user->email]);
+                session('comment',1);
                 session(['name' => $user->name]);
                 session(['img' => $user->img]);
                 // dd(session('email'));

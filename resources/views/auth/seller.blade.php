@@ -1,11 +1,26 @@
 @extends('store.header_store')
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #btnAddProject{
+            margin-left: 15px;
+        }
+        #btnAddProject a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+    
 @section('content_store')
 <div class="grid__column-10">
     <div class="home-filter">
         <span class="home-filter-title">Sắp xếp theo</span>
-        <p>{{$sellerTotal}}</p>
-
         <form action="{{ route('seller.viewSeller') }}" method="POST">
             @csrf
             <input name="id_seller" type="hidden" value="{{ $idSeller }}" type="text">
@@ -31,11 +46,8 @@
             </div>
         </form>
 
-
-
-        <div class="home-filter__paginate">
-            <a href="{{ route('seller.viewAddProduct', ['id' => $idSeller]) }}" class="seller__product-edit">Thêm</a>
-
+      
+        <!-- <div class="home-filter__paginate">
             <div class="home-filter__page-control">
                 <a href="" class="page-control-link page-control-link-icon-disabled">
                     <i class="page-control-link-icon fa-solid fa-angle-left"></i>
@@ -44,7 +56,9 @@
                     <i class="page-control-link-icon fa-solid fa-angle-right"></i>
                 </a>
             </div>
-        </div>
+        </div> -->
+        <button id="btnAddProject" name="" type="" class="home-filter__btn btn"><a href="{{ route('seller.viewAddProduct', ['id' => $idSeller]) }}" class="seller__product-edit">Thêm</a></button>
+        <h3>Tổng sản phẩm: {{$sellerTotal}}</h3>
     </div>
 
     <div class="home__product">
@@ -100,3 +114,5 @@
     </div>
 </div>
 @endsection
+</body>
+</html>
