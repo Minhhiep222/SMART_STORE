@@ -56,6 +56,15 @@ class OrdersController extends Controller
         ]);
     }
 
+    public function check_payment() {
+        $cookieValue = null;
+        if(isset($_COOKIE['carts'])) {
+            store();
+        }else if(isset($_COOKIE['payment'])) {
+            store_payment();
+        }
+    }
+
     //method create order
     public function store(Request $request) {
         session_start();
@@ -67,48 +76,58 @@ class OrdersController extends Controller
                 ->with('verify_profile', true);
         }
         // Lấy giá trị của cookie "carts" từ $_COOKIE
-        $cookieValue = isset($_COOKIE['carts']) ? $_COOKIE['carts'] : '';
-        // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
-        $arrayCart = json_decode($cookieValue, true);
-        //xử lý kho trong mảng chỉ có 1 phần tử
-        $request->validate([
-            'customer_id' => 'requited',
-            'PaymentMethod' => 'requited',
-            'PaymentStatus' => 'requited',
-        ]);
-        $data = $request->all();
-        //add order to table
-        $order = Order::create([
-            'customer_id' => $user_id,
-            'TotalAmount' => $data['TotalAmount'],
-            'PaymentMethod' => 'Cash',
-            'PaymentStatus' => 'Verify',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        $cart = Cart::where('user_id', $user_id)->first();
-        foreach($arrayCart as $product_id) {
-            $product = Product::where('id', $product_id)->first();
-            $cart_detail = Cart_detail::where('cart_id',$cart->id)
-            ->first();
-            $order_detail =  OrderDetail::create([
-                'order_id' => $order->id,
-                'product_id' => $cart_detail->product_id,
-                'quantity' => $cart_detail->quantity,
-                'seller_id' => $product->seller_id,
-                'price' => $product->price,
-                'total' => $cart_detail->quantity * $product->price,
+        if(isset($_COOKIE['payment'])) {
+            $this->store_payment();
+            return redirect("thank");
+        }else if (isset($_COOKIE['carts'])){
+            $cookieValue = isset($_COOKIE['carts']) ? $_COOKIE['carts'] : '';
+            // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
+            $arrayCart = json_decode($cookieValue, true);
+            //xử lý kho trong mảng chỉ có 1 phần tử
+            $request->validate([
+                'customer_id' => 'requited',
+                'PaymentMethod' => 'requited',
+                'PaymentStatus' => 'requited',
             ]);
-            $product -> sold = $product->sold + $cart_detail->quantity;
-            $product -> quantity = $product->quantity - $cart_detail->quantity;
-            $product->save();
-            $cart_detail->delete();
+            $data = $request->all();
+            //add order to table
+            $order = Order::create([
+                'customer_id' => $user_id,
+                'TotalAmount' => $data['TotalAmount'],
+                'PaymentMethod' => 'Cash',
+                'PaymentStatus' => 'Verify',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            $cart = Cart::where('user_id', $user_id)->first();
+            foreach($arrayCart as $product_id) {
+                $product = Product::where('id', $product_id)->first();
+                $cart_detail = Cart_detail::where('cart_id',$cart->id)
+                ->first();
+                $order_detail =  OrderDetail::create([
+                    'order_id' => $order->id,
+                    'product_id' => $cart_detail->product_id,
+                    'quantity' => $cart_detail->quantity,
+                    'seller_id' => $product->seller_id,
+                    'price' => $product->price,
+                    'total' => $cart_detail->quantity * $product->price,
+                ]);
+                $product -> sold = $product->sold + $cart_detail->quantity;
+                $product -> quantity = $product->quantity - $cart_detail->quantity;
+                $product->save();
+                $cart_detail->delete();
+            }
+            //hủy cookie 
+            setcookie("carts", "", time() -3600);
+            unset($_COOKIE['carts']);
+            return redirect("thank");
+        }else {
+            return redirect("home");
         }
-        return redirect("thank");
     }
 
     public function store_payment() {
-        session_start();
+        // session_start();
         $user_id = $_SESSION['user_id'];
         //kiểm tra xem người dùng có nhập thông tin đầy đủ chưa
         $user = CustomerUser::where('id', $user_id)->first();
@@ -120,15 +139,6 @@ class OrdersController extends Controller
         $cookieValue = isset($_COOKIE['payment']) ? $_COOKIE['payment'] : '';
         // Sử dụng json_decode để chuyển đổi giá trị từ chuỗi JSON thành một mảng PHP
         $arrayCart = json_decode($cookieValue, true);
-
-        // dd($arrayCart);
-        //xử lý kho trong mảng chỉ có 1 phần tử
-        // $request->validate([
-        //     'customer_id' => 'requited',
-        //     'PaymentMethod' => 'requited',
-        //     'PaymentStatus' => 'requited',
-        // ]);
-        // $data = $request->all();
         //add order to table
         $order = Order::create([
             'customer_id' => $user_id,
@@ -150,24 +160,20 @@ class OrdersController extends Controller
             'price' => $product->price,
             'total' => $arrayCart[0] * $product->price,
         ]);
-
-        // dd( $order_detail);
         $product -> sold = $product->sold + $arrayCart[0];
         $product -> quantity = $product->quantity - $arrayCart[0];
         $product->save();
-        return redirect("thank");
+        //hủy cookie 
+        setcookie("payment", "", time() -3600);
+        unset($_COOKIE['payment']);
     }
 
     //method update order
     public function updateStatus($id) {
-
-        // $idCustomer = $request->get('id');
         $order = Order::find($id);
         $order -> PaymentStatus = 'Failed';
-        
         //save order to table
         $order -> save();
-
         //chuyển hướng nếu cần
         return redirect()->route('orders.index');
     }
@@ -176,8 +182,9 @@ class OrdersController extends Controller
     {
         session_start();
         $customerUserId = $_SESSION['user_id'];
-        $order_user = Order::where('customer_id', $customerUserId)->get();
-
+        $order_user = Order::where('customer_id', $customerUserId)
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('auth.account.order', [
             'order_user' => $order_user,
         ]);

@@ -74,6 +74,7 @@ Route::get('account/password', function () {
 
 Route::resource('orders', OrdersController::class);
 Route::get('store_payment', [OrdersController::class,'store_payment'])->name('orders.payment');
+Route::post('check_payment', [OrdersController::class,'check_payment'])->name('check_payment.payment');
 Route::get('orders/{id}/delete', [OrdersController::class, 'delete'])->name('orders.delete');
 Route::get('orders/{id}/updateStatus', [OrdersController::class, 'updateStatus'])->name('orders.updateStatus'); 
 
